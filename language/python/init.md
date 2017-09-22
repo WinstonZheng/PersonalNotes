@@ -1,6 +1,7 @@
 # Output
 - print to Screen
 ```py
+// %r is used to debugging , %s is display to user
 name = crazybear
 age = " %d "
 print "Hello", name
