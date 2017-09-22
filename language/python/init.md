@@ -1,5 +1,5 @@
 # Output
-- print
+- print to Screen
 ```
 name = crazybear
 print "Hello", name
