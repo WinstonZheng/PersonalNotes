@@ -2,11 +2,12 @@
 - print to Screen
 ```py
 name = crazybear
+age = " %d "
 print "Hello", name
 print "Hello", 2.0*2.0
-print "1 + 1 = %d" & 2
+print "1 + 1 = %d" % 2
 print "Hello %s" % CrazyBear
-print "Hello %s" % ( name ) 
+print "Hello %s, age %d" % ( name, age % 2  ) 
 ```
 
 
