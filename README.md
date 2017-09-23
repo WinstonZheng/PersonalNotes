@@ -1,6 +1,12 @@
 # KnowledgeNet
-## Author: Winston
-## E-mail: zhengruin@126.com
+***
+
+
+
+
+
+### Author: Winston
+### E-mail: zhengruin@outlook.com
 
 
 
