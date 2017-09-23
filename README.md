@@ -1,7 +1,6 @@
-# KnowledgeNet
-***
-![knowledgenet-logo]
+#  KnowledgeNet
 
+![knowledgenet-logo] 
 
 ***
 ### Author: Winston
