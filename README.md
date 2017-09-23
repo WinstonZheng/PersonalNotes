@@ -1,4 +1,3 @@
-* [KnowledgeNet](#KnowledgeNet)
 # KnowledgeNet
 
 
