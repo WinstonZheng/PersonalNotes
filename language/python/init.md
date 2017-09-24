@@ -1,6 +1,7 @@
 # Python2.7
-* [OutPut](#Output)
-* [Input](##Input)
+## Content
+* [OutPut](#output)
+* [Input](#input)
 ## Output
 - print to Screen
 
