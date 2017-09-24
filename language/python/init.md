@@ -10,7 +10,8 @@ print "Hello", 2.0*2.0
 print "1 + 1 = %d" % 2
 print "Hello %s" % CrazyBear
 print "Hello %s, age %d" % ( name, age % 2  ) 
-print "." * 10
+// the output is "..."
+print "." * 3
 // print with formatter
 formatter = "%r %r %r %r"
 print formatter % (1,2,3,4)
