@@ -2,8 +2,9 @@
 ## Content
 * [OutPut](#output)
 * [Input](#input)
+* [Reference](#reference)
 ## Output
-- print to Screen
+- Print to Screen
 
 ```py
 // %r is used to debugging , %s and %d is display to user
@@ -55,6 +56,8 @@ print """
 |`\xhh`|Character with hex value hh|
 
 ## Input
+- raw_input
+
 
 
 ## little tips
@@ -65,6 +68,6 @@ print """
 ```
 
 ***
-**Reference**
+## Reference
 - Learn Python The Hard Way. 3rd
 
