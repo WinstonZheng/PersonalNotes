@@ -37,7 +37,8 @@ print "%r" % '\n'
 |`\N{name}`|Character named name in the Unicode database (Unicode only)|
 |`\r ASCII`|Carriage Return (CR)|
 |`\t ASCII`|Horizontal Tab (TAB)|
-
+|`\uxxxx`|Character with 16-bit hex value xxxx (Unicode only)|
+|`\Uxxxxxxxx`||
 
 
 
