@@ -1,4 +1,6 @@
 # Python2.7
+* [OutPut](#Output)
+* [Input](##Input)
 ## Output
 - print to Screen
 
@@ -24,6 +26,12 @@ print formatter % (formatter, formatter, formatter, formatter)
 // %r id "raw" format for debugging
 print "%r" % '\n'
 
+// print a block, you can use """ or '''
+print """
+ hahha
+ hehhe
+"""
+
 ```
 - A list of all of the escape sequences Python supports.(**转义字符**)
 
@@ -45,6 +53,8 @@ print "%r" % '\n'
 |`\ooo`|Character with octal value ooo|
 |`\xhh`|Character with hex value hh|
 
+## Input
+
 
 ## little tips
 
@@ -53,5 +63,7 @@ print "%r" % '\n'
 #-*- coding:utf-8 -*-
 ```
 
-
+***
+**Reference**
+- Learn Python The Hard Way. 3rd
 
