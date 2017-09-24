@@ -25,6 +25,8 @@ print formatter % (formatter, formatter, formatter, formatter)
 print "%r" % '\n'
 
 ```
+- A list of all of the escape sequences Python supports.(**转义字符**)
+
 |Escape|What it does.|
 |----|----|
 |`\\`|Backslash()|
