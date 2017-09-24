@@ -17,6 +17,8 @@ print formatter % (1,2,3,4)
 print formatter % ("one","two","three","four")
 print formatter % (True, False , False , True)
 print formatter % (formatter, formatter, formatter, formatter)
+// %r id "raw" format for debugging
+print "%r" % '\n'
 ```
 
 
