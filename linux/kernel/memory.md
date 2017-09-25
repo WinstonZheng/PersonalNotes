@@ -32,6 +32,8 @@ void main() {
     printf("%d,%d\n",sizeof(A), g.a);
 }
 ```
+![big-little] 
+
 
 
 - 单结构体控制；
@@ -59,4 +61,11 @@ struct A{
 //4字节对齐
 -zp4
 ```
-## 
+
+ ***
+ 
+[big-little]: /images/big-little.png 
+
+
+
+
