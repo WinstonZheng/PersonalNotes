@@ -35,3 +35,10 @@ net-tools可以通过procfs（/proc）和ioctl系统调用，访问和更改内�
 - ss (socket)
 - ip neigh
 - ip maddr
+
+
+# benchmark
+
+- stream(memory test)
+- iperf(network test)
+- iozone(io test)
