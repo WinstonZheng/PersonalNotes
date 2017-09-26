@@ -20,10 +20,10 @@ union A {
     unsigned int a;
     unsigned char b[4];
 };
-// output is 256
+// output is 256，256是小端，65536是大端
 // 表示机器为
 // 不管大端/小端机器，数组低位是在低字节/高位在高字节
-// 注意：字节内部不分大小端读取，字节之间分大小端读取顺序
+// 注意：字节内部不分大小端读取，字节之间分大小端读取顺序，而数组都是高位存在高地址，低位存在低地址。
 void main() {
     g.b[1] = 1;
     g.b[0] = 0;
@@ -31,10 +31,15 @@ void main() {
     g.b[3] = 0;
     printf("%d,%d\n",sizeof(A), g.a);
 }
+
+
 ```
-![big-little] 
 
+大端指的是**高尾端**，小端指的是**低尾端**，指的是尾端放在高地址还是低地址。例如：“11223344”（将数据看成字符串），尾端就是“44”，如下图所示，可以看出大端和小端的区别：
 
+![big-little-endian] 
+
+## 内存对齐控制方式
 
 - 单结构体控制；
 
@@ -63,8 +68,10 @@ struct A{
 ```
 
  ***
+ # Reference
+ - http://www.cnblogs.com/wuyuegb2312/archive/2013/06/08/3126510.html
  
-[big-little]: /images/big-little.png 
+[big-little-endian]: /images/big-little.png 
 
 
 
