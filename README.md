@@ -12,11 +12,15 @@ KnowledgeNet
         - protocol
 - Linux
     - tools
+    - kernel
 
 ## Change Log
+### 2017/09
+
 
 ## To Do List
-        
+- python
+- kernel        
             
                 
     
