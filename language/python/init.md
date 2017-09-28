@@ -1,6 +1,6 @@
-# Python
+# Python 2.7
 ## Content
-* [Type](#type)
+* [Type 3](#type)
 * [Output](#output)
 * [Input](#input)
 * [Module](#module)
@@ -89,9 +89,35 @@ age = raw_input()
 x = int(raw_input())
 
 ```
-- 
+
+ 
 ## Funxtion
+### 空函数
+
+```py
+def nop():
+    pass
+```
+
 ### 传递参数
+
+#### 参数类型检查
+
+使用内置函数isinstance检查。
+
+```py
+def my_abs(x):
+    if not isinstance(x, (int, float)):
+        raise TypeError('bad operand type')
+    if x >= 0:
+        return x
+    else:
+        return -x
+```
+
+#### 参数种类
+
+
 - 必选参数
 
 ```py
@@ -147,7 +173,7 @@ def person(name, age, **others)
 >>> print('rui',12,**others)
 
 ```
-- 命名关键字参数
+- 命名关键字参数 python3
 
 限制关键字参数名字。
 
@@ -166,8 +192,20 @@ def person(name, age, *args, city, job):
 > 参数定义的顺序必须是：必选参数、默认参数、可变参数、命名关键字参数和关键字参数。
 > *args 是可变参数，tuple；**kw是关键字参数，dict。
 
+
 ### 返回值
 
+- 无返回结果 None
+- 返回多个值， 返回一个tuple(可以省略括号)
+
+```
+import math
+
+def move(x, y, step, angle = 0):
+    nx = x + step * math.cos(angle)
+    ny = y - step * math.sin(angle)
+    return nx, ny 
+```
 
 
 ## Module
