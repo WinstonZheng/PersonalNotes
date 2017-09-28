@@ -1,9 +1,29 @@
-# Python2.7
+# Python
 ## Content
-* [OutPut](#output)
+* [Type](#type)
+* [Output](#output)
 * [Input](#input)
 * [Module](#module)
 * [Reference](#reference)
+
+## Type
+
+- 数据类型转换
+
+```py
+int('123')
+int(12.34)
+float('12.34')
+str(1.23)
+str(100)
+//True
+bool(1)
+//Flase
+bool('')
+```
+
+
+
 
 ## Output
 - Print to Screen
@@ -70,6 +90,82 @@ x = int(raw_input())
 
 ```
 - 
+## Funxtion
+### 传递参数
+- 必选参数
+
+```py
+def power(x)
+    return  x * x
+```
+
+- 默认参数
+
+默认参数降低函数调用难度，默认参数的默认值应用不变对象，可变对象容易造成默认值更改。
+
+```py
+def login(name, password = '123')
+    print('name', name)
+    print('password', password)
+
+// 多次调用add_end()，改变默认值 
+def add_end(L=[])
+    L.append('END')
+    return L
+// 改进
+def add_end(L=None):
+    if L is None:
+        L = []
+    L.append('END')
+    return L
+```
+
+- 可变参数
+
+可以在参数中传入任意个参数（0个或多个），自动组装成tuple。
+
+```py
+def calc(*numbers):
+    sum = 0
+    for n in numbers:
+        sum = sum + n * n
+    return sum
+// 传入list或者tuple作为可变参数
+>>> nums = [1,2,3]
+>>> calc(*nums)
+```
+
+- 关键字参数
+
+可以传入0个或任意个含参数名的参数，自动组装为一个dict。(用于扩展函数功能，记录更多的信息)
+
+```py
+def person(name, age, **others)
+    print(name, age, others)
+>>> others = {'city':'Beijing'}
+>>> print('rui',12,others['city'])
+>>> print('rui',12,**others)
+
+```
+- 命名关键字参数
+
+限制关键字参数名字。
+
+```
+// * 后面参数视为命名关键字参数
+def person(name, age, *, city, job):
+    print(name, age, city, job)
+// 传入参数名，对应命名关键字参数。已有可变参数，之后命名关键字参数不用带*
+// 如果不存在可变参数，则需要*，否则无法区分命名关键字参数和位置参数
+def person(name, age, *args, city, job):
+    print(name, age, args, city=‘jinhua’, job)
+
+```
+
+> ** 参数组合**
+> 参数定义的顺序必须是：必选参数、默认参数、可变参数、命名关键字参数和关键字参数。
+> *args 是可变参数，tuple；**kw是关键字参数，dict。
+### 返回值
 
 
 ## Module
