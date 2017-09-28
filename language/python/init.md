@@ -10,7 +10,6 @@
 # Type
 
 - 数据类型转换 
-
 ```py
 int('123')
 int(12.34)
@@ -22,15 +21,39 @@ bool(1)
 //Flase
 bool('')
 ```
+- String
+utf-8用于传输类型，而unicode用于内存和磁盘存储。
 
 - list和tuple  list是可变数组，而tuple元组，不可变列表。
 
-- dict和set 
+- dict和set <br>
+dict对应map，使用键值存储(key-value)，提供索引（Hash） ，查询速度快 , 耗内存。
+```
+//the key is existing or not, if not, the reuslt is false
+result = 'winston' in nameList
+// use get, if not , the result is None
+result = nameList.get('winston')
+// delete
+nameList.pop('winston')
+```
+set是一组key，无重复key，存储不可变对象。（重复元素，自动消除）
+```
+s = set([1,2,3])
+s.add(4)
+s.remove(1)
+r = set([2,3])
+// result is set([2,3])，交集
+r & s
+// result is s，并集
+r | s
+```
+> attention!
+> set和dict中存储的key是不可变对象，例如：字符串和整数，List是可变的。
+
 
 # process_control
 
 - if-elif-else
-
 ```
 if <condition 1>:
     <process 1>
@@ -44,11 +67,9 @@ if x:
 ```
 
 - 循环
-
 ```
 for <value> in <values>
-    print value
-    
+    print value 
 while <condition>:
     <process>
 ```
@@ -57,8 +78,7 @@ while <condition>:
 # IO
 ## Standard_IO
 ### Output
-- Print to Screen
-
+- Print to Screen <br>
 ```py
 // %r is used to debugging , %s and %d is display to user
 name = crazybear
@@ -67,26 +87,21 @@ print "Hello", name
 print "1 + 1 = %d" % 2
 print "Hello %s" % 'crazybear'
 print "Hello %s, age %d" % ( name, age % 2  )
- 
 // the output is "..."
 print "." * 3
-
 // print with formatter
 formatter = "%r %r %r %r"
 print formatter % (1,2,3,4)
 print formatter % ("one","two","three","four")
 print formatter % (True, False , False , True)
 print formatter % (formatter, formatter, formatter, formatter)
-
 // %r id "raw" format for debugging
 print "%r" % '\n'
-
 // print a block, you can use """ or '''
 print """
  hahha
  hehhe
 """
-
 ```
 - A list of all of the escape sequences Python supports.(**转义字符**)
 
@@ -109,16 +124,13 @@ print """
 |`\xhh`|Character with hex value hh|
 
 ### Input
-- raw_input and input 
-
+- raw_input and input <br>
 input通过raw_input实现（raw_input + eval），input接受合法python表达式（直观字符串需要加“”），raw_input转化为字符串。（一般推荐用raw_input作为交互）
-
-```
+```py
 print "How old are you?",
 age = raw_input()
 // convert the input to an integer 
 x = int(raw_input())
-
 ```
 
  
@@ -150,21 +162,17 @@ def my_abs(x):
 
 
 - 必选参数
-
 ```py
 def power(x)
     return  x * x
 ```
 
 - 默认参数
-
 默认参数降低函数调用难度，默认参数的默认值应用不变对象，可变对象容易造成默认值更改。
-
 ```py
 def login(name, password = '123')
     print('name', name)
     print('password', password)
-
 // 多次调用add_end()，改变默认值 
 def add_end(L=[])
     L.append('END')
@@ -178,9 +186,7 @@ def add_end(L=None):
 ```
 
 - 可变参数
-
 可以在参数中传入任意个参数（0个或多个），自动组装成tuple。
-
 ```py
 def calc(*numbers):
     sum = 0
@@ -193,22 +199,18 @@ def calc(*numbers):
 ```
 
 - 关键字参数
-
 可以传入0个或任意个含参数名的参数，自动组装为一个dict。(用于扩展函数功能，记录更多的信息)
-
 ```py
 def person(name, age, **others)
     print(name, age, others)
 >>> others = {'city':'Beijing'}
 >>> print('rui',12,others['city'])
 >>> print('rui',12,**others)
-
 ```
+
 - 命名关键字参数 python3
-
 限制关键字参数名字。
-
-```
+```py
 // * 后面参数视为命名关键字参数
 def person(name, age, *, city, job):
     print(name, age, city, job)
@@ -216,7 +218,6 @@ def person(name, age, *, city, job):
 // 如果不存在可变参数，则需要*，否则无法区分命名关键字参数和位置参数
 def person(name, age, *args, city, job):
     print(name, age, args, city=‘jinhua’, job)
-
 ```
 
 > ** 参数组合**
@@ -231,13 +232,11 @@ def person(name, age, *args, city, job):
 
 ```
 import math
-
 def move(x, y, step, angle = 0):
     nx = x + step * math.cos(angle)
     ny = y - step * math.sin(angle)
     return nx, ny 
 ```
-
 
 # Module
 
