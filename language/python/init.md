@@ -1,14 +1,15 @@
 # Python 2.7
-## Content
-* [Type 3](#type)
+# Content
+* [Type](#type)
 * [Output](#output)
 * [Input](#input)
+* [Function](#function)
 * [Module](#module)
 * [Reference](#reference)
 
-## Type
+# Type
 
-- 数据类型转换
+- 数据类型转换 
 
 ```py
 int('123')
@@ -22,10 +23,40 @@ bool(1)
 bool('')
 ```
 
+- list和tuple  list是可变数组，而tuple元组，不可变列表。
+
+- dict和set 
+
+# process_control
+
+- if-elif-else
+
+```
+if <condition 1>:
+    <process 1>
+elif <condition 2>:
+    <process 2>
+else:
+    <process 3>
+// x 非零数值，非空字符串，非空list等，为True
+if x:
+    print 'True'
+```
+
+- 循环
+
+```
+for <value> in <values>
+    print value
+    
+while <condition>:
+    <process>
+```
 
 
-
-## Output
+# IO
+## Standard_IO
+### Output
 - Print to Screen
 
 ```py
@@ -77,7 +108,7 @@ print """
 |`\ooo`|Character with octal value ooo|
 |`\xhh`|Character with hex value hh|
 
-## Input
+### Input
 - raw_input and input 
 
 input通过raw_input实现（raw_input + eval），input接受合法python表达式（直观字符串需要加“”），raw_input转化为字符串。（一般推荐用raw_input作为交互）
@@ -91,17 +122,17 @@ x = int(raw_input())
 ```
 
  
-## Funxtion
-### 空函数
+# Function
+## 空函数
 
 ```py
 def nop():
     pass
 ```
 
-### 传递参数
+## 传递参数
 
-#### 参数类型检查
+### 参数类型检查
 
 使用内置函数isinstance检查。
 
@@ -115,7 +146,7 @@ def my_abs(x):
         return -x
 ```
 
-#### 参数种类
+### 参数种类
 
 
 - 必选参数
@@ -193,7 +224,7 @@ def person(name, age, *args, city, job):
 > *args 是可变参数，tuple；**kw是关键字参数，dict。
 
 
-### 返回值
+## 返回值
 
 - 无返回结果 None
 - 返回多个值， 返回一个tuple(可以省略括号)
@@ -208,10 +239,10 @@ def move(x, y, step, angle = 0):
 ```
 
 
-## Module
+# Module
 
 
-## little tips
+# little tips
 
 ```py
 // tell the editor to use the utf-8
@@ -226,6 +257,6 @@ pydoc raw_input
 
 
 ***
-## Reference
+# Reference
 - Learn Python The Hard Way. 3rd
 - [廖雪峰Python教程](https://www.liaoxuefeng.com/wiki/0014316089557264a6b348958f449949df42a6d3a2e542c000/0014316784721058975e02b46cc45cb836bb0827607738d000)
