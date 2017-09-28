@@ -2,7 +2,7 @@
 ## Content
 * [OutPut](#output)
 * [Input](#input)
-
+* [Module](#module)
 * [Reference](#reference)
 
 ## Output
@@ -58,16 +58,36 @@ print """
 |`\xhh`|Character with hex value hh|
 
 ## Input
-- raw_input
+- raw_input and input 
 
+input通过raw_input实现（raw_input + eval），input接受合法python表达式（直观字符串需要加“”），raw_input转化为字符串。（一般推荐用raw_input作为交互）
+
+```
+print "How old are you?",
+age = raw_input()
+// convert the input to an integer 
+x = int(raw_input())
+
+```
+- 
+
+
+## Module
 
 
 ## little tips
 
 ```py
-# tell the editor to use the utf-8
+// tell the editor to use the utf-8
 #-*- coding:utf-8 -*-
+
+// uset the command to view the command line document
+pydoc raw_input
+
 ```
+
+
+
 
 ***
 ## Reference
