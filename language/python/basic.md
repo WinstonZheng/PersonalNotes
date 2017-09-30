@@ -1,13 +1,21 @@
 # Python 2.7
 # Content
-* [Type](#type)
-* [Output](#output)
-* [Input](#input)
-* [Function](#function)
-* [Module](#module)
+* [基础类型](#基础类型)
+* [流程控制](#流程控制)
+* [函数](#function)
+* [标准输入/输出](#standard-io)
+    * [输出](#output)
+    * [输入](#input)
+* [函数](#函数)
+    * [空函数](#空函数)
+    * [传递参数](#传递参数)
+       * [参数类型检查](#参数类型检查)
+       * [参数种类](#参数种类)
+    * [返回值](#返回值)
+* [小技巧](#小技巧)
 * [Reference](#reference)
 
-# Type
+# 基础类型
 python是弱类型语言（解释型）。
 - 数据类型转换 
 ```py
@@ -63,9 +71,9 @@ r | s
 > set和dict中存储的key是不可变对象，例如：字符串和整数，List是可变的。
 
 
-# Process Control
+# 流程控制
 
-- if-elif-else
+- 判断
 ```
 if <condition 1>:
     <process 1>
@@ -87,9 +95,8 @@ while <condition>:
 ```
 
 
-# IO
-## Standard_IO
-### Output
+# Standard IO
+## Output
 - Print to Screen <br>
 ```py
 // %r is used to debugging , %s and %d is display to user
@@ -135,7 +142,7 @@ print """
 |`\ooo`|Character with octal value ooo|
 |`\xhh`|Character with hex value hh|
 
-### Input
+## Input
 - raw_input and input <br>
 input通过raw_input实现（raw_input + eval），input接受合法python表达式（直观字符串需要加“”），raw_input转化为字符串。（一般推荐用raw_input作为交互）
 ```py
@@ -146,7 +153,7 @@ x = int(raw_input())
 ```
 
  
-# Function
+# 函数
 ## 空函数
 
 ```py
@@ -250,10 +257,9 @@ def move(x, y, step, angle = 0):
     return nx, ny 
 ```
 
-# Module
 
 
-# little tips
+# 小技巧
 
 ```py
 // tell the editor to use the utf-8
@@ -270,4 +276,4 @@ pydoc raw_input
 ***
 # Reference
 - Learn Python The Hard Way. 3rd
-- [廖雪峰Python教程](https://www.liaoxuefeng.com/wiki/0014316089557264a6b348958f449949df42a6d3a2e542c000/0014316784721058975e02b46cc45cb836bb0827607738d000)
+- [廖雪峰Python2.7教程](https://www.liaoxuefeng.com/wiki/0014316089557264a6b348958f449949df42a6d3a2e542c000/0014316784721058975e02b46cc45cb836bb0827607738d000)
