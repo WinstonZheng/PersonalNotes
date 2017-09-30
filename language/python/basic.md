@@ -32,7 +32,8 @@ bool('')
 - String <br>
     utf-8用于传输类型，而unicode用于内存和磁盘存储。
 ```py
-//分段连接字符串，必须加（），否则出错 TypeError: bad operand type for unary +: 'str'
+# 分段连接字符串，必须加（），否则出错
+# TypeError: bad operand type for unary +: 'str'
 message = (
       "From: %s\r\n" % fromaddr
     + "To: %s\r\n" % toaddrs
@@ -48,23 +49,23 @@ message = (
 
 - dict和set <br>
 dict对应map，使用键值存储(key-value)，提供索引（Hash） ，查询速度快 , 耗内存。
-```
-//the key is existing or not, if not, the reuslt is false
+```py
+# the key is existing or not, if not, the reuslt is false
 result = 'winston' in nameList
-// use get, if not , the result is None
+# use get, if not , the result is None
 result = nameList.get('winston')
-// delete
+# delete
 nameList.pop('winston')
 ```
 set是一组key，无重复key，存储不可变对象。（重复元素，自动消除）
-```
+```py
 s = set([1,2,3])
 s.add(4)
 s.remove(1)
 r = set([2,3])
-// result is set([2,3])，交集
+# result is set([2,3])，交集
 r & s
-// result is s，并集
+# result is s，并集
 r | s
 ```
 > attention!
@@ -74,14 +75,14 @@ r | s
 # 流程控制
 
 - 判断
-```
+```py
 if <condition 1>:
     <process 1>
 elif <condition 2>:
     <process 2>
 else:
     <process 3>
-// x 非零数值，非空字符串，非空list等，为True
+# x 非零数值，非空字符串，非空list等，为True
 if x:
     print 'True'
 ```
@@ -99,24 +100,24 @@ while <condition>:
 ## Output
 - Print to Screen <br>
 ```py
-// %r is used to debugging , %s and %d is display to user
+# %r is used to debugging , %s and %d is display to user
 name = crazybear
 age = " %d "
 print "Hello", name
 print "1 + 1 = %d" % 2
 print "Hello %s" % 'crazybear'
 print "Hello %s, age %d" % ( name, age % 2  )
-// the output is "..."
+# the output is "..."
 print "." * 3
-// print with formatter
+# print with formatter
 formatter = "%r %r %r %r"
 print formatter % (1,2,3,4)
 print formatter % ("one","two","three","four")
 print formatter % (True, False , False , True)
 print formatter % (formatter, formatter, formatter, formatter)
-// %r id "raw" format for debugging
+# %r id "raw" format for debugging
 print "%r" % '\n'
-// print a block, you can use """ or '''
+# print a block, you can use """ or '''
 print """
  hahha
  hehhe
@@ -192,11 +193,11 @@ def power(x)
 def login(name, password = '123')
     print('name', name)
     print('password', password)
-// 多次调用add_end()，改变默认值 
+# 多次调用add_end()，改变默认值 
 def add_end(L=[])
     L.append('END')
     return L
-// 改进
+# 改进
 def add_end(L=None):
     if L is None:
         L = []
@@ -212,7 +213,7 @@ def calc(*numbers):
     for n in numbers:
         sum = sum + n * n
     return sum
-// 传入list或者tuple作为可变参数
+# 传入list或者tuple作为可变参数
 >>> nums = [1,2,3]
 >>> calc(*nums)
 ```
@@ -230,11 +231,11 @@ def person(name, age, **others)
 - 命名关键字参数 python3
 限制关键字参数名字。
 ```py
-// * 后面参数视为命名关键字参数
+# "*"后面参数视为命名关键字参数
 def person(name, age, *, city, job):
     print(name, age, city, job)
-// 传入参数名，对应命名关键字参数。已有可变参数，之后命名关键字参数不用带*
-// 如果不存在可变参数，则需要*，否则无法区分命名关键字参数和位置参数
+# 传入参数名，对应命名关键字参数。已有可变参数，之后命名关键字参数不用带*
+# 如果不存在可变参数，则需要*，否则无法区分命名关键字参数和位置参数
 def person(name, age, *args, city, job):
     print(name, age, args, city=‘jinhua’, job)
 ```
@@ -262,10 +263,10 @@ def move(x, y, step, angle = 0):
 # 小技巧
 
 ```py
-// tell the editor to use the utf-8
+# tell the editor to use the utf-8
 #-*- coding:utf-8 -*-
 
-// uset the command to view the command line document
+# uset the command to view the command line document
 pydoc raw_input
 
 ```
