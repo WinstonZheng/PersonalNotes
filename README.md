@@ -6,7 +6,7 @@ KnowledgeNet
 
 ## Learning  Menus
 - Language
-    - python
+    - [python](/language/python/README.md) ![working-logo]
 - Operating System
     - network
         - protocol
@@ -14,13 +14,19 @@ KnowledgeNet
     - tools
     - kernel
 
-## Change Log
-### 2017/09
+
 
 
 ## To Do List
-- python
-- kernel        
+### 2017/09 - 2017/10
+- python 
+> learning and practising notes
+> 学习python，是作为一门跨平台支持、简单的脚本工具，实现工作自动化。
+
+
+- operation system
+> learning and practising notes'
+> 学习（复习）操作系统底层存储管理（文件系统）、网络通信、进程管理
             
                 
     
@@ -31,7 +37,7 @@ KnowledgeNet
 
 
 [knowledgenet-logo]: /images/brain.png
-
+[working-logo]: /images/logo/29-cloud-sync.png
 
 
 

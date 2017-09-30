@@ -8,7 +8,7 @@
 * [Reference](#reference)
 
 # Type
-
+python是弱类型语言（解释型）。
 - 数据类型转换 
 ```py
 int('123')
@@ -21,8 +21,20 @@ bool(1)
 //Flase
 bool('')
 ```
-- String
-utf-8用于传输类型，而unicode用于内存和磁盘存储。
+- String <br>
+    utf-8用于传输类型，而unicode用于内存和磁盘存储。
+```py
+//分段连接字符串，必须加（），否则出错 TypeError: bad operand type for unary +: 'str'
+message = (
+      "From: %s\r\n" % fromaddr
+    + "To: %s\r\n" % toaddrs
+    + "CC: %s\r\n" % ",".join(cc)
+    + "Subject: %s\r\n" % message_subject
+    + "\r\n" 
+    + msg
+)
+```
+
 
 - list和tuple  list是可变数组，而tuple元组，不可变列表。
 
@@ -51,7 +63,7 @@ r | s
 > set和dict中存储的key是不可变对象，例如：字符串和整数，List是可变的。
 
 
-# process_control
+# Process Control
 
 - if-elif-else
 ```
