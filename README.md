@@ -4,7 +4,7 @@ KnowledgeNet
 
 ![knowledgenet-logo] 
 
-## Learning  Menus
+## Ability  Menus
 - Language
     - [python](/language/python/README.md) ![working-logo]
 - Operating System
