@@ -2,7 +2,6 @@
 # Content
 * [基础类型](#基础类型)
 * [流程控制](#流程控制)
-* [函数](#function)
 * [标准输入/输出](#standard-io)
     * [输出](#output)
     * [输入](#input)
@@ -17,18 +16,7 @@
 
 # 基础类型
 python是弱类型语言（解释型）。
-- 数据类型转换 
-```py
-int('123')
-int(12.34)
-float('12.34')
-str(1.23)
-str(100)
-//True
-bool(1)
-//Flase
-bool('')
-```
+
 - String <br>
     utf-8用于传输类型，而unicode用于内存和磁盘存储。
 ```py
@@ -70,6 +58,20 @@ r | s
 ```
 > attention!
 > set和dict中存储的key是不可变对象，例如：字符串和整数，List是可变的。
+
+- 简单数据类型转换 
+```py
+int('123')
+int(12.34)
+float('12.34')
+str(1.23)
+str(100)
+//True
+bool(1)
+//Flase
+bool('')
+```
+
 
 
 # 流程控制
