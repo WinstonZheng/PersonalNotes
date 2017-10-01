@@ -294,7 +294,8 @@ or
 a description for program
 """
 __author__="XXX"
-    <soruce code>
+if __name__='__main__':
+    pass
 ```
 
 
