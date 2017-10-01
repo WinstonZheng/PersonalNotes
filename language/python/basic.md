@@ -284,7 +284,7 @@ def move(x, y, step, angle = 0):
 pydoc raw_input
 ```
 
-- a template for python
+- python代码模板
 ```py
 #!/usr/bin/env python
 or
