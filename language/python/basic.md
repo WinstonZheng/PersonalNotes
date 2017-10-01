@@ -274,13 +274,27 @@ def move(x, y, step, angle = 0):
 
 # 小技巧
 
+- 告诉编辑器，使用utf-8编码
 ```py
-# tell the editor to use the utf-8
 #-*- coding:utf-8 -*-
+```
 
-# uset the command to view the command line document
+- 查看函数文档
+``` py
 pydoc raw_input
+```
 
+- a template for python
+```py
+#!/usr/bin/env python
+or
+#!/usr/bin/env python3
+#-*- coding:utf-8 -*-
+"""
+a description for program
+"""
+__author__="XXX"
+    <soruce code>
 ```
 
 
