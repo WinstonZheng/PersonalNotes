@@ -155,6 +155,16 @@ age = raw_input()
 x = int(raw_input())
 ```
 
+- argv，命令行参数
+```py
+# unpack the argv
+from sys import argv
+def main():
+    script,arg1,arg2 = argv
+    print "name",script
+    print "arg1:",arg1
+    print "arg2:",arg2
+```
  
 # 函数
 ## 空函数
