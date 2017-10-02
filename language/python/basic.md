@@ -294,7 +294,7 @@ or
 a description for program
 """
 __author__="XXX"
-if __name__='__main__':
+if __name__=='__main__':
     pass
 ```
 
