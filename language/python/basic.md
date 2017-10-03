@@ -88,15 +88,15 @@ else:
 if x:
     print 'True'
 # 非"!"
-test = 0
-if not test:
+arg1 = 0
+if not arg1:
     print "Yes"
 # && 和 ||
-test = 0
-try = 1
-if test and try:
+arg1 = 0
+arg2 = 1
+if arg1 and arg2:
     print "Yes"
-elif test or try:
+elif arg1 or arg2:
     print "No"
 
 ```
