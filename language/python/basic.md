@@ -87,6 +87,18 @@ else:
 # x 非零数值，非空字符串，非空list等，为True
 if x:
     print 'True'
+# 非"!"
+test = 0
+if not test:
+    print "Yes"
+# && 和 ||
+test = 0
+try = 1
+if test and try:
+    print "Yes"
+elif test or try:
+    print "No"
+
 ```
 
 - 循环
