@@ -24,12 +24,27 @@ python是弱类型语言（解释型）。
 # TypeError: bad operand type for unary +: 'str'
 message = (
       "From: %s\r\n" % fromaddr
-    + "To: %s\r\n" % toaddrs
-    + "CC: %s\r\n" % ",".join(cc)
-    + "Subject: %s\r\n" % message_subject
-    + "\r\n" 
-    + msg
+      "To: %s\r\n" % toaddrs
+      "CC: %s\r\n" % ",".join(cc)
+      "Subject: %s\r\n" % message_subject
+     + "\r\n" 
+     + msg
 )
+# multiple lines, use "\" to prevent the end of lines
+print """\
+Usage: thingy [OPTIONS]
+    -h
+    -H hostname
+"""
+# operator "+" and "*"
+>>> 3*"h" + "a"
+'hhha'
+# str can be indexed, and a character is a str of size one
+>>> word = "Python"
+>>> word[0] 
+'P'
+>>> word[-1]
+'n'
 ```
 
 
@@ -77,6 +92,7 @@ bool('')
 # 流程控制
 
 - 判断
+只要参数是非零数值、非空字符串、非空list等，就判断为True，否则为False，用if...elif...elif..替代switch...case...
 ```py
 if <condition 1>:
     <process 1>
@@ -98,7 +114,6 @@ if arg1 and arg2:
     print "Yes"
 elif arg1 or arg2:
     print "No"
-
 ```
 
 - 循环
