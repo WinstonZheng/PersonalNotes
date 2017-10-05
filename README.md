@@ -23,7 +23,7 @@
 > 学习python，是作为一门跨平台支持、简单的脚本工具，实现工作自动化。
 
 - operation system
-> learning and practising notes'
+> learning and practising notes
 > 学习（复习）操作系统底层存储管理（文件系统、内存）、网络通信、进线程管理等机制。
             
 
