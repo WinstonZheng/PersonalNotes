@@ -17,7 +17,7 @@
 # 基础类型
 python是弱类型语言（解释型）。
 
-- String <br>
+- str <br>
     utf-8用于传输类型，而unicode用于内存和磁盘存储。
 ```py
 # 分段连接字符串，必须加（），否则出错
@@ -46,6 +46,11 @@ Usage: thingy [OPTIONS]
 >>> word[-1]
 'n'
 ```
+[匹配替换多个字符方案：](https://stackoverflow.com/questions/3411771/multiple-character-replace-with-python)
+    1. 链式replace();
+    2. for循环取匹配字符串，调用replace();
+    3. str.maketrans;
+    4. 正则表达式，re.compile and re.sub;
 
 
 - list和tuple  list是可变数组，而tuple元组，不可变列表。
