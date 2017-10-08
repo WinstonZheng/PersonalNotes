@@ -3,7 +3,7 @@
 
 """
     it is a simple script to creat a content for github readme.md
-    Usage: python mk-dir-for-md.py RAW_PAGE_FORM_GITHUB
+    Usage: python mkdirForMd_v1.0.py  RAW_PAGE_FORM_GITHUB
 """
 
 __author__ = "winston"
