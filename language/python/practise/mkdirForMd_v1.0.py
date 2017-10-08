@@ -84,7 +84,7 @@ def makeDirFromRawPage( page, isPrint = 1):
             num = getSameContentNum( content, urlValue)
             if num:
                 urlValue += ("-" + str(num))
-            contentValue = (count - 1) * "\t" + " [%s](#%s)" % (value , urlValue)
+            contentValue = (count - 1) * "\t" + "* [%s](#%s)" % (value , urlValue)
             if isPrint:
                 print contentValue
             content.append(contentValue)
