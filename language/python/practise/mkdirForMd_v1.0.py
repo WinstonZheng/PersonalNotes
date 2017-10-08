@@ -68,9 +68,9 @@ def makeDirFromRawPage( page, isPrint = 1):
     for line in page.readlines():
         if line.count(InCode):
             if isInCode:
-                isIndCode = 0
+                isInCode = 0
             else:
-                isIndCode = 1
+                isInCode = 1
         if not isInCode and line[0] == contentTarget:
             count = line.find(" ")
             value = line[count + 1 : -1]
