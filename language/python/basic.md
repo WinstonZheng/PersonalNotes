@@ -46,7 +46,7 @@ Usage: thingy [OPTIONS]
 >>> word[-1]
 'n'
 ```
-[匹配替换多个字符方案：](https://stackoverflow.com/questions/3411771/multiple-character-replace-with-python)
+[匹配替换多个字符方案：](https://stackoverflow.com/questions/3411771/multiple-character-replace-with-python) <br>
     1. 链式replace();
     2. for循环取匹配字符串，调用replace();
     3. str.maketrans;
