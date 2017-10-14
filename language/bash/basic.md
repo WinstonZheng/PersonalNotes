@@ -12,7 +12,7 @@ $var是${var}的简写。
 - 弱引用
 ```shell
 # 变量值用单引号，不发生变量替换
->> echo '$var'
+>> echo '$var' 
 $var
 ```
 
