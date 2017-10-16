@@ -1,7 +1,7 @@
 # Python 2.7
 # Content
 * [基础类型（用法特性）](#基础类型用法特性)
-	* [str ](#str)
+* [str ](#str)
 * [list和tuple  ](#list和tuple)
 	* [dict和set ](#dict和set)
 	* [简单数据类型转换 ](#简单数据类型转换)
@@ -25,7 +25,7 @@
 # 基础类型（用法特性）
 python是弱类型语言（解释型）。
 
-## str 
+# str 
 utf-8用于传输类型，而unicode用于内存和磁盘存储。
 ```py
 # 分段连接字符串，必须加（），否则出错
