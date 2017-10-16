@@ -5,7 +5,7 @@
     * [list和tuple  ](#list和tuple)
     * [dict和set ](#dict和set)
     * [简单数据类型转换 ](#简单数据类型转换)
-	* [判断数据类型](#判断数据类型)
+    * [判断数据类型](#判断数据类型)
 * [流程控制](#流程控制)
 * [Standard IO](#standard-io)
 	* [Output](#output)
