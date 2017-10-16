@@ -46,7 +46,7 @@ Usage: thingy [OPTIONS]
 >>> word[-1]
 'n'
 ```
-[匹配替换多个字符方案：](https://stackoverflow.com/questions/3411771/multiple-character-replace-with-python) <br>
+[匹配替换多个字符方案：](https://stackoverflow.com/questions/3411771/multiple-character-replace-with-python) <br> 
     1. 链式replace();
     2. for循环取匹配字符串，调用replace();
     3. str.maketrans;
@@ -54,6 +54,25 @@ Usage: thingy [OPTIONS]
 
 
 - list和tuple  list是可变数组，而tuple元组，不可变列表。
+> 包含切片（slice）操作符，简化获取元素操作(tuple的切片还是tuple)
+```py
+# L[] = [1,2,3,4,5]，取的范围 x:y => [x,y)
+>>> L[0:3]
+[1,2,3]
+>>> L[1:]
+[2,3,4,5]
+>>> L[-2:]
+[4,5]
+>>> L[-2:-1]
+[5]
+# 每3个取一个
+>>> L[::3]
+[1,4]
+# 字符串支持切片
+>>> '123456'[::2]
+[1,3,4]
+```
+
 
 - dict和set <br>
 dict对应map，使用键值存储(key-value)，提供索引（Hash） ，查询速度快 , 耗内存。
