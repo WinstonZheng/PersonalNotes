@@ -14,6 +14,8 @@
 * [小技巧](#小技巧)
 * [Reference](#reference)
 
+> 注：代码中">>>"标志表示在命令行输入，紧接着无">>>"，表示输出。
+
 # 基础类型
 python是弱类型语言（解释型）。
 
@@ -53,8 +55,8 @@ Usage: thingy [OPTIONS]
     4. 正则表达式，re.compile and re.sub;
 
 
-- list和tuple  list是可变数组，而tuple元组，不可变列表。
-> 包含切片（slice）操作符，简化获取元素操作(tuple的切片还是tuple)
+- list和tuple  list是可变数组，而tuple元组，不可变列表。<br>
+    - 包含**切片（slice）操作符**，简化获取元素操作(tuple的切片还是tuple)
 ```py
 # L[] = [1,2,3,4,5]，取的范围 x:y => [x,y)
 >>> L[0:3]
@@ -72,7 +74,19 @@ Usage: thingy [OPTIONS]
 >>> '123456'[::2]
 [1,3,4]
 ```
-
+    - 列表生成式(List Comprehensions)
+```py
+# 生成[1*1,2*2,3*3...10*10]
+>>> [x*x for x in range(1,11)]
+# 筛选偶数
+>>> [x*x for x in range(1,11) if x % 2 == 0]
+# 全排列 ['AX', 'AY', 'AZ', 'BX', 'BY', 'BZ', 'CX', 'CY', 'CZ']
+>>> [m + n for m in 'ABC' for n in 'XYZ']
+# 多变量
+>>> d = {'x': 'A', 'y': 'B', 'z': 'C' }
+>>> [k + '=' + v for k, v in d.iteritems()]
+['y=B', 'x=A', 'z=C']
+```
 
 - dict和set <br>
 dict对应map，使用键值存储(key-value)，提供索引（Hash） ，查询速度快 , 耗内存。
@@ -111,7 +125,8 @@ bool(1)
 bool('')
 ```
 
-
+- 判断数据类型 <br>
+使用内建函数isinstance(object , type)，判断数据类型
 
 # 流程控制
 
