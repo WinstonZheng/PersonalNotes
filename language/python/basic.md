@@ -16,7 +16,7 @@
 
 > 注：代码中">>>"标志表示在命令行输入，紧接着无">>>"，表示输出。
 
-# 基础类型
+# 基础类型（用法特性）
 python是弱类型语言（解释型）。
 
 - str <br>
@@ -86,6 +86,25 @@ Usage: thingy [OPTIONS]
 >>> d = {'x': 'A', 'y': 'B', 'z': 'C' }
 >>> [k + '=' + v for k, v in d.iteritems()]
 ['y=B', 'x=A', 'z=C']
+```
+    - 生成器(Generator)
+```py
+# 方法一："[]" -> "()"，创建一个generator对象
+>>> L = [x * x for x in range(10)]
+>>> L
+[0, 1, 4, 9, 16, 25, 36, 49, 64, 81]
+>>> g = (x * x for x in range(10))
+>>> g
+<generator object <genexpr> at 0x104feab40>
+# 方法二：yield
+# 每次调用next()执行，遇到yield返回（提供在函数运行途中中断返回的功能）
+# 斐波那契数列
+def fib(max):
+    n, a, b = 0, 0, 1
+    while n < max:
+        yield b
+        a, b = b, a + b
+        n = n + 1
 ```
 
 - dict和set <br>
