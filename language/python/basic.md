@@ -1,10 +1,10 @@
 # Python 2.7
 # Content
 * [基础类型（用法特性）](#基础类型用法特性)
-* [str ](#str)
-* [list和tuple  ](#list和tuple)
-	* [dict和set ](#dict和set)
-	* [简单数据类型转换 ](#简单数据类型转换)
+    * [str ](#str)
+    * [list和tuple  ](#list和tuple)
+    * [dict和set ](#dict和set)
+    * [简单数据类型转换 ](#简单数据类型转换)
 	* [判断数据类型](#判断数据类型)
 * [流程控制](#流程控制)
 * [Standard IO](#standard-io)
@@ -25,7 +25,7 @@
 # 基础类型（用法特性）
 python是弱类型语言（解释型）。
 
-# str 
+## str 
 utf-8用于传输类型，而unicode用于内存和磁盘存储。
 ```py
 # 分段连接字符串，必须加（），否则出错
@@ -61,7 +61,7 @@ Usage: thingy [OPTIONS]
     4. 正则表达式，re.compile and re.sub;
 
 
-# list和tuple  
+## list和tuple  
 list是可变数组，而tuple元组，不可变列表。<br>
     - 包含**切片（slice）操作符**，简化获取元素操作(tuple的切片还是tuple)
 ```py
