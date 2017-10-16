@@ -19,8 +19,8 @@
 # 基础类型（用法特性）
 python是弱类型语言（解释型）。
 
-- str <br>
-    utf-8用于传输类型，而unicode用于内存和磁盘存储。
+## str 
+utf-8用于传输类型，而unicode用于内存和磁盘存储。
 ```py
 # 分段连接字符串，必须加（），否则出错
 # TypeError: bad operand type for unary +: 'str'
@@ -55,7 +55,8 @@ Usage: thingy [OPTIONS]
     4. 正则表达式，re.compile and re.sub;
 
 
-- list和tuple  list是可变数组，而tuple元组，不可变列表。<br>
+# list和tuple  
+list是可变数组，而tuple元组，不可变列表。<br>
     - 包含**切片（slice）操作符**，简化获取元素操作(tuple的切片还是tuple)
 ```py
 # L[] = [1,2,3,4,5]，取的范围 x:y => [x,y)
@@ -107,7 +108,7 @@ def fib(max):
         n = n + 1
 ```
 
-- dict和set <br>
+## dict和set 
 dict对应map，使用键值存储(key-value)，提供索引（Hash） ，查询速度快 , 耗内存。
 ```py
 # the key is existing or not, if not, the reuslt is false
@@ -131,7 +132,7 @@ r | s
 > attention!
 > set和dict中存储的key是不可变对象，例如：字符串和整数，List是可变的。
 
-- 简单数据类型转换 
+## 简单数据类型转换 
 ```py
 int('123')
 int(12.34)
@@ -144,7 +145,7 @@ bool(1)
 bool('')
 ```
 
-- 判断数据类型 <br>
+## 判断数据类型
 使用内建函数isinstance(object , type)，判断数据类型
 
 # 流程控制
