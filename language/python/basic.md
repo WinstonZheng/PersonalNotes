@@ -1,6 +1,5 @@
 # Python 2.7
 # Content
-* [Content](#content)
 * [基础类型（用法特性）](#基础类型用法特性)
 	* [str ](#str)
 * [list和tuple  ](#list和tuple)
