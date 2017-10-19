@@ -32,6 +32,31 @@
 	- RARP(Reverse Address Resolve Protocol)，无盘操作系统用MAC地址查询IP。
 
 # 封装
+![](/images/network/net-package.PNG)
+每层协议在上层协议的基础上，加上自己的头部信息（包括尾部信息），以实现该层功能。
+- TCP报文段（TCP段），TCP头部信息 + TCP内核缓冲区（发送或接受缓冲区）
 
+![](/images/network/tcp-package.PNG)
+> TCP把应用层数据复制到内核缓冲区中，然后调用IP模块服务，组装IP数据报。
+
+- UDP数据报（UDP datagram)，封装与TCP类似，UDP内核缓冲区中无副本保存，重发需重新复制（用户->内核）。
+- IP数据报（IP datagram），包括头和数据部分。
+- 数据链路层，帧（frame），以太网是以太网帧，地址+循环冗余校验。
+> 包含MTU，最大传输单元，能携带最大长度数据（IP数据报长度）。
+> 物理网络传输，字节序列。
 
 # 分用
+![](/images/network/demultiplexing.PNG)
+如何解析帧？自底向上，逐层处理。各层西医依次处理帧中本层负责的头部数据，以获取所需信息，并最终将处理后的帧交给目标应用程序。
+- 以太网帧采用2字节类型字段表示上层协议。
+	- 0x806表示ARP请求或应答报文；
+	- 0x835表示RARP请求或应答报文；
+	- 0x800表示IP数据报；
+- IP数据头采用16位的协议字段区分ICMP/TCP/UDP。
+- TCP/UDP通过16位端口号字段区分上层应用程序。
+
+
+
+
+
+
