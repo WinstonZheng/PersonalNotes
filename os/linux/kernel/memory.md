@@ -67,6 +67,12 @@ struct A{
 -zp4
 ```
 
+# 内存对齐作用
+1. 平台原因(移植原因)：不是所有的硬件平台都能访问任意地址上的任意数据的；某些硬件平台只能在某些地址处取某些特定类型的数据，否则抛出硬件异常。
+2. 性能原因：经过内存对齐后，CPU的内存访问速度大大提升。
+> CPU按块（memory access granularity）读取内存，
+
+
  ***
  # Reference
  - http://www.cnblogs.com/wuyuegb2312/archive/2013/06/08/3126510.html
