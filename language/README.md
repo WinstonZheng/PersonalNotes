@@ -3,11 +3,12 @@
 ![](/images/language/language.png)
 
 
+## 解释型语言
+- Python
+- Bash Shell
 
-## Python
+## 编译型语言
+- C
 
-## Bash Shell
-
-## Java
-
-## C
+## 半解释半编译型语言
+- java
