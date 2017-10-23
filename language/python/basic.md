@@ -7,6 +7,8 @@
     * [简单数据类型转换 ](#简单数据类型转换)
     * [判断数据类型](#判断数据类型)
 * [流程控制](#流程控制)
+    * [判断](#判断)
+    * [循环](#循环)
 * [Standard IO](#standard-io)
 	* [Output](#output)
 	* [Input](#input)
@@ -156,7 +158,7 @@ bool('')
 
 # 流程控制
 
-- 判断
+## 判断
 只要参数是非零数值、非空字符串、非空list等，就判断为True，否则为False，用if...elif...elif..替代switch...case...
 ```py
 if <condition 1>:
@@ -181,7 +183,7 @@ elif arg1 or arg2:
     print "No"
 ```
 
-- 循环
+## 循环
 ```
 for <value> in <values>
     print value 
