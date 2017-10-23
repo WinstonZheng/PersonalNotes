@@ -43,7 +43,7 @@ with codecs.open('/Users/michael/gbk.txt', 'r', 'gbk') as f:
 
 - 写文件
 ```py
-// 'w'表示文本文件，'wb'二进制文件
+// 'w'表示文本文件，'wb'二进制文件，'a'表示追加写
 with f = open('/Users/michael/test.txt', 'w') as f:
     f.write('Hello World')
 ```
