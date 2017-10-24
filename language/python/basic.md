@@ -119,6 +119,8 @@ def fib(max):
 ## dict和set 
 dict对应map，使用键值存储(key-value)，提供索引（Hash） ，查询速度快 , 耗内存。
 ```py
+# 添加dict元素
+nameList["winston"] = "existing"
 # the key is existing or not, if not, the reuslt is false
 result = 'winston' in nameList
 # use get, if not , the result is None
