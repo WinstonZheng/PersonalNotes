@@ -334,7 +334,7 @@ def person(name, age, **others)
 >>> print('rui',12,**others)
 ```
 
-- 命名关键字参数 python3
+- 命名关键字参数
 限制关键字参数名字。
 ```py
 # "*"后面参数视为命名关键字参数
