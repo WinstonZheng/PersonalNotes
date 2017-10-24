@@ -337,7 +337,7 @@ def person(name, age, **others)
 - 命名关键字参数
 限制关键字参数名字。
 ```py
-# "*"后面参数视为命名关键字参数
+# "*"后面参数视为命名关键字参数，命名关键字参数必须传入参数名
 def person(name, age, *, city, job):
     print(name, age, city, job)
 # 传入参数名，对应命名关键字参数。已有可变参数，之后命名关键字参数不用带*
