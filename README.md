@@ -1,5 +1,5 @@
 # KnowledgeNet
-![](https://travis-ci.org/meolu/walden.svg?branch=master)
+![](/images/logo/passing.svg)
 
 ![](/images/brain.png)
 
