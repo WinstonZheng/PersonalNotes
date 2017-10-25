@@ -1,7 +1,6 @@
 # KnowledgeNet
 ![](/images/logo/passing.svg)
-
-![](/images/brain.png)
+![knowledgenet-logo]
 
 ## Ability  Menus
 - Language
