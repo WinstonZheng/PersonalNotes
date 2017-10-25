@@ -1,7 +1,7 @@
 # KnowledgeNet
 ![Build Status](https://travis-ci.org/meolu/walden.svg?branch=master)
 
-![knowledgenet-logo] 
+![](/images/brain.png)
 
 ## Ability  Menus
 - Language
