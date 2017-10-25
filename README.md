@@ -1,5 +1,5 @@
 # KnowledgeNet
-![Build Status](https://travis-ci.org/meolu/walden.svg?branch=master)
+![](https://travis-ci.org/meolu/walden.svg?branch=master)
 
 ![](/images/brain.png)
 
