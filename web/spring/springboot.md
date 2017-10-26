@@ -12,7 +12,7 @@ Spring Boot简化了Spring的配置，无XML配置。提供了其他的一系列
     - Spring Boot使监控变简单，Spring actuator，以REST方式，获取进程运行期性能参数。
 - 缺点：
     - 入门级微框架，对微服务支持有限。
-    
+
 ## Spring Boot注解相关
 
 - @SpringBootApplication作用    
