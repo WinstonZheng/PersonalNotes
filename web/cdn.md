@@ -7,7 +7,7 @@ CDN = 镜像(Mirror) + 缓存(Cache) + 整体负载均衡(GSLB)。
 - 可靠性、响应和执行(Reliability、Responsiveness和Performance)。
 ## 请求过程
 ![](/images/web/dns.PNG)
-以下是简化过程：
+以下是简化过程(以下过程与上图无关)：
     1. 用户通过HTTP请求访问静态资源；
     2. 浏览器根据URL发送DNS域名解析请求，到LDNS；
     3. LDNS经过迭代式解析，将域名的解析权通过CNAME方式解析到CDN专用的DNS服务器；
