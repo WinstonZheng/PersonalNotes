@@ -28,6 +28,9 @@ CDN = 镜像(Mirror) + 缓存(Cache) + 整体负载均衡(GSLB)。
 # CDN动态加速
 CDN动态加速技术，CDN的DNS解析中通过动态链路探测寻找回源最好途径，然后通过DNS调度将所有请求调度到选定的这条路径上回源。
 
+# CDN使用
+
+
 # Reference
 - 《深入分析Java Web 技术内幕》
 -  https://www.zhihu.com/question/36514327
