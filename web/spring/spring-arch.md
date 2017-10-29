@@ -1,10 +1,8 @@
 # Spring架构
-- Spring 3 架构图
-
+- Spring 3 架构图 <br>
 ![](/images/web/spring3-ar.PNG)
 
-- Spring 4 架构图
-
+- Spring 4 架构图 <br>
 ![](/images/web/spring4-ar.PNG)
 
 从Spring3和Spring4的架构图中，可以看出，Spring3到4最大的变化是添加两个新功能模块：
