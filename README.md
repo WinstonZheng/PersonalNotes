@@ -1,5 +1,5 @@
 # KnowledgeNet
-![](/images/logo/passing.svg)
+![](/images/logo/passing.svg) <br>
 ![knowledgenet-logo]
 
 ## Ability  Menus
