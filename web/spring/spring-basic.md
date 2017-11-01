@@ -1,6 +1,11 @@
 # 依赖注入DI
 ## 基础装配Bean
-Spring创建Bean方式有两种：
+三种主要装配机制：
+1. 在XML中进行显式配置；
+2. 在Java中进行显式配置；
+3. 隐式的bean发现机制和自动装配；
+
+> 按照Spring创建Bean方式有分为两类：
 1. Application Context;
 - Java配置加载Spring应用 AnnotationConfigApplicationContext
 - Java配置加载Spring Web应用 AnnotationConfigWebApplicationContext   
