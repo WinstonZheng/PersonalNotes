@@ -3,15 +3,26 @@
 ![knowledgenet-logo]
 
 ## Ability  Menus
-- Language
-    - [python](/language/python/README.md) ![working-logo]
-- Operating System
+### [Language](/language/README.md)
+- [python](/language/python/README.md) 
+- bash shell
+- java
+- c
+
+### Operating System
+- theory
     - network
         - protocol
-- Linux
-    - tools
-    - kernel
+    - compute
+    - storage
 
+#### Linux
+- tools
+- kernel
+
+### Web
+- Servlet
+- Spring
 
 
 
@@ -33,7 +44,7 @@
 
 
 [knowledgenet-logo]: /images/brain.png
-[working-logo]: /images/logo/29-cloud-sync.png
+
 
 
 
