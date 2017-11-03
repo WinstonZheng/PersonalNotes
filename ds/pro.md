@@ -44,15 +44,21 @@
 ## 虚拟化
 单个处理器模拟多个处理器机制（并行），扩展到其他资源，导致所谓虚拟化（resource virtulization）的产生。
 > 虚拟化本质上是扩展或替换一个现存界面（接口）来模仿另一个系统行为。
-> 虚拟化对于分布式系统提供高度的移植性和灵活性。
+> 虚拟化对于分布式系统提供高度的移植性和灵活性。 <br>
+![](/images/ds/virtulization.PNG)
 
 ### 虚拟机系统结构
 计算机系统分层结构：
 1. 由机器指令组成(machine instruction)，由任何程序激起的硬件软件界面；
 2. 有机器指令组成，只有特权程序（像操作系统）才能激活的硬件软件界面；
 3. 由操作系统提供的系统调用（system call)组成界面；
-4. 由库调用组成的界面，通常形成了所谓应用程序编程接口（application programming interface, API)。
+4. 由库调用组成的界面，通常形成了所谓应用程序编程接口（application programming interface, API)。<br>
+![](/images/ds/os-interfaces.PNG)
 
+虚拟化实现方式：
+1. 构建一个运行时(runtime)系统，实质提供一套抽象指令集执行程序（翻译或仿真，Java Runtime），针对进程级别。
+2. 提供一种系统，做成一层完全屏蔽硬件但提供一个同样指令集（或其他硬件）的界面（VMware、Xen）。<br>
+![](/images/ds/vm.PNG)
 
 
 
