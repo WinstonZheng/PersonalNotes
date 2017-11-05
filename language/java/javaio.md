@@ -126,7 +126,12 @@ FileChannel.transfreXXX与传统访问文件方式减少了数据从内核到用
 2. FileChannel.map <br>
 FileChannel.map将文件按照一定大小映射为内存区域，当程序访问此内存区域，将直接操作文件。（这种方式节省了内核空间向用户空间复制损耗）
 
+## 设计模式
+- 适配器模式，将一个类接口变换为系统所能接受的另一种接口，换言之，将一个接口适配另一个接口。<br>
+  例如：InputStreamReader和OutputStreamWriter，继承了Reader和Writer接口，创建时传入InputStream和OutputStream。（InputStreamReader通过StreamDecoder间接持有）<br>
+  ![](/images/java/javaio/javaio-adapter.PNG)
 
+- 装饰器模式，
 
 
 
