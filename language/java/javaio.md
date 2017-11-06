@@ -131,8 +131,8 @@ FileChannel.map将文件按照一定大小映射为内存区域，当程序访�
   例如：InputStreamReader和OutputStreamWriter，继承了Reader和Writer接口，创建时传入InputStream和OutputStream。（InputStreamReader通过StreamDecoder间接持有）<br>
   ![](/images/java/javaio/javaio-adapter.PNG)
 
-- 装饰器模式，
+- 装饰器模式，针对接口，动态给对象添加额外职责，从增加功能的角度来说，比继承中的子类更加灵活。（装饰模式，是继承关系的替代方案）<br>
+  例如：FilterInputStream和BufferedInputStream对于InputStream。<br>
+  ![](/images/java/javaio/javaio-decorater.PNG)
 
-
-
-
+> 装饰器与适配器模式都有一个别名就是包装模式(Wrapper)，区别在于，适配器模式是将一个接口转变为另一个接口，装饰器模式目的是增强（改变）原有对象的处理方法。
