@@ -44,9 +44,15 @@ public @interface MyElement {
 ```
 
 # 注解处理器
-Java
+读取注解的方法和工作。Java在java.lang.reflect包下新增的AnnotatedElement接口，表示可接受注解的元素。接口有如下实现类：
+- Class: 类定义；
+- Constructor：构造器定义
+- Field：类的成员变量定义
+- Method：类的方法定义
+- Package：类的包定义
+
 
 # Reference 
 - [深入理解Java：注解（Annotation）基本概念](http://www.cnblogs.com/peida/archive/2013/04/23/3036035.html)
-- [Lombok 注解简化编程](http://jnb.ociweb.com/jnb/jnbJan2010.html#annotations)
+- [lombok 注解简化编程](https://projectlombok.org/)
 
