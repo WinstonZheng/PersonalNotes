@@ -1,6 +1,6 @@
 # 概述
 Horizon是OpenStack中提供可视化管理（Dashboard）的组件，使用的Python的Web开发框架Django开发，使得Horizon本身代码结构较为简单，但是，内部数据流比较复杂。<br>
-本文主要目的是记录如何去远程部署一个Horizon组件（Horizon后台通过OpenStack提供的不同的Client访问服务接口），有助于之后在Horizon上进行二次开发。
+本文主要目的是记录如何去远程部署一个Horizon组件（Horizon后台通过OpenStack提供的不同的Client访问服务接口），有助于之后考虑在Horizon上进行二次开发。
 > 注意：本文实测的版本是 horizon-newton版本，其他版本可能存在不同问题，仅供参考。此外，服务器使用的是Ubuntu14.04。
 # 第一步 初始化环境
 
