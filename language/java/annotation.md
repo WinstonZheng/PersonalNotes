@@ -47,4 +47,6 @@ public @interface MyElement {
 Java
 
 # Reference 
-http://www.cnblogs.com/peida/archive/2013/04/23/3036035.html
+- [深入理解Java：注解（Annotation）基本概念](http://www.cnblogs.com/peida/archive/2013/04/23/3036035.html)
+- [Lombok 注解简化编程](http://jnb.ociweb.com/jnb/jnbJan2010.html#annotations)
+
