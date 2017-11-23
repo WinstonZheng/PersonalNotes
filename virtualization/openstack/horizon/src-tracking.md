@@ -1,4 +1,4 @@
-# Horizon源码追踪
+# Horizon源码追踪详解
 由于技术选型问题，所以研究了一下Horizon源码。针对源码简单做一个分析。通过源码追踪的方式，解析Horizon的实现原理。而，horizon是一个MVC架构的网站，采用python的Django框架支持。
 > 有兴趣可以看一下最近写的安装horizon的文档。[click here](/virtualization/openstack/horizon/install.md)
 
