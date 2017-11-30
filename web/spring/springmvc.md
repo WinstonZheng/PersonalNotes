@@ -1,7 +1,3 @@
-
-
-
-
 # SpringMvc基础知识
 ---
 ## 初始化
@@ -132,6 +128,7 @@ Spring解析视图时，涉及两个接口：ViewResolver 和 View；
 使用@ResponseBody来标注ajax对应的Controller层方法，方法的return值返回在响应实体中。
 返回页面调用ajax中success标注的回调方法。
 也可能调用error标注的回调方法，调用情况：Reuqest请求出错（返回的字符串不符合编码方式）
+
 ## filter/listener/interceptor
 ### filter
 filter是一个可以复用的代码片段，可以用来转换HTTP请求、响应和头信息。Filter不像Servlet，它不能产生一个请求或者响应，它只是修改对某一资源的请求，或者修改从某一的响应。
@@ -160,12 +157,12 @@ applicationContext.xml Spring配置文件。Spring的核心是配置文件，通
 ## 页面技术
 ### @ModelAttribute
 此注解标识的参数，在@RequestMapping标注的方法前，将其加入到映射表中。使得，在方法中，能够被访问。<br>
-![](/images/web/springmvc-modeltorequest.png)
+![](/images/web/springmvc-modeltorequest.png) <br>
 如上图所示，先ModelAttribute先放到model中，然后，放到HttpServletRequest中。     
 为什么不将参数直接添加到Request的对象中，而是添加到Model中，满足MVC框架需求：   
 It should be as view-agnostic as possible, which means we’d like to be able to incorporate view technologies not bound to the HttpServletRequest as well.
 
-@SessionAttribute   
+### @SessionAttribute   
 Session中存储的属性，将会放置到HttpServletRequest和HttpSession中。
 
 # SpringMVC源码解析
