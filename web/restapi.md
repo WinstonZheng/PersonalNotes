@@ -12,17 +12,24 @@ rest风格后端，
 - 统一接口（Uniform Interface）
 - 超文本驱动（Hypertext Driven）
 
+# 分层处理
+- controller层，负责检验页面传参，以及返回成功或错误提示信息；
+- service层，负责正常事件流和异常事件流，将相关信息返回controller层中。
+
+
 # 安全验证
+需要分以下几步完成：
+1. 用户登录认证，给用户返回token（服务端存储用户授权信息）；
+2. 拦截请求，检查请求是否符合要求。
+
+
 rest风格网站需要提供针对api的权限验证功能。
-
 - Http Basic Authentication
-
 - 类cookie-session
-
 - OAuth 2.0
 
 # 异常处理
-
+通过切面统一处理异常，返回页面Response信息。
 
 # 分页
 包装一个page类，将特定的分页信息传递到页面。
