@@ -167,6 +167,29 @@ It should be as view-agnostic as possible, which means we’d like to be able to
 ### @SessionAttribute   
 Session中存储的属性，将会放置到HttpServletRequest和HttpSession中。
 
+## 异常处理
+- Spring支持将自定义Exception映射到对应的状态码；
+```java
+// 加入Controller抛出此异常，自动映射到404响应；
+@ResponseStatus( value = HttpStatus.NOT_FOUND,
+                reason = "Student Not Found")
+public class StudentNotFoundException extends RuntimeException{
+}
+```
+
+- 将Controller层中异常处理路径分离出来，简化Controller方法（易理解和测试）
+```java
+//该方法位于Controller层中
+@ExceptionHandler(StudentNotFoundException.class)
+public String handleStudentNotFound(){
+    return "error/not_found";
+}
+```
+
+- @ControllerAdvice, 拦截所有controller中的异常。
+
+
+
 # SpringMVC源码解析
 SpringMVC中Controller是单例的。
 
