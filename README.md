@@ -4,8 +4,8 @@
 
 ## Ability  Menus
 ### [Language](/language/README.md)
-- [python](/language/python/README.md) 
-- bash shell
+- [python](/language/python) 
+- [bash shell](/langugage/bash)
 - [java](/language/java)
 - c
 
