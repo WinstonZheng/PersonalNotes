@@ -4,9 +4,9 @@
 
 ## Ability  Menus
 ### [Language](/language)
-- [python](/language/python) 
-- [bash shell](/langugage/bash)
-- [java](/language/java)
+- python
+- bash shell
+- java
 - c
 
 ### Operating System
