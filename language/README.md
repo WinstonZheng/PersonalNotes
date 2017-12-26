@@ -1,4 +1,4 @@
-[Back](/knet)
+[Back](/READE.md)
 # Language
 
 ![](/images/language/language.png)
