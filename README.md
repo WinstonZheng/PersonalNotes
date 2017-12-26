@@ -3,7 +3,7 @@
 ![knowledgenet-logo]
 
 ## Ability  Menus
-### [Language](/language/README.md)
+### [Language](/language)
 - [python](/language/python) 
 - [bash shell](/langugage/bash)
 - [java](/language/java)
@@ -25,7 +25,7 @@
 - tools
 - kernel
 
-### Web
+### [Web](/web)
 - Servlet
 - Spring
 
