@@ -1,4 +1,4 @@
-[Back](/README.md)
+[Back](/)
 # Language
 
 ![](/images/language/language.png)
