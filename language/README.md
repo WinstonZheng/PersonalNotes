@@ -1,4 +1,4 @@
-[Back](/)
+[Back](/knet)
 # Language
 
 ![](/images/language/language.png)
