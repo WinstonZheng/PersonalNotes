@@ -6,7 +6,7 @@
 ### [Language](/language/README.md)
 - [python](/language/python/README.md) 
 - bash shell
-- java
+- [java](/language/java)
 - c
 
 ### Operating System
