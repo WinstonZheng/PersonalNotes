@@ -4,10 +4,12 @@
 
 ## Ability  Menus
 ### [Language](/language)
-- python
-- bash shell
-- java
-- c
+- **java**
+- **python**
+- **bash**
+- **c**
+
+> it's the basic knowledge about the different language.
 
 ### Operating System
 - theory
