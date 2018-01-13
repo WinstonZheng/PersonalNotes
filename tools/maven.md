@@ -1,3 +1,25 @@
+## 基本知识
+## 基本配置
+- 主代码目录： src/main/java
+- 项目基本坐标：
+    - groupId，项目组 com.mycomp.myapp
+    - artifactId，项目组中的maven项目 ID（模块ID）
+    - version，版本号
+        - 1.0 SNAPSHOT, SNAPSHOT表示快照，处于开发中，不稳定版本
+    - name，对用户友好的命名
+    
+> Java类包名基于groupId和artifactId：com.winston.web（这样逻辑清晰）
+
+## 基本命令
+1. 清理target/目录：
+```bash
+mvn clean
+```
+ 
+
+
+
+
 ## 依赖
 
 ## 依赖范围
