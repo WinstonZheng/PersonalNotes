@@ -28,6 +28,7 @@
 - kernel
 
 ### [Web](/web)
+- Basic
 - Servlet
 - Spring
 
