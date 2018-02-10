@@ -31,11 +31,18 @@
 - Servlet
 - Spring
 
-### Virtualization
+### [Cloud](/cloud)
+云平台搭建技术研究笔记。
+
 - Docker
-- Openstack
+
+> Docker属于PaaS层云平台搭建技术，提供容器管理（同时也是一种轻量级虚拟化技术）。
+
+- [Openstack](/cloud/openstack)
     - horizon
     - keystone
+
+> OpenStack属于IaaS层云平台搭建技术，提供虚拟机管理，相比较Docker而言更重，但是，更加成熟。
 
 
 ## To Do List
