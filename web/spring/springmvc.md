@@ -36,6 +36,8 @@ AbstractAnnotationConfigDispatcherServletInitializer
 
 ## 页面解析渲染
 
+
+
 ## 页面之间跳转
 Spring MVC默认采用转发来定位视图，如果要重定向：
 1.  使用RedirectView
