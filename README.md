@@ -11,21 +11,33 @@
 
 > it's the basic knowledge about the different language.
 
-### Operating System
-- theory
-    - network
-        - protocol
-    - compute
-    - storage
+### Application
+#### JVM
+- 概述
+- JVM体系结构
+- JVM内存管理
+    - JVM运行时数据区域
+    - 
+
+
+### [Operating System](/os)
+#### theory
+- network
+    - protocol
+- compute
+- storage
+
+#### Linux
+- tools
+- kernel
+
+
 
 ### Distributed Systems
 - 概述
 - 体系结构
 - 进程（线程）
 
-#### Linux
-- tools
-- kernel
 
 ### [Web](/web)
 - Basic
@@ -47,9 +59,9 @@
 
 
 ## To Do List
-### 2017/11
+### 2018/03
 - OpenStack研究学习
-- java 性能优化
+- jvm虚拟机学习
 
 
 ***
