@@ -2,8 +2,8 @@
 ![](/images/logo/passing.svg) <br>
 ![knowledgenet-logo]
 
-## Ability  Menus
-### [Language](/language)
+# Ability  Menus
+## [Language](/language)
 - **java**
 - **python**
 - **bash**
@@ -11,8 +11,25 @@
 
 > it's the basic knowledge about the different language.
 
-### Application
-#### JVM
+## DataStructure
+
+## Algorithm
+
+## [Operating System](/os)
+### theory
+- network
+    - protocol
+- compute
+- storage
+
+### Linux
+- tools
+- kernel
+
+
+
+## Application
+### JVM
 - 概述
 - JVM体系结构
 - JVM内存管理
@@ -20,31 +37,24 @@
     - 
 
 
-### [Operating System](/os)
-#### theory
-- network
-    - protocol
-- compute
-- storage
 
-#### Linux
-- tools
-- kernel
-
-
-
-### Distributed Systems
+## Distributed Systems
 - 概述
 - 体系结构
 - 进程（线程）
 
+## [Java Web](/web)
+- 规范 servlet
+- 服务化 spring
+    - spring boot
+    - spring mvc
+- 持久化(ORM)
+    - mybatis
+- 项目构建
+    - maven
 
-### [Web](/web)
-- Basic
-- Servlet
-- Spring
 
-### [Cloud](/cloud)
+## [Cloud](/cloud)
 云平台搭建技术研究笔记。
 
 - Docker
