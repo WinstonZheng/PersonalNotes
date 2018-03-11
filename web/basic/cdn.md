@@ -1,10 +1,12 @@
 # 简介
 内容分布网络(Content Delivery Network)。
 CDN = 镜像(Mirror) + 缓存(Cache) + 整体负载均衡(GSLB)。
+
 ## 目标
 - 可扩展性（Scalability)，性能可扩展。
 - 安全性(Security)。
 - 可靠性、响应和执行(Reliability、Responsiveness和Performance)。
+
 ## 请求过程
 ![](/images/web/dns.PNG)
 以下是简化过程(以下过程与上图序号不是一一对应)：
