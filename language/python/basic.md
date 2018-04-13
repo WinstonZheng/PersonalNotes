@@ -65,8 +65,9 @@ Usage: thingy [OPTIONS]
 
 ## list和tuple  
 list是可变数组，而tuple元组，不可变列表。<br>
-    - 包含**切片（slice）操作符**，简化获取元素操作(tuple的切片还是tuple)
-```py
+
+- 包含**切片（slice）操作符**，简化获取元素操作(tuple的切片还是tuple)
+    ```py
 # L[] = [1,2,3,4,5]，取的范围 x:y => [x,y)
 >>> L[0:3]
 [1,2,3]
@@ -83,7 +84,8 @@ list是可变数组，而tuple元组，不可变列表。<br>
 >>> '123456'[::2]
 [1,3,4]
 ```
-    - 列表生成式(List Comprehensions)
+
+- 列表生成式(List Comprehensions)
 ```py
 # 生成[1*1,2*2,3*3...10*10]
 >>> [x*x for x in range(1,11)]
@@ -96,7 +98,8 @@ list是可变数组，而tuple元组，不可变列表。<br>
 >>> [k + '=' + v for k, v in d.iteritems()]
 ['y=B', 'x=A', 'z=C']
 ```
-    - 生成器(Generator)
+
+- 生成器(Generator)
 ```py
 # 方法一："[]" -> "()"，创建一个generator对象
 >>> L = [x * x for x in range(10)]
