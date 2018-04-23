@@ -1,22 +1,22 @@
 # Content
 
 
-# 表ADT
+# 表
 
 
-# 栈ADT
+# 栈
 
 
-# 队列ADT
+# 队列
 
 
-# 树
+# [树](/methods/datastructure/tree)
 
 
 # 优先队列（堆） 
 
 
-# 不相交集ADT
+# 不相交集
 
 
 # Reference
