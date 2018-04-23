@@ -13,7 +13,7 @@
 		* [操作](#操作-3)
 		* [应用](#应用)
 * [Reference](#reference)
-* [Back](/methods/datastructure)
+* [Back](/methods/datastructure/tree)
 
 # 二叉树
 

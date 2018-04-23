@@ -23,6 +23,7 @@
   - 层序，广度优先遍历。
  
 ## 典型结构
-### [二叉树](/methods/datastructure/tree/binarytree.md)
-### [B树](/methods/datastructure/tree/btree.md)
-### [堆](/methods/datastructure/tree/priorityqueue.md)
+- [二叉树](/methods/datastructure/tree/binarytree.md)
+- [B树](/methods/datastructure/tree/btree.md)
+- [堆](/methods/datastructure/tree/priorityqueue.md)
+- [Back](/methods/datastructure)
