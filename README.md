@@ -17,7 +17,7 @@
 > it's the basic knowledge about the different language.
 
 ## DataStructure
-### [tree](/methods/datastructure/tree)
+### [Tree](/methods/datastructure/tree)
 - 二叉树系列
 - B树
 - 堆
