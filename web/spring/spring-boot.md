@@ -16,17 +16,19 @@ Spring Boot简化了Spring的配置，无XML配置。提供了其他的一系列
 ## Spring Boot注解相关
 
 - @SpringBootApplication作用    
+
+
 1. @Configuration
 2. @EnableAutoConfiguration
 3. @EnableWebMvc
 4. @ComponentScan 当前包下查找。<br>
 [更多细节](http://spring.io/guides/gs/spring-boot/)
 
-@EnableAutoConfiguration 将当前包作为"search package"。
+
+- @EnableAutoConfiguration 将当前包作为"search package"。
 
 ```
 @EnableAutoConfiguration
-
     - @AutoConfigurationPackage
     - @Import
 ```
@@ -70,4 +72,6 @@ spring.mvc.view.suffix= .html
 
 Spring Boot uses a very particular PropertySource order that is designed to allow sensible overriding of values.
 
-[Spring boot 参考文件说明](http://docs.spring.io/spring-boot/docs/1.4.4.RELEASE/reference/htmlsingle/#boot-features-sql/)
+# Reference
+
+- [Spring boot 参考文件说明](http://docs.spring.io/spring-boot/docs/1.4.4.RELEASE/reference/htmlsingle/#boot-features-sql/)
