@@ -1,11 +1,12 @@
-
+# SpringMVC
+SpringMVC是模型-视图-控制器模式，请求首先通过DispathcerServlet进行转发，发送给控制器，控制器是Spring中处理请求的组件（一般请求的处理，提交给一个或多个服务对象@Service）；然后，请求处理产生的数据结果，称为模型；控制器会将模型与视图逻辑名返回给DispatcherServlet；DispatcherServlet最后将模型数据提交给视图解析器，view resolver将渲染生成可视化的视图（View），返回给界面。
 
 # SpringMvc基础知识
 ---
 ## 初始化
 SpringMVC处理流程：
 1. 请求离开浏览器后，包含URL和表单数据。
-2. 通过DispatcherServlet这个前端控制器Servlet，将不同的请求转发给SpringMVC控制器。
+2. 通过DispatcherServlet这个前端控制器Servlet，查询一个或多个处理器映射，将不同的请求转发给SpringMVC控制器。
 3. 通过控制器接受和处理数据，返回model（模型）打包和一个逻辑视图名(view)给DispatcherServlet。
 4. DispatcherServlet使用视图解析器(view resolver)将逻辑视图名匹配一个特定的视图实现。
 5. DispacherServlet交付模型数据，请求任务完成。视图将使用模型数据渲染输出，这个输出会通过响应对象传递给客户端。
