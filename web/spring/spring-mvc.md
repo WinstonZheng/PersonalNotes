@@ -37,12 +37,14 @@ AbstractAnnotationConfigDispatcherServletInitializer
 
 ## 页面解析渲染
 
+
 ## 页面之间跳转
 Spring MVC默认采用转发来定位视图，如果要重定向：
 1.  使用RedirectView
 2.  redirect:前缀，这种方式可以有效防止重复提交。
-## 接受请求输入（页面 -> 控制器）
-### 传参方式
+
+## 页面向控制器传参
+
 1. 获取路径传参数：
 ```
 @PathVarible
@@ -70,7 +72,9 @@ public String get(HttpServletRequest request, HttpServletResponse response) {
 ```
 
 ### 检验表单
-## Controller层向页面传参
+
+
+## 控制器向页面传参
 1. 使用ModelAndView对象
 ```java
 @RequestMapping("/login.do")  
@@ -83,7 +87,7 @@ public ModelAndView  login(String name,String pass){
 ```
 
 2. ModelMap
-ModelMap数据会利用HttpServletRequest的Attribute传值到页面中：
+ModelMap数据会利用HttpServletRequest的Attribute传值到页面中（实际是一个Map集合）：
 ```java
     @RequestMapping("/login.do")  
     public　String login(String name,String pass ,ModelMap model){  
@@ -100,7 +104,7 @@ ModelMap数据会利用HttpServletRequest的Attribute传值到页面中：
     @RequestMapping("/login.do")  
     public String login(@ModelAttribute("user") User user){  
         //TODO  
-       return "success";  
+       return "success";
     }  
       
     @ModelAttribute("name")  
@@ -108,6 +112,7 @@ ModelMap数据会利用HttpServletRequest的Attribute传值到页面中：
         return name;  
     }  
 ```
+
 4. Session存储：
 可以利用HttpServletRequest的getSession()方法
 ```java
@@ -168,7 +173,9 @@ It should be as view-agnostic as possible, which means we’d like to be able to
 ### @SessionAttribute   
 Session中存储的属性，将会放置到HttpServletRequest和HttpSession中。
 
+
 ## 异常处理
+
 - Spring支持将自定义Exception映射到对应的状态码；
 ```java
 // 加入Controller抛出此异常，自动映射到404响应；
