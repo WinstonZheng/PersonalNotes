@@ -11,20 +11,22 @@ public class ArrayList<E> extends AbstractList<E>
         }
         
 ```
+ArrayList不是线程安全的，只能用在单线程环境下，多线程环境下可以考虑用Collections.synchronizedList(List l)函数返回一个线程安全的ArrayList类，也可以使用concurrent并发包下的CopyOnWriteArrayList类。
 
+ArrayList实现了Serializable接口，因此它支持序列化，能够通过序列化传输，实现了RandomAccess接口，支持快速随机访问，实际上就是通过下标序号进行快速访问，实现了Cloneable接口，能被克隆。
 
 
 # 基础操作
 注意，每次操作都会修改modCount，modCount记录集合的变化次数，迭代器通过modCount判断在迭代过程中是否有修改，如果有，则会抛出异常。
 
 ## 增加
-添加时，首先判断数组是否为空，空则初始化为10个对象大小数组，此外，如果数组已满，则扩展为目前数组长度的1.5倍大小的新对象数组。（如果数组长度过大，超出int值，则会变成负数，抛出OutOfMemoryError）
+
 ```java
 public boolean add(E e) {
         ensureCapacityInternal(size + 1);  // Increments modCount!!
         elementData[size++] = e;
         return true;
-    }
+}
 
 public void add(int index, E element) {
         rangeCheckForAdd(index);
@@ -34,8 +36,44 @@ public void add(int index, E element) {
                          size - index);
         elementData[index] = element;
         size++;
-    }
+}
+
+private void ensureCapacityInternal(int minCapacity) {
+        ensureExplicitCapacity(calculateCapacity(elementData, minCapacity));
+}
+
+private void ensureExplicitCapacity(int minCapacity) {
+        modCount++;
+
+        // overflow-conscious code
+        if (minCapacity - elementData.length > 0)
+            grow(minCapacity);
+}
+private void grow(int minCapacity) {
+        // overflow-conscious code
+        int oldCapacity = elementData.length;
+        // 1.5倍的容量
+        int newCapacity = oldCapacity + (oldCapacity >> 1);
+        // 取最大值
+        if (newCapacity - minCapacity < 0)
+            newCapacity = minCapacity;
+        // 如果新增加的数，超出最大值，则返回整型最大值或数组的最大范围；
+        // 可能存在1.5倍之后，超出最大值。
+        if (newCapacity - MAX_ARRAY_SIZE > 0)
+            newCapacity = hugeCapacity(minCapacity);
+        // minCapacity is usually close to size, so this is a win:
+        elementData = Arrays.copyOf(elementData, newCapacity);
+}
+
 ```
+添加时，首先判断数组是否为空，空则初始化为10个对象大小数组，此外，注意扩容方法ensureCapacity，ArrayList在每次增加元素（可能是1个，也可能是一组）时，都要调用该方法来确保足够的容量。
+
+当容量不足以容纳当前的元素个数时，调用grow函数，就设置新的容量为旧的容量的1.5倍（向下取整，如果数组长度过大，超出int值，则会变成负数，抛出OutOfMemoryError），而后用Arrays.copyof()方法将元素拷贝到新的数组。
+
+从中可以看出，当容量不够时，每次增加元素，都要将原来的元素拷贝到一个新的数组中，非常耗时，也因此建议在事先能确定元素数量的情况下，才使用ArrayList，否则建议使用LinkedList。
+
+> Arrays.copyof() 和 System.arraycopy()方法
+该方法被标记了native，调用了系统的C/C++代码，最终调用了C语言的memmove()函数（建议复制大量数组采用），保证同一个数组内元素的正确复制和移动，比一般的复制方法的实现效率要高很多。
 
 ## 删除
 通过System.arraycopy方法，进行批量数组移动，然后最后一个值清空（= null）。
@@ -62,3 +100,12 @@ public E set(int index, E element) {
 ```
 ## subList
 subList方法，返回一个SubList对象，属于ArrayList的内部类，记录边界值，引用的对象数组还是父类的对象数组。
+
+
+
+
+
+
+
+
+
