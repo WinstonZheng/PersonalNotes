@@ -37,34 +37,6 @@ public void add(int index, E element) {
         elementData[index] = element;
         size++;
 }
-
-private void ensureCapacityInternal(int minCapacity) {
-        ensureExplicitCapacity(calculateCapacity(elementData, minCapacity));
-}
-
-private void ensureExplicitCapacity(int minCapacity) {
-        modCount++;
-
-        // overflow-conscious code
-        if (minCapacity - elementData.length > 0)
-            grow(minCapacity);
-}
-private void grow(int minCapacity) {
-        // overflow-conscious code
-        int oldCapacity = elementData.length;
-        // 1.5倍的容量
-        int newCapacity = oldCapacity + (oldCapacity >> 1);
-        // 取最大值
-        if (newCapacity - minCapacity < 0)
-            newCapacity = minCapacity;
-        // 如果新增加的数，超出最大值，则返回整型最大值或数组的最大范围；
-        // 可能存在1.5倍之后，超出最大值。
-        if (newCapacity - MAX_ARRAY_SIZE > 0)
-            newCapacity = hugeCapacity(minCapacity);
-        // minCapacity is usually close to size, so this is a win:
-        elementData = Arrays.copyOf(elementData, newCapacity);
-}
-
 ```
 添加时，首先判断数组是否为空，空则初始化为10个对象大小数组，此外，注意扩容方法ensureCapacity，ArrayList在每次增加元素（可能是1个，也可能是一组）时，都要调用该方法来确保足够的容量。
 
@@ -113,6 +85,33 @@ public static Integer[] vectorToArray2(ArrayList<Integer> v) {
 }
 ```
 
+注意，测试代码如下：
+```java
+public class Student {
+    private String name;
+    public String getName() {
+        return name;
+    }
+    public void setName(String name) {
+        this.name = name;
+    }     
+}
+
+public static void main(String[] args) {
+        ArrayList<Student> students = new ArrayList<>();
+        students.add(new Student("haha"));
+        students.add(new Student("hehe"));
+        Student[] stu = students.toArray(new Student[0]);
+        stu[0].setName("123");
+        System.out.println(students.get(0));
+        System.out.println(stu[0]);
+}
+
+// result
+Student{name='123'}
+Student{name='123'}
+```
+说明，Arrays.copyof生成的数组中的元素指向的相同的对象（可能和native实现方法关联）。
 
 
 
