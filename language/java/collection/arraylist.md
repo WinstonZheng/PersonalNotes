@@ -86,6 +86,7 @@ public static Integer[] vectorToArray2(ArrayList<Integer> v) {
 ```
 
 注意，测试代码如下：
+
 ```java
 public class Student {
     private String name;
