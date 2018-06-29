@@ -1,5 +1,5 @@
 # ArrayList
-底层数据存储使用对象数组的方式实现。只有在取出数据的时候，进行强制类型转换。
+底层数据存储使用对象数组的方式实现。只有在取出数据的时候，进行强制类型转换。数组的查找操作速度快O(1)，而插入和删除的操作很慢，基本涉及到O(n)的时间复杂度。
 ```java
 public class ArrayList<E> extends AbstractList<E>
         implements List<E>, RandomAccess, Cloneable, java.io.Serializable
@@ -50,4 +50,15 @@ public boolean contains(Object o) {
 ```
 
 ## 更新
+更新，进行替换操作，并返回旧值。
+```
+public E set(int index, E element) {
+        rangeCheck(index);
 
+        E oldValue = elementData(index);
+        elementData[index] = element;
+        return oldValue;
+    }
+```
+## subList
+subList方法，返回一个SubList对象，属于ArrayList的内部类，记录边界值，引用的对象数组还是父类的对象数组。
