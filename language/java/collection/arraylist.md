@@ -89,7 +89,7 @@ public boolean contains(Object o) {
 
 ## 更新
 更新，进行替换操作，并返回旧值。
-```
+```java
 public E set(int index, E element) {
         rangeCheck(index);
 
@@ -101,7 +101,17 @@ public E set(int index, E element) {
 ## subList
 subList方法，返回一个SubList对象，属于ArrayList的内部类，记录边界值，引用的对象数组还是父类的对象数组。
 
+## toArray
+第一个，Object[] toArray()方法。该方法有可能会抛出java.lang.ClassCastException异常，如果直接用向下转型的方法，将整个ArrayList集合转变为指定类型的Array数组，便会抛出该异常，而如果转化为Array数组时不向下转型，而是将每个元素向下转型，则不会抛出该异常，显然对数组中的元素一个个进行向下转型，效率不高，且不太方便。
 
+第二个，<T> T[] toArray(T[] a)方法。该方法可以直接将ArrayList转换得到的Array进行整体向下转型（转型其实是在该方法的源码中实现的），且从该方法的源码中可以看出，参数a的大小不足时，内部会调用Arrays.copyOf方法，该方法内部创建一个新的数组返回，因此对该方法的常用形式如下：
+
+```java
+public static Integer[] vectorToArray2(ArrayList<Integer> v) {  
+    Integer[] newText = (Integer[])v.toArray(new Integer[0]);  
+    return newText;  
+}
+```
 
 
 
