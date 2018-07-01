@@ -52,7 +52,7 @@ static class Node<K,V> implements Map.Entry<K,V> {
         Node<K,V> next;
         ...
 }
-// 树节点（红黑树）
+// 树节点（红黑树），还是基于上面的Node类
 static final class TreeNode<K,V> extends LinkedHashMap.Entry<K,V> {
         TreeNode<K,V> parent;  // red-black tree links
         TreeNode<K,V> left;
@@ -155,11 +155,18 @@ final V putVal(int hash, K key, V value, boolean onlyIfAbsent,
         afterNodeInsertion(evict);
         return null;
 }
+```
 
+## 链表红黑树转换
+TODO： 如何转化的细节
+
+```java
 final void treeifyBin(Node<K,V>[] tab, int hash) {
         int n, index; Node<K,V> e;
+        // 判断是否数组太小，太小首先扩容
         if (tab == null || (n = tab.length) < MIN_TREEIFY_CAPACITY)
             resize();
+        // 将tab中的Node转化为TreeNode
         else if ((e = tab[index = (n - 1) & hash]) != null) {
             TreeNode<K,V> hd = null, tl = null;
             do {
@@ -182,10 +189,132 @@ final void treeifyBin(Node<K,V>[] tab, int hash) {
 
 ## 容量及扩容
 
+```java
+
+// 以保证返回一个比给定整数大且最接近的2的幂次方的整数。(利用位操作和或操作）,举个例子容易理解。
+static final int tableSizeFor(int cap) {
+        int n = cap - 1;
+        n |= n >>> 1;
+        n |= n >>> 2;
+        n |= n >>> 4;
+        n |= n >>> 8;
+        n |= n >>> 16;
+        return (n < 0) ? 1 : (n >= MAXIMUM_CAPACITY) ? MAXIMUM_CAPACITY : n + 1;
+}
+
+/*
+* 向map中添加新的key/value时，将会检查是否需要扩容。map存了两个数据：map的size和threshold。
+* size表示在map中存的entry的数目。这个值在每次插入和删除时都会更新。
+* threshold等于(数组容量 * loadFactor)。在每次扩容后刷新。
+*/
+final Node<K,V>[] resize() {
+
+        Node<K,V>[] oldTab = table;
+
+        int oldCap = (oldTab == null) ? 0 : oldTab.length;
+        // 通过加载因子计算的存储容量上限
+        int oldThr = threshold;
+        int newCap, newThr = 0;
+
+        // 扩容
+        // 原数组长度大于最大容量(1073741824) 则将threshold设为Integer.MAX_VALUE=2147483647
+        if (oldCap > 0) {
+            // 达到最大值
+            if (oldCap >= MAXIMUM_CAPACITY) {
+                threshold = Integer.MAX_VALUE;
+                return oldTab;
+            }
+            // 如果未达到最大值，则扩展两倍。
+            else if ((newCap = oldCap << 1) < MAXIMUM_CAPACITY &&
+                     oldCap >= DEFAULT_INITIAL_CAPACITY)
+                // 如果原来的thredshold大于0则将容量设为原来的thredshold
+                // 在第一次带参数初始化时候会有这种情况（see带参的初始化函数）
+                newThr = oldThr << 1; // double threshold
+        }
+        else if (oldThr > 0) // initial capacity was placed in threshold，构造器传入threshold
+            newCap = oldThr;
+        else {               // zero initial threshold signifies using defaults 构造器为空
+            newCap = DEFAULT_INITIAL_CAPACITY;
+            newThr = (int)(DEFAULT_LOAD_FACTOR * DEFAULT_INITIAL_CAPACITY);
+        }
 
 
+        if (newThr == 0) {
+            //如果新的容量等于0
+            float ft = (float)newCap * loadFactor;
+            newThr = (newCap < MAXIMUM_CAPACITY && ft < (float)MAXIMUM_CAPACITY ?
+                      (int)ft : Integer.MAX_VALUE);
+        }
+
+        threshold = newThr;
+        @SuppressWarnings({"rawtypes","unchecked"})
+            Node<K,V>[] newTab = (Node<K,V>[])new Node[newCap];
+        
+        table = newTab;
+        // 将旧的值插入到扩容的新数组中。
+        if (oldTab != null) {
+            for (int j = 0; j < oldCap; ++j) {
+                Node<K,V> e;
+
+                if ((e = oldTab[j]) != null) {
+                    // 垃圾回收
+                    oldTab[j] = null;
+                    if (e.next == null)
+                        // 重新计算位置
+                        newTab[e.hash & (newCap - 1)] = e;
+                    else if (e instanceof TreeNode)
+                        // 当后接的红黑树时
+                        ((TreeNode<K,V>)e).split(this, newTab, j, oldCap);
+                    else { // preserve order
+                        // 进行链表复制
+                        // 没有重新计算元素在数组中的位置
+                        // 而是采用了原始位置加原数组长度的方法计算得到位置
+		        //命名lo和hi，就是将新table分为了两部分，原先大小的部分（lo）和新扩容大小的部分（hi）。
+                        // 原先大小
+                        Node<K,V> loHead = null, loTail = null;
+                        // 扩容后大小
+                        Node<K,V> hiHead = null, hiTail = null;
+                        Node<K,V> next;
+                        do {
+                            // 链表下一个节点
+                            next = e.next;
+                            // 说明e的哈希位置没有超出老的链表范围
+                            // 计算元素的在数组中的位置是否需要移动，确定当前节点时放在lo还是hi中。可进行数学推导。详见参考5
+                            if ((e.hash & oldCap) == 0) {
+                                if (loTail == null)
+                                    loHead = e;
+                                else
+                                    loTail.next = e;
+                                loTail = e;
+                            }
+                            else {
+                                // 说明，e的哈希位置超出老的范围，
+                                // 当扩容时，位置会发生变化，也就会生成新的链表。
+                                if (hiTail == null)
+                                    hiHead = e;
+                                else
+                                    hiTail.next = e;
+                                hiTail = e;
+                            }
+                        } while ((e = next) != null);
+                        if (loTail != null) {
+                            loTail.next = null;
+                            newTab[j] = loHead;
+                        }
+                        if (hiTail != null) {
+                            hiTail.next = null;
+                            newTab[j + oldCap] = hiHead;
+                        }
+                    }
+                }
+            }
+        }
+        return newTab;
+}
+```
 
 
+## 线程安全
 
 
 
