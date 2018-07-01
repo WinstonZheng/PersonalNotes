@@ -89,6 +89,13 @@ static final int hash(Object key) {
 ```
 
 ## 插入
+HashMap元素插入操作，进行如下几个流程：
+1. 如果当前表为空（或者长度为0），则进行resize()初始化扩容；
+2. 通过hash函数以及与操作(%)，找到hash位置，如果表的元素为null，直接插入；如果not null，进行3；
+3. 判断节点类型是否为TreeNode，是，则调用putTreeVal，在红黑树中插入值；如果不是，则进行4；
+4. 节点为链表节点，插入节点，如果链表中存在节点，则替换旧值，并返回旧值（onlyIfAbsent ），如果不存在，进行5；
+5. 在链表末尾插入新节点，并判断链表长度是否超过规定值(TREEIFY_THRESHOLD )，如果超过，则转换成红黑树。
+
 
 ```java
 public V put(K key, V value) {
@@ -125,7 +132,6 @@ final V putVal(int hash, K key, V value, boolean onlyIfAbsent,
                     if ((e = p.next) == null) {
                         p.next = newNode(hash, key, value, null);
                         // 一个位置的链表长度超过8个，则将链表组成红黑树。
-                        // 如果链表过短，则先扩展链表。
                         if (binCount >= TREEIFY_THRESHOLD - 1) // -1 for 1st
                             treeifyBin(tab, hash);
                         break;
@@ -188,6 +194,8 @@ final void treeifyBin(Node<K,V>[] tab, int hash) {
 ```
 
 ## 容量及扩容
+
+扩容是一个相当耗时的操作，因为它需要重新计算这些元素在新的数组中的位置并进行复制处理。因此，我们在用HashMap的时，最好能提前预估下HashMap中元素的个数，这样有助于提高HashMap的性能。
 
 ```java
 
@@ -313,11 +321,37 @@ final Node<K,V>[] resize() {
 }
 ```
 
+## 其他操作
+1. 注意containsKey方法和containsValue方法。前者直接可以通过key的哈希值将搜索范围定位到指定索引对应的链表，而后者要对哈希数组的每个链表进行搜索。
+2. HashMap中则通过h&(length-1)的方法来代替取模，同样实现了均匀的散列，但效率要高很多，这也是HashMap对Hashtable的一个改进。
+3. 为什么哈希表的容量一定要是2的整数次幂
+
+    首先，length为2的整数次幂的话，h&(length-1)就相当于对length取模，这样便保证了散列的均匀，同时也提升了效率；其次，length为2的整数次幂的话，为偶数，这样length-1为奇数，奇数的最后一位是1，这样便保证了h & (length-1)的最后一位可能为0，也可能为1（这取决于h的值），即与后的结果可能为偶数，也可能为奇数，这样便可以保证散列的均匀性，而如果length为奇数的话，很明显length-1为偶数，它的最后一位是0，这样h & (length-1)的最后一位肯定为0，即只能为偶数，这样任何hash值都只会被散列到数组的偶数下标位置上，这便浪费了近一半的空间，因此，length取2的整数次幂，是为了使不同hash值发生碰撞的概率较小，这样就能使元素在哈希表中均匀地散列。
+
 
 ## 线程安全
 
+### HashTable
 
+Hashtable同样是基于哈希表实现的，同样每个元素是一个key-value对，其内部也是通过单链表解决冲突问题，容量不足（超过了阀值）时，同样会自动增长。（将核心操作方法加上了sychronized，线程安全）
 
+Hashtable也是JDK1.0引入的类，是线程安全的，能用于多线程环境中。
+
+Hashtable同样实现了Serializable接口，它支持序列化，实现了Cloneable接口，能被克隆。
+
+```java
+public class Hashtable<K,V>  
+    extends Dictionary<K,V>  
+    implements Map<K,V>, Cloneable, java.io.Serializable { 
+    
+}
+```
+1. Hashtable使用链表解决冲突，但是并不会转化为红黑树；
+2. Hashtable计算hash值，直接用key的hashCode()，而HashMap重新计算了key的hash值，Hashtable在求hash值对应的位置索引时，用取模运算，而HashMap在求位置索引时，则用与运算，且这里一般先用hash&0x7FFFFFFF后，再对length取模，&0x7FFFFFFF的目的是为了将负的hash值转化为正值，因为hash值有可能为负数，而&0x7FFFFFFF后，只有符号外改变，而后面的位都不变；
+3. HashTable在不指定容量的情况下的默认容量为11，而HashMap为16，Hashtable不要求底层数组的容量一定要为2的整数次幂，而HashMap则要求一定为2的整数次幂。
+4. Hashtable中key和value都不允许为null，而HashMap中key和value都允许为null（key只能有一个为null，而value则可以有多个为null）。但是如果在Hashtable中有类似put(null,null)的操作，编译同样可以通过，因为key和value都是Object类型，但运行时会抛出NullPointerException异常，这是JDK的规范规定的。
+
+总体来说HashTable和HashMap的实现思路上差别不大，但是，可以看到HashMap进行了很多优化（用与操作、链表转树），所以单线程操作下现在很少用HashTable，多用HashMap。此外，多线程底下的ConcurrentHashMap效率也高于HashTabel。
 
 
 # Reference
