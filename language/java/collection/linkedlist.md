@@ -32,7 +32,7 @@ LinkedList同样是非线程安全的，只在单线程下适合使用。
 LinkedList实现了Serializable接口，因此它支持序列化，能够通过序列化传输，实现了Cloneable接口，能被克隆。
 
 
-# 操作
+# 基本操作
 LinkedList包含两个分别指向首尾的指针，初始化时都为空，LinkedList支持item值为空的节点。
 
 ## 增加

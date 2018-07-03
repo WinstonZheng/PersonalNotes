@@ -17,7 +17,7 @@ HashMap 实现了Serializable接口，因此它支持序列化，实现了Clonea
 
 HashMap的key能为null，value也能为null。
 
-## Basic
+## 基本概念
 哈希表比较关键的两个点：
 1. hash function;
 2. 解决冲突的方法。
