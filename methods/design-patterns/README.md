@@ -59,7 +59,7 @@
 
 ### 接口隔离原则
 java中接口主要分为两类，实例接口（Object interface，实现类）和类接口（Class Interface，interface定义的）。给出接口隔离原则定义：
-    1. Clients should not be forced to depend upon interfaces that they don't use.（客户端不应该依赖它不需要的接口
+    1. Clients should not be forced to depend upon interfaces that they don't use.（客户端不应该依赖它不需要的接口)
     2. The dependency of one class to another one should depend on the smallest possible interface.（类间的依赖关系应该建立在最小的接口上）
     
     与单一职责原则的区别在于，单一职责原则重点在于接口（业务逻辑）的划分上，而接口隔离原则要求，互相依赖的接口的方法尽量少。
@@ -79,6 +79,19 @@ java中接口主要分为两类，实例接口（Object interface，实现类）
     4. 根据环境设计。
 
 ### 迪米特法则
+迪米特法则（最少知识原则）用于指导类与类之间依赖关系，简单来说，一个类对自己耦合和调用的类知道最少（暴露的接口最少）。主要目的用于类间的解耦。
+
+
+实践原则：
+    1. 一个类中只与朋友交流，不与陌生类交流，类与类之间的关系是建立在类之间的，而不是建立在方法之间的。所以，要求一个方法尽量减少引入一个类中不存在的对象。
+    2. 一个类暴露给另一个类的方法（public）数量，表示关系的远近。保持合适的距离，减少不必要的public方法，减小耦合度，提高程序灵活性；
+    3. 一个类放置方法的原则：如果一个方法在本类中，不增加类间的关系，不产生负面的影响，可放置在本类中。
+
+> 过度引用迪米特法则的后果，是形成大量的中转类或跳转类。
+
+### 开闭原则
+
+
 
 
 # Reference
