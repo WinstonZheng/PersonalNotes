@@ -58,11 +58,27 @@
 
 
 ### 接口隔离原则
+java中接口主要分为两类，实例接口（Object interface，实现类）和类接口（Class Interface，interface定义的）。给出接口隔离原则定义：
+    1. Clients should not be forced to depend upon interfaces that they don't use.（客户端不应该依赖它不需要的接口
+    2. The dependency of one class to another one should depend on the smallest possible interface.（类间的依赖关系应该建立在最小的接口上）
+    
+    与单一职责原则的区别在于，单一职责原则重点在于接口（业务逻辑）的划分上，而接口隔离原则要求，互相依赖的接口的方法尽量少。
 
+具体含义如下：
+    1. 接口尽量小（首先考虑单一职责原则）；
+    2. 接口高内聚，减少public方法，减少条件（减少变更风险）；
+    3. 定制服务（为不同系统服务，提供不同接口）；
+    4. 有限度设计（不能无限拆分接口）。
 
+> 注意：设计是有限度的，不能无限考虑未来的变更情况，否则就会陷入设计的泥潭无法自拔。
 
+实现原则：
+    1. 一个接口只服务于一个子模块或业务逻辑；
+    2. 经常review；
+    3. 已经被污染的接口，尽量修改，如果变更风险大，考虑采用适配器；
+    4. 根据环境设计。
 
-
+### 迪米特法则
 
 
 # Reference
