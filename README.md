@@ -17,7 +17,7 @@
 > it's the basic knowledge about the different language.
 
 ## DataStructure
-### [Tree](/methods/datastructure/tree)
+### [Tree](/coding/datastructure/tree)
 - 二叉树系列
 - B树
 - 堆
@@ -41,15 +41,13 @@
 - 体系结构
 - 进程（线程）
 
-## [Java Web](/web)
+## [Web](/web)
 - 规范 servlet
 - 服务化 spring
     - spring boot
     - spring mvc
 - 持久化(ORM)
     - mybatis
-- 项目构建
-    - maven
 
 
 ## [Cloud](/cloud)
