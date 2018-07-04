@@ -321,12 +321,17 @@ final Node<K,V>[] resize() {
 }
 ```
 
+> HashMap为什么树化？
+> 本质上是个安全问题，如果一个对象发生hash冲突，都被放置在同一个桶里面，则会形成一个链表，严重影响存储性能。而在现实世界中，构造hash冲突的数据并不复杂，恶意代码利用大量hash冲突数据访问服务端，构成hash碰撞拒绝服务攻击。
+
+
 ## 其他操作
 1. 注意containsKey方法和containsValue方法。前者直接可以通过key的哈希值将搜索范围定位到指定索引对应的链表，而后者要对哈希数组的每个链表进行搜索。
 2. HashMap中则通过h&(length-1)的方法来代替取模，同样实现了均匀的散列，但效率要高很多，这也是HashMap对Hashtable的一个改进。
 3. 为什么哈希表的容量一定要是2的整数次幂
 
     首先，length为2的整数次幂的话，h&(length-1)就相当于对length取模，这样便保证了散列的均匀，同时也提升了效率；其次，length为2的整数次幂的话，为偶数，这样length-1为奇数，奇数的最后一位是1，这样便保证了h & (length-1)的最后一位可能为0，也可能为1（这取决于h的值），即与后的结果可能为偶数，也可能为奇数，这样便可以保证散列的均匀性，而如果length为奇数的话，很明显length-1为偶数，它的最后一位是0，这样h & (length-1)的最后一位肯定为0，即只能为偶数，这样任何hash值都只会被散列到数组的偶数下标位置上，这便浪费了近一半的空间，因此，length取2的整数次幂，是为了使不同hash值发生碰撞的概率较小，这样就能使元素在哈希表中均匀地散列。
+
 
 
 ## 线程安全
@@ -352,6 +357,9 @@ public class Hashtable<K,V>
 4. Hashtable中key和value都不允许为null，而HashMap中key和value都允许为null（key只能有一个为null，而value则可以有多个为null）。但是如果在Hashtable中有类似put(null,null)的操作，编译同样可以通过，因为key和value都是Object类型，但运行时会抛出NullPointerException异常，这是JDK的规范规定的。
 
 总体来说HashTable和HashMap的实现思路上差别不大，但是，可以看到HashMap进行了很多优化（用与操作、链表转树），所以单线程操作下现在很少用HashTable，多用HashMap。此外，多线程底下的ConcurrentHashMap效率也高于HashTabel。
+
+
+
 
 
 # Reference
