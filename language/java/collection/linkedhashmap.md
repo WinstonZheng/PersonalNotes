@@ -132,7 +132,19 @@ LinkedHashMap是如何实现LRU的（缓存）。
 
 这样便把最近使用了的Entry放入到了双向链表的后面，多次操作后，双向链表前面的Entry便是最近没有使用的，这样当节点个数满的时候，删除的最前面的Entry(head后面的那个Entry)便是最近最少使用的Entry。
 
+同样，LinkedHashMap提供了afterNodeInsertion能够删除旧数据，可以通过扩展该类实现LRU。
 
+```java
+
+void afterNodeInsertion(boolean evict) { // possibly remove eldest
+        LinkedHashMap.Entry<K,V> first;
+        if (evict && (first = head) != null && removeEldestEntry(first)) {
+            K key = first.key;
+            removeNode(hash(key), key, null, false, true);
+        }
+}
+
+```
 
 
 
