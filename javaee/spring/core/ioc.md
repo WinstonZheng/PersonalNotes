@@ -29,10 +29,9 @@ BeanFactory是所有IOC容器的基础，具备基础的获取Bean、Bean类型�
 1. BeanFactory -> HierarchicalBeanFactory -> ConfigurableBeanFactory
 2. BeanFactory -> ListableBeanFactory -> ApplicationContext -> WebApplicationContext/ConfigurableApplicationContext.
 
-### BeanFactory
-BeanFactory接口定义了getBean方法，通过Bean的名字、类型（prototype和singleton），以及指定构造器参数方式，获取Bean。
+- BeanFactory
 
-- BeanFactory设计原理： Resource -> BeanDefinition（管理依赖关系） -> BeanFactory
+BeanFactory接口定义了getBean方法，通过Bean的名字、类型（prototype和singleton），以及指定构造器参数方式，获取Bean。BeanFactory设计原理： Resource -> BeanDefinition（管理依赖关系） -> BeanFactory
 
 ```java
 // 1 创建IOC配置文件，包含BeanDefinition需要的Bean依赖关系定义
@@ -44,6 +43,26 @@ DefaultListableBeanFactory factory = new DefaultListableBeanFactory();
 XmlBeanDefinitionReader reader = new XmlBeanDefinitionReader(factory);
 reader.loadBeanDefinitions(res);
 ```
+
+> BeanFactory and ApplicationContext的区别？
+BeanFactory是单纯的IOC容器，负责管理Bean的依赖（依赖关系、依赖注入），而ApplicationContext是在BeanFactory的基础上扩展了许多额外的功能，例如：Bean依赖关系的资源定位、加载(DefaultResourceLoader)等。
+
+- ApplicationContext
+
+ApplicationContext在BeanFactory基础上添加许多附加功能：
+1. 支持不同的信息源（MessageSource接口，支持国际化）；
+2. 访问资源（ResourceLoader and Resource支持）；
+3. 支持应用事件，继承接口ApplicationEventPublisher；
+...
+
+这些附加事件，使得Application更加面向框架，一般在开发应用时使用ApplicationContext作为Ioc容器基本形式。
+
+### 初始化
+IOC容器的初始化主要分为三个阶段：
+1. 定位，指如何找到定义了BeanDefiniton内容的资源，主要通过Resource类定位，例如：文件系统资源采用FileSystemResource;类路径资源采用ClassPathResource等。
+2. 加载，前一步已经能定位到资源，加载指的就是将Bean的依赖关系，通过磁盘、web等多种来源读入到内存中，并创建BeanDefinition类。此种方式可以通过AbstarctBeanDefinitionReade系类实现。
+3. 注册，将BeanDefinition关系注册到BeanFactory IOC容器中，通过调用BeanDefinitionRegistry接口实现（BeanDefinition在IOC容器中主要通过HashMap形式管理）
+
 
 
 
