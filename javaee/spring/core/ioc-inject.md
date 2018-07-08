@@ -1,0 +1,4 @@
+# FileSystemXmlApplicationContext
+前面已经提到过IOC容器中BeanFactory和ApplicationContext的区别，两者一个是纯IOC容器，另一个是ApplicationContext是附加许多其他功能。在此，基于FileSystemXmlApplicationContext来分析IOC容器的主要功能，包括IOC容器的初始化、依赖注入两个部分。
+
+## 依赖注入

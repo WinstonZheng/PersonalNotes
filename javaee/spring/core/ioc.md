@@ -63,10 +63,8 @@ IOC容器的初始化主要分为三个阶段：
 2. 加载，前一步已经能定位到资源，加载指的就是将Bean的依赖关系，通过磁盘、web等多种来源读入到内存中，并创建BeanDefinition类。此种方式可以通过AbstarctBeanDefinitionReade系类实现。
 3. 注册，将BeanDefinition关系注册到BeanFactory IOC容器中，通过调用BeanDefinitionRegistry接口实现（BeanDefinition在IOC容器中主要通过HashMap形式管理）
 
-
-
-
-
+- 总结一下<br>
+首先，在ApplicationContext接口的具体实现类中调用refresh()方法启动初始化。refresh()启动过程，会初始化创建一个BeanFactory。然后将创建的BeanFactory和IOC容器本身作为资源加载器（ResourceLoader）传入到BeanDefinitionReader实现类中。BeanDefinitionReader通过资源加载器定位到资源创建Resource，然后将Resource资源解析读入，形成Document（以XML为例），然后利用DocumentBeanDefinitionReader类按照Spring的xml配置规则，创建BeanDefinitionHolder，最后，获取BeanFactory，并将BeanDefinition放置到其中（以Map的形式）。
 
 
 
