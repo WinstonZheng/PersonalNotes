@@ -67,7 +67,7 @@ IOC容器的初始化主要分为三个阶段：
 首先，在ApplicationContext接口的具体实现类中调用refresh()方法启动初始化。refresh()启动过程，会初始化创建一个BeanFactory。然后将创建的BeanFactory和IOC容器本身作为资源加载器（ResourceLoader）传入到BeanDefinitionReader实现类中。BeanDefinitionReader通过资源加载器定位到资源创建Resource，然后将Resource资源解析读入，形成Document（以XML为例），然后利用DocumentBeanDefinitionReader类按照Spring的xml配置规则，创建BeanDefinitionHolder，最后，获取BeanFactory，并将BeanDefinition放置到其中（以Map的形式）。
  
 - 代理模式 <br>
-ApplicationContext对BeanFactory的包装，类似于代理模式的应用，在refreshBeanFactory()中创建BeanFactory，并持有其引用，同时，ApplicationContext实现了BeanFactory的接口，并提供了BeanFactory的方法。
+ApplicationContext对BeanFactory的包装，类似于代理模式的应用，在refreshBeanFactory()中创建BeanFactory，并持有其引用，同时，ApplicationContext实现了BeanFactory的接口，并提供了BeanFactory的方法，同时在BeanFactory接口实现方法上做一些附加操作。
 
 
 
