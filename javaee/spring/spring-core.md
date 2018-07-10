@@ -17,6 +17,7 @@
 ### 隐式bean发现机制和自动装配
 1.组件扫描(conponent scanning);
 
+
 - 组件类 <br>
 表明**组件类**，Spring会自动生成bean。
 
