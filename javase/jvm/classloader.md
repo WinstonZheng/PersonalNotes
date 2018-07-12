@@ -76,7 +76,7 @@ public static int value = 123;
 
 - static修饰的字段在加载过程中准备阶段被初始化，但是这个阶段只会赋值一个默认的值（0或者null而并非定义变量设置的值）初始化阶段在类构造器中才会赋值为变量定义的值。
 - final修饰的字段在运行时被初始化，可以直接赋值，也可以在实例构造器中赋值，赋值后不可修改。
-- static final修饰的字段在javac编译时生成ConstantValue属性，在类加载的准备阶段直接把constantValue的值赋给该字段。 可以理解为在编译期即把结果放入了常量池中。
+- static final修饰的字段在javac编译时生成ConstantValue属性，在类加载的准备阶段直接把ConstantValue的值赋给该字段。 可以理解为在编译期即把结果放入了常量池中。
 
 > 只有同时被final和static修饰的字段才有ConstantValue属性，且限于基本类型和String。为什么？因为从常量池中只能引用到基本类型和String类型的字面量。
 
