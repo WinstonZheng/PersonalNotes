@@ -21,9 +21,9 @@
 
 > 方法区的实现(HotSpot)
  JDK1.7，字符串常量池从Perm区移到Java的Heap区域。
-- 符号引用被移到了native堆；
-- string对象被移到了java堆；
-- class对象、静态变量被移到了java堆；
+> - 符号引用被移到了native堆；
+> - string对象被移到了java堆；
+> - class对象、静态变量被移到了java堆；
  
 > JDK1.8，内存模型变化，移除了Perm区，使用本地内存来存储类元数据信息并称之为：元空间（Metaspace）。
 -XX:MetaspaceSize=<NNN>/ -XX:MaxMetaspaceSize=<NNN>/ -XX:MinMetaspaceFreeRatio=<NNN>/ -XX:MaxMetaspaceFreeRatio=<NNN>
