@@ -102,5 +102,10 @@ Java的对象头部根据不同的存储锁标志位Mark Word，来存储不同�
 ![](/images/java/concureent/bisa-lock.jpg)
 
 
+
+> 当对象处于锁定的状态时，其的hashcode、age等信息存储在线程私有的结构Monitor Record中，每一个线程都有一个可用monitor record列表，同时还有一个全局的可用列表；每一个被锁住的对象都会和一个monitor record关联（对象头中的LockWord指向monitor record的起始地址，由于这个地址是8byte对齐的所以LockWord的最低三位可以用来作为状态位），同时monitor record中有一个Owner字段存放拥有该锁的线程的唯一标识，表示该锁被这个线程占用。
+
+
+
 # Reference
 - [图来源](https://blog.csdn.net/fouy_yun/article/details/77816949)
