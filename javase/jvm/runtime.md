@@ -38,7 +38,7 @@
 ```java
 // jdk1.6 OutOfMemoryError: PermGen space
 // jdk1.7 OutOfMemoryError: Java heap space
-// jdk1.8 OutOfMemoryError: Java heap space
+// jdk1.8 OutOfMemoryError: Java heap space /Unrecognized VM option 'MaxPermGen=8m'
 public class StringOomMock { 
   static String base = “string”; 
   public static void main(String[] args) { 
