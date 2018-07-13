@@ -3,7 +3,7 @@
 CAS操作从表面上来看叫做比较并替换，是CPU新增的一条原子指令，能保证这两步操作的原子性。CAS指令的使用，则是通过记录一个原始值，并进行一系列操作，然后调用CAS指令，成功则操作成功；失败，则采用一些补偿操作，例如：重试。
 ## ABA问题
 当一个线程a采用CAS操作，在获取旧值A之后修改的期间，有线程b将这个值先修改成了B，又有一个线程c将其修改成了A，那么此时线程a采用CAS操作，将认为值并没有被修改过。
-> 如何解决此问题？ 基于维护版本的思想，AtomicStampedReference原子类是一个带有时间戳的对象引用，在每次修改后，AtomicStampedReference不仅会设置新值而且还会记录更改的时间。
+> 如何解决此问题？ 基于维护版本的思想，AtomicStampedReference原子类是一个带有时间戳的对象引用，在每次修改后，AtomicStampedReference不仅会设置新值而且还会记录更改的时间。每次CAS操作就是更新对象引用（时间戳 + 新值）。
 
 # Unsafe
 Atomic类型的数据底层使用Unsafe类提供CAS操作，Unsafe类在sun.misc包下，不属于Java标准。Unsafe采用了单例模式，只有Bootstrap类加载器加载的类才能使用。(只有加载器为Null的类)

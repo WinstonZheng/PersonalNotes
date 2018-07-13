@@ -7,26 +7,50 @@
  3.  本地方法栈（native），由本地代码实现，类似于栈；
  4. 直接内存，NIO调用Native函数库直接分配堆外内存，通过DirectByteBuffer对象作为这块内存的引用进行操作。（提高性能避免Java堆和Native堆来回复制数据）。
  5. Java堆，线程共享，垃圾收集器管理的主要区域；
- 6. 方法区，各线程共享区域，存储如下内容：
-  - 常量池；
-  - 静态变量；
-  - 域；
-  - 方法数据；
-  - 方法体；
-  - 构造函数；
-  - 类中的专用方法；
-  - 实例初始化；
-  - 接口初始化；
-  - **运行时常量池（方法区中）**；
+ 6. 方法区，各线程共享区域，存储如下内容：<br>
+ 
+  1.类加载器引用(classLoader)
+  
+  2.运行时常量池<br>
+  所有常量、字段引用、方法引用、属性
+  
+  3.字段数据<br>
+  每个方法的名字、类型(如类的全路径名、类型或接口) 、修饰符（如public、abstract、final）、属性
+  
+  4.方法数据<br>
+  每个方法的名字、返回类型、参数类型(按顺序)、修饰符、属性
+  
+  5.方法代码<br>
+  每个方法的字节码、操作数栈大小、局部变量大小、局部变量表、异常表和每个异常处理的开始位置、结 束位置、代码处理在程序计数器中的偏移地址、被捕获的异常类的常量池索引
 
 > 方法区的实现(HotSpot)
- JDK1.7，字符串常量池从Perm区移到Java的Heap区域。
+ JDK1.7，存储在永久代中部分转移到Heap或Native Heap中。
+> - 字符串常量池从Perm区移到Java的Heap区域。
 > - 符号引用被移到了native堆；
-> - string对象被移到了java堆；
-> - class对象、静态变量被移到了java堆；
+> - 字面量(interned strings)被移到了java堆；
+> - class对象、class静态变量被移到了java堆；
  
 > JDK1.8，内存模型变化，移除了Perm区，使用本地内存来存储类元数据信息并称之为：元空间（Metaspace）。
 -XX:MetaspaceSize=<NNN>/ -XX:MaxMetaspaceSize=<NNN>/ -XX:MinMetaspaceFreeRatio=<NNN>/ -XX:MaxMetaspaceFreeRatio=<NNN>
+
+如何判断使用jdk1.6/jdk 1.7/jdk1.8
+
+```java
+// jdk1.6 OutOfMemoryError: PermGen space
+// jdk1.7 OutOfMemoryError: Java heap space
+// jdk1.8 OutOfMemoryError: Java heap space
+public class StringOomMock { 
+  static String base = “string”; 
+  public static void main(String[] args) { 
+    List list = new ArrayList(); 
+    for (int i=0;i< Integer.MAX_VALUE;i++){ 
+      String str = base + base; 
+      base = str; 
+      list.add(str.intern()); 
+    } 
+  } 
+} 
+```
 
 ## 对象的创建
 - new对象； 
