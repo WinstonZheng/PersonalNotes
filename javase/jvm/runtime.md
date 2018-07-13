@@ -83,6 +83,8 @@ public class StringOomMock {
 - 设置对象头( Object Header）；
 - 执行<init>方法；
 
+> 注意：对象的分配可能在栈中，也可能在TLAB中。
+
 ### 对象内存布局（HotSpot）
 对象内存结构分为三个部分：1. 对象头( Object Header )、2. 实例数据( Instance Data )、3. 对齐填充( Padding )。
 
