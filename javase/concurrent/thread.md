@@ -20,7 +20,15 @@ Thread本身是实现了Runnable接口的类。我们知道“一个类只能有
 ### 线程优先级
 java 中的线程优先级的范围是1～10，默认的优先级是5。“高优先级线程”会优先于“低优先级线程”执行。也就是说，cpu尽量将执行资源让给优先级比较高的线程。优先级具有继承性，A线程启动B线程，则B线程的优先级与A一样。
 
+### 守护线程
+守护进程(daemon thread)，t.setDaemon(true)，唯一用途为其他线程提供服务（建议不要访问固有资源，如：文件、数据库等），当只剩下守护进程，程序终止。
 
+JVM停止条件：
+- 调用了exit()方法，并且exit()有权限被正常执行；
+- JVM中只存在“守护线程”，方法返回。
+
+### 异常处理
+未捕获异常处理器，实现Thread.UncaughtExceptionHandler接口，可以在执行前为当前线程注册处理器，如果未注册，线程处理器默认为线程组。
 
 ## 通信
 
@@ -58,11 +66,11 @@ Java中采用抢占式调度，可以通过Thread.yield()出让执行时间，�
 ### 线程状态转换
 线程主要分为五中状态：
 - 新建，New，Thread创建，但并未执行；
-- 运行，Runnable，Thread.start()之后，可能执行，可能就绪；
-- 无限期等待，Waiting，Object.wait()/Thread.join()/LockSupport.park()方法，没有设置超时时间；
+- 运行，Runnable，Thread.start()之后，可能执行，可能就绪（时间片，抢占式调度）；
+- 无限期等待，Waiting，Object.wait()/Thread.join()/LockSupport.park()方法或者是等待java.util.concurrent库中的Lock或Condition，没有设置超时时间；
 - 限期等待，TimeWaiting，Thread.sleep()/Object.wait(timeout)/Thread.join(timeout)/LockSupport.parkNanos()/LockSupport.parkUntil()方法，超时等待；
-- 阻塞，Blocked，阻塞状态等待一个排他锁；
-- 结束，Terminated，线程结束。
+- 阻塞，Blocked，阻塞状态等待一个排他锁，正在等待一个monitor lock来进入synchronized块/方法，或者是在调用wait方法后重入synchronized块/方法。等待监视锁，这个时候线程被操作系统挂起。当进入synchronized块/方法或者在调用wait()被唤醒/超时之后重新进入synchronized块/方法，锁被其它线程占有，这个时候被操作系统挂起，状态为阻塞状态。阻塞状态的线程，即使调用interrupt()方法也不会改变其状态，会抛出InterruptException。
+- 结束，Terminated，run方法结束/发生未捕获异常。
 
 
 
