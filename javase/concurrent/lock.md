@@ -109,3 +109,4 @@ Java的对象头部根据不同的存储锁标志位Mark Word，来存储不同�
 
 # Reference
 - [图来源](https://blog.csdn.net/fouy_yun/article/details/77816949)
+- 《深入理解Java虚拟机》
