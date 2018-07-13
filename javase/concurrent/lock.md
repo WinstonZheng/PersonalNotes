@@ -1,3 +1,17 @@
+# sychronized
+## 使用
+- 修饰实例方法，作用于当前实例加锁，进入同步代码前要获得当前实例的锁
+- 修饰类方法）(static)，作用于当前类对象加锁，进入同步代码前要获得当前类对象的锁
+- 修饰代码块，指定加锁对象，对给定对象加锁，进入同步代码块前要获得给定对象的锁。
+
+## 底层实现
+重量级锁也就是通常说synchronized的对象锁，锁标识位为10，其中指针指向的是monitor对象（也称为管程或监视器锁）的起始地址。每个对象都存在着一个 monitor 与之关联，对象与其 monitor 之间的关系有存在多种实现方式，如monitor可以与对象一起创建销毁或当线程试图获取对象锁时自动生成，但当一个 monitor 被某个线程持有后，它便处于锁定状态。在Java虚拟机(HotSpot)中，monitor是由ObjectMonitor实现。
+
+维护两个队列，一个EntrySet（）
+
+
+
+
 # 线程安全与锁优化
 
 ## 严格定义
@@ -109,4 +123,5 @@ Java的对象头部根据不同的存储锁标志位Mark Word，来存储不同�
 
 # Reference
 - [图来源](https://blog.csdn.net/fouy_yun/article/details/77816949)
+- [synchronized](https://blog.csdn.net/javazejian/article/details/72828483#synchronized%E7%9A%84%E4%B8%89%E7%A7%8D%E5%BA%94%E7%94%A8%E6%96%B9%E5%BC%8F)
 - 《深入理解Java虚拟机》
