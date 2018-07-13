@@ -1,7 +1,8 @@
 # 线程
 线程是比进程跟轻量级的调度执行单位，主流操作系统提供线程实现，
 
-## 使用
+## 基础操作
+### 创建
 有两种：
 - Thread类；
 - Runnable接口；
@@ -12,10 +13,70 @@ Thread本身是实现了Runnable接口的类。我们知道“一个类只能有
 - start() : 作用是启动一个新线程，新线程会执行相应的run()方法，start()不能被重复调用；
 - run()  : run()就和普通的成员方法一样，可以被重复调用，单独调用run()的话，会在当前线程中执行run()，而并不会启动新线程。
 
-### yield()/wait()/sleep()
-1. wait()是让线程由“运行状态”进入到“等待状态”，会线程释放所持有对象的同步锁；
-2. yield()是让线程由“运行状态”进入到“就绪状态”，不会释放锁；
-3. sleep() 的作用是让当前线程休眠，即当前线程会从“运行状态”进入到“休眠状态”，不会释放锁。
+```java
+// 线程的创建会调用Thread的init方法
+public Thread() {
+        init(null, null, "Thread-" + nextThreadNum(), 0);
+}
+    
+private void init(ThreadGroup g, Runnable target, String name,
+                      long stackSize, AccessControlContext acc,
+                      boolean inheritThreadLocals) {
+        if (name == null) {
+            throw new NullPointerException("name cannot be null");
+        }
+        // 设置名称 
+        this.name = name;
+        // 设置父线程
+        Thread parent = currentThread();
+        // 设置安全组
+        SecurityManager security = System.getSecurityManager();
+        if (g == null) {
+            /* Determine if it's an applet or not */
+            /* If there is a security manager, ask the security manager
+               what to do. */
+            if (security != null) {
+                g = security.getThreadGroup();
+            }
+            /* If the security doesn't have a strong opinion of the matter
+               use the parent thread group. */
+            if (g == null) {
+                g = parent.getThreadGroup();
+            }
+        }
+        /* checkAccess regardless of whether or not threadgroup is
+           explicitly passed in. */
+        g.checkAccess();
+        /*
+         * Do we have the required permissions?
+         */
+        if (security != null) {
+            if (isCCLOverridden(getClass())) {
+                security.checkPermission(SUBCLASS_IMPLEMENTATION_PERMISSION);
+            }
+        }
+        g.addUnstarted();
+        this.group = g;
+        this.daemon = parent.isDaemon();
+        this.priority = parent.getPriority();
+        if (security == null || isCCLOverridden(parent.getClass()))
+            this.contextClassLoader = parent.getContextClassLoader();
+        else
+            this.contextClassLoader = parent.contextClassLoader;
+        this.inheritedAccessControlContext =
+                acc != null ? acc : AccessController.getContext();
+        this.target = target;
+        setPriority(priority);
+        if (inheritThreadLocals && parent.inheritableThreadLocals != null)
+            this.inheritableThreadLocals =
+                ThreadLocal.createInheritedMap(parent.inheritableThreadLocals);
+        /* Stash the specified stack size in case the VM cares */
+        this.stackSize = stackSize;
+
+        /* Set thread ID */
+        tid = nextThreadID();
+    }
+```
 
 ### 线程优先级
 java 中的线程优先级的范围是1～10，默认的优先级是5。“高优先级线程”会优先于“低优先级线程”执行。也就是说，cpu尽量将执行资源让给优先级比较高的线程。优先级具有继承性，A线程启动B线程，则B线程的优先级与A一样。
@@ -29,6 +90,21 @@ JVM停止条件：
 
 ### 异常处理
 未捕获异常处理器，实现Thread.UncaughtExceptionHandler接口，可以在执行前为当前线程注册处理器，如果未注册，线程处理器默认为线程组。
+
+### 为什么弃用stop和suspend方法
+**stop方法**停止线程，线程所包含的对象锁立即被释放，容易导致对象处于不一致的状态。（例如：在转账过程中，钱转出去时，中断线程，钱并没有转到另一个账户中）而从另一个角度，interrupt()方法将线程停顿的位置交给线程自身控制，防止出现不一致的情况。
+
+**suspend方法**挂起线程，并不会丢弃锁，而当调用suspend方法的线程需要被suspend方法挂起线程持有的锁时，会发生死锁（suspend需要resume才能继续执行）。
+
+### yield()/wait()/sleep()
+1. wait()是让线程由“运行状态”进入到“等待状态”，会线程释放所持有对象的同步锁；
+2. yield()是让线程由“运行状态”进入到“就绪状态”，不会释放锁；
+3. sleep() 的作用是让当前线程休眠，即当前线程会从“运行状态”进入到“休眠状态”，不会释放锁。
+
+### getId()/currentThread()
+- getId()，获得唯一的标识；
+- currentThread()，返回当前线程的对象；
+
 
 ## 通信
 
