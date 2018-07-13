@@ -151,7 +151,8 @@ Hotspot VM要求对象起始地址是8字节的整数倍。
                                             
                                                 
   
-  
+  # Reference
+  - [Java常见面试题——栈分配与TLAB](https://www.2cto.com/kf/201709/675347.html)
   
   
   
