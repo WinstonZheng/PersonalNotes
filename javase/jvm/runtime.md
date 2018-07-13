@@ -23,15 +23,28 @@
   5.方法代码<br>
   每个方法的字节码、操作数栈大小、局部变量大小、局部变量表、异常表和每个异常处理的开始位置、结 束位置、代码处理在程序计数器中的偏移地址、被捕获的异常类的常量池索引
 
-> 方法区的实现(HotSpot)
+### 方法区的实现(HotSpot)
  JDK1.7，存储在永久代中部分转移到Heap或Native Heap中。
-> - 字符串常量池从Perm区移到Java的Heap区域。
-> - 符号引用被移到了native堆；
-> - 字面量(interned strings)被移到了java堆；
-> - class对象、class静态变量被移到了java堆；
+- 字符串常量池从Perm区移到Java的Heap区域。
+- 符号引用被移到了native堆；
+- 字面量(interned strings)被移到了java堆；
+- class对象、class静态变量被移到了java堆；
  
-> JDK1.8，内存模型变化，移除了Perm区，使用本地内存来存储类元数据信息并称之为：元空间（Metaspace）。
--XX:MetaspaceSize=<NNN>/ -XX:MaxMetaspaceSize=<NNN>/ -XX:MinMetaspaceFreeRatio=<NNN>/ -XX:MaxMetaspaceFreeRatio=<NNN>
+JDK1.8，内存模型变化，移除了Perm区，使用本地内存来存储类元数据信息并称之为：元空间（Metaspace）（注意：字符串常量池还是在Heap区域）。
+
+```
+// 初始空间大小，达到该值就会触发垃圾收集进行类型卸载，同时GC会对该值进行调整：如果释放了大量的空间，就适当降低该值；如果释放了很少的空间，那么在不超过MaxMetaspaceSize时，适当提高该值。 
+-XX:MetaspaceSize
+// 最大空间，默认是没有限制的
+-XX:MaxMetaspaceSize
+// 在GC之后，最小的Metaspace剩余空间容量的百分比，减少为分配空间所导致的垃圾收集 
+-XX:MinMetaspaceFreeRatio
+// 在GC之后，最大的Metaspace剩余空间容量的百分比，减少为释放空间所导致的垃圾收集
+　-XX:MaxMetaspaceFreeRatio
+```
+
+
+
 
 如何判断使用jdk1.6/jdk 1.7/jdk1.8
 
