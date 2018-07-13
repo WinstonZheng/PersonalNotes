@@ -37,13 +37,21 @@ Java内存模型规定了所有变量都存储在主内存（Main Memory），�
 基础描述暂不提供（见《深入理解java虚拟机》），主要提供等效判断原则----先行发生原则（用于确定一个访问在并发环境下时安全的）。
 
 判断数据是否存在竞争、线程是否安全的主要依据。
+
 - 程序次序规则(Program Order Rule）：在一个线程内，按照程序代码顺序，写在前面的操作先行发生于写在后面的操作（控制流顺序，考虑分支、循环）。
-- 管程锁定原则（Monitor Lock Rule）：一个unlock操作先行发生于后面对同一个锁的lock操作；（包括时间先后）
-- volatile变量规则（Volatile Variable Rule）：对于一个volatile变量写操作先行发生于后面对这个变量的读操作；（包括时间先后）
-- 线程启动规则（Thread Start Rule）：Thread的start()操作先行发生于此线程中每个操作；
-- 线程终止规则（Thread Termination Rule）：线程中所有操作都先行发生于对此线程的终止检测（通过Thread.join()、Thread.isAlive()检测线程终止）；
+
+- 管程锁定原则（Monitor Lock Rule）：一个unlock操作先行发生于后面对同一个锁的lock操作，（包括时间先后）也就是说，如果对于一个锁解锁后，再加锁，那么加锁的动作必须在解锁动作之后(同一个锁)。
+
+- volatile变量规则（Volatile Variable Rule）：对于一个volatile变量写操作先行发生于后面对这个变量的读操作，（包括时间先后）这保证了volatile变量的可见性，**简单的理解**就是，volatile变量在每次被线程访问时，都强迫从主内存中读该变量的值，而当该变量发生变化时，又会强迫将最新的值刷新到主内存，任何时刻，不同的线程总是能够看到该变量的最新值。
+
+- 线程启动规则（Thread Start Rule）：Thread的start()操作先行发生于此线程中每个操作；即如果线程A在执行线程B的start方法之前修改了共享变量的值，那么当线程B执行start方法时，线程A对共享变量的修改对线程B可见。
+
+- 线程终止规则（Thread Termination Rule）：线程中所有操作都先行发生于对此线程的终止检测（通过Thread.join()、Thread.isAlive()检测线程终止）；假设在线程B终止之前，修改了共享变量，线程A从线程B的join方法成功返回后，线程B对共享变量的修改将对线程A可见。
+
 - 线程中断规则（Thread Interruption Rulle）:对线程的interrupt()方法调用先行发生于被中断线程的代码检测到中断事件的发生；
+
 - 对象终结规则（Thread Interruption Rule）：一个对象初始化完成（构造函数执行结束），先行发生于它的finalize()方法开始；
+
 - 传递性（Transitivity）：如果操作A先行发生于操作B，操作B先行发生于操作C，那么操作A先行发生于操作C。
 
 > 注意：时间顺序和先行顺序无太大关系，典型案例，在一个线程中的两个变量赋值，顺序可能多变。
