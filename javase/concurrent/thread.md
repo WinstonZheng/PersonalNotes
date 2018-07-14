@@ -231,7 +231,10 @@ public final synchronized void join(long millis)
 
 
 ### ThreadLocal
-每个线程绑定自己的值，解决线程隔离性问题。
+每个线程绑定自己的值，解决线程隔离性问题。ThreadLocal的作用是提供线程内的局部变量，这种变量在线程的生命周期内起作用。作用：提供一个线程内公共变量（比如本次请求的用户信息），减少同一个线程内多个函数或者组件之间一些公共变量的传递的复杂度，或者为线程提供一个私有的变量副本，这样每一个线程都可以随意修改自己的变量副本，而不会对其他线程产生影响。
+
+同一个Thread，可以创建不同的ThreadLocal，每一次创建都会生成不同的key值(nextHashCode)，放在同一个Map里面。
+
 ```java
 // 第一次获取值，首先获取ThreadLocalMap，如果Map不存在，则创建(createMap)与当前线程关联，每一个新建的ThreadLocalMap都有唯一的hash；
 public void set(T value) {
@@ -257,6 +260,8 @@ ThreadLocalMap(ThreadLocal<?> firstKey, Object firstValue) {
 }
 ....
 ```
+
+> ThreadLocal和ThreadLocalMap中存的Entry的key保持一个WeakReference；当不使用ThreadLocal时，回收，导致ThreadLocalMap中Entry的key为null，但是由于线
 
 ## JVM实现
 - 内核线程实现；<br>
