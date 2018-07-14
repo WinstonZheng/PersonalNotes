@@ -67,17 +67,6 @@ Hotspot实现ObjectMonitor，维护两个队列，一个EntrySet，一个WaitSet
 ### sychronized方法
 JVM可以从方法常量池中的方法表结构(method_info Structure) 中的 ACC_SYNCHRONIZED 访问标志区分一个方法是否同步方法。
 
-
-
-
-
-
-
-
-
-
-
-
 ## 锁优化
 高效并发是从JDK1.5到JDK1.6的一个重要改进。
 
