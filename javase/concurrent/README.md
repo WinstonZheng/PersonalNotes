@@ -25,5 +25,28 @@
 要保持类状态的一致性，需要在原子操作中更新所有相关的状态变量。（类状态的线程安全，建立在与属性关联的不变性条件不被破坏基础上）
 
 
+
+## 良好实践
+- 给线程起个有意义的名字，这样可以方便找 Bug。
+
+- 缩小同步范围，例如对于 synchronized，应该尽量使用同步块而不是同步方法。
+
+- 多用同步类少用 wait() 和 notify()。首先，CountDownLatch, Semaphore, CyclicBarrier 和 Exchanger 这些同步类简化了编码操作，而用 wait() 和 notify() 很难实现对复杂控制流的控制。其次，这些类是由最好的企业编写和维护，在后续的 JDK 中它们还会不断优化和完善，使用这些更高等级的同步工具你的程序可以不费吹灰之力获得优化。
+
+- 多用并发集合少用同步集合。并发集合比同步集合的可扩展性更好，例如应该使用 ConcurrentHashMap 而不是 Hashtable。
+
+- 使用本地变量和不可变类来保证线程安全。
+
+- 使用线程池而不是直接创建 Thread 对象，这是因为创建线程代价很高，线程池可以有效地利用有限的线程来启动任务。
+
+- 使用 BlockingQueue 实现生产者消费者问题。
+
+
+
+
+
+
+
 # Reference
 - 《Java并发编程实战》
+- [Interview-Notebook Java 并发](https://github.com/CyC2018/Interview-Notebook/blob/master/notes/Java%20%E5%B9%B6%E5%8F%91.md)
