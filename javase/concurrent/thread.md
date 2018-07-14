@@ -261,7 +261,9 @@ ThreadLocalMap(ThreadLocal<?> firstKey, Object firstValue) {
 ....
 ```
 
-> ThreadLocal和ThreadLocalMap中存的Entry的key保持一个WeakReference；当不使用ThreadLocal时，回收，导致ThreadLocalMap中Entry的key为null，但是由于线
+> ThreadLocal和ThreadLocalMap中存的Entry的key保持一个WeakReference；当不使用ThreadLocal时，回收，导致ThreadLocalMap中Entry的key为null，但是由于线程还在运行，Entry的强引用还在，但是key值就为空了，导致内存泄露。建议将ThreadLocal设置成static，延长生命期。
+
+> InheritableThreadLocal复制父进程的所有局部变量（采用new的形式复制出所有的值）。
 
 ## JVM实现
 - 内核线程实现；<br>
