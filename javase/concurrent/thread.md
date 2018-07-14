@@ -10,7 +10,7 @@
 Thread本身是实现了Runnable接口的类。我们知道“一个类只能有一个父类，但是却能实现多个接口”，因此Runnable具有更好的扩展性。此外，Runnable还可以用于“资源的共享”。即，多个线程都是基于某一个Runnable对象建立的，它们会共享Runnable对象上的资源。通常，建议通过“Runnable”实现多线程！
 
 > start与run的区别：
-- start() : 作用是启动一个新线程，新线程会执行相应的run()方法，start()不能被重复调用；
+- start() : 作用是启动一个新线程，新线程会执行相应的run()方法，start()不能被重复调用；（判断当前线程状态，不为NEW，则抛出IllegalThreadStateException）
 - run()  : run()就和普通的成员方法一样，可以被重复调用，单独调用run()的话，会在当前线程中执行run()，而并不会启动新线程。
 
 ```java
@@ -58,6 +58,7 @@ private void init(ThreadGroup g, Runnable target, String name,
         g.addUnstarted();
         this.group = g;
         this.daemon = parent.isDaemon();
+        // 继承父线程的优先级
         this.priority = parent.getPriority();
         if (security == null || isCCLOverridden(parent.getClass()))
             this.contextClassLoader = parent.getContextClassLoader();
@@ -91,10 +92,11 @@ JVM停止条件：
 ### 异常处理
 未捕获异常处理器，实现Thread.UncaughtExceptionHandler接口，可以在执行前为当前线程注册处理器，如果未注册，线程处理器默认为线程组。
 
-### 为什么弃用stop和suspend方法
-**stop方法**停止线程，线程所包含的对象锁立即被释放，容易导致对象处于不一致的状态。（例如：在转账过程中，钱转出去时，中断线程，钱并没有转到另一个账户中）而从另一个角度，interrupt()方法将线程停顿的位置交给线程自身控制，防止出现不一致的情况。
-
-**suspend方法**挂起线程，并不会丢弃锁，而当调用suspend方法的线程需要被suspend方法挂起线程持有的锁时，会发生死锁（suspend需要resume才能继续执行）。
+### 线程停止
+- 采用interrupted()会消除线程中断状态；采用isInterrupted()不会消除线程中断；
+- 线程抛出异常，也会清理异常状态；
+- **stop方法**停止线程，线程所包含的对象锁立即被释放，容易导致对象处于不一致的状态。（例如：在转账过程中，钱转出去时，中断线程，钱并没有转到另一个账户中）而从另一个角度，interrupt()方法将线程停顿的位置交给线程自身控制，防止出现不一致的情况。（stop会抛出java.lang.ThreadDeath异常）
+- **suspend方法**挂起线程，并不会丢弃锁，而当调用suspend方法的线程需要被suspend方法挂起线程持有的锁时，会发生死锁（suspend需要resume才能继续执行）。
 
 ### yield()/wait()/sleep()
 1. wait()是让线程由“运行状态”进入到“等待状态”，会线程释放所持有对象的同步锁；
