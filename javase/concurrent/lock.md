@@ -56,7 +56,7 @@ Java语言操作共享数据线程的安全程度划分（5级）：
 ## 底层实现
 重量级锁也就是通常说synchronized的对象锁，锁标识位为10，其中指针指向的是monitor对象（也称为管程或监视器锁）的起始地址。每个对象都存在着一个 monitor 与之关联，对象与其 monitor 之间的关系有存在多种实现方式，如monitor可以与对象一起创建销毁或当线程试图获取对象锁时自动生成，但当一个 monitor 被某个线程持有后，它便处于锁定状态。在Java虚拟机(HotSpot)中，monitor是由ObjectMonitor实现。
 
-维护两个队列，一个EntrySet（）
+Hotspot实现ObjectMonitor，维护两个队列，一个EntrySet，一个WaitSet，一个指向获得对象锁线程的指针Owner，线程刚进入竞争线程锁时，进入EntrySet；获取的线程，修改Owner指向该线程，并将计数器count加1；当线程调用wait时，进入WaitSet，清空Owner，count减1；当线程结束，同上，释放锁，其他线程竞争。
 
 
 
