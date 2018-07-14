@@ -108,14 +108,107 @@ JVM停止条件：
 - currentThread()，返回当前线程的对象；
 
 
-## 通信
+## 线程间通信
+### wait/notify
+wait()和notify()都是Object的方法，通过本地方法实现。在使用中，都需要在同步块中使用，也就是当前线程需要持有该对象锁，否则抛出异常IllegalMonitorStateException。
+- 针对当前锁对象调用wait()方法，线程进入当前对象锁的等待队列，可设置超时时间；
+- 调用notify()可以唤醒一个线程，但是不会释放锁，需要运行完同步快；
+- 同理，notifyAll()可以唤醒所有线程，竞争锁。
 
+> 线程释放锁三种可能：
+1. 执行完同步代码块；
+2. 遇到异常终止；
+3. wait()。
+
+### 生产者/消费者
+基本的使用思路使用同一个对象进行信息交互，使用同一个锁进行同步。
+
+```java
+// 基础接口
+public interface ShareObject {
+    void produce(Object value);
+    Object consumer();
+}
+// 基础实现类，目前采用栈方式通信
+public class ShareBase implements ShareObject{
+
+    private LinkedList<Object> list = new LinkedList();
+    private final Integer Upper = 1;
+
+    public synchronized void produce(Object value) {
+        try {
+            String name = Thread.currentThread().getName();
+            while(Upper == list.size()){
+                System.out.println("Producer:: " + name + " is waitting.");
+                this.wait();
+            }
+            list.push(value);
+            System.out.println("Producer:: " + name + " produce one.");
+            // 注意，这里采用notify会产生死锁问题
+            this.notifyAll();
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+    }
+    
+    public synchronized Object consumer() {
+        Object result = null;
+        try {
+            String name = Thread.currentThread().getName();
+            while(0 == list.size()){
+                System.out.println("Cosumer:: " + name + " is waitting.");
+                this.wait();
+            }
+            System.out.println("Cosumer:: " + name + " consume one.");
+            result = list.pop();
+            this.notifyAll();
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+        return result;
+    }
+}
+// 线程类
+public class Producer implements Runnable {
+
+    private ShareObject share;
+    public Producer(ShareObject share){
+        this.share = share;
+    }
+    public void run() {
+        Object produce = new Object();
+        while (true){
+            share.produce(produce);
+        }
+    }
+}
+
+public class Consumer implements Runnable {
+
+    private ShareObject share;
+
+    public Consumer(ShareObject lock){
+        this.share = lock;
+    }
+    public void run() {
+        while (true){
+            share.consumer();
+        }
+    }
+}
+```
+
+
+
+
+### join
+### ThreadLocal
 
 
 ## JVM实现
 - 内核线程实现；<br>
     在支持多线程内核中，采用用户空间轻量级进程和内核空间线程1：1的映射关系实现；
-    - 优点：实现简单，调度灵活；
+    - 优+点：实现简单，调度灵活；
     - 缺点：线程的创建、销毁及同步，需要系统调用，用户和内核空间切换，消耗性能和内核资源；
     
 - 用户线程实现；<br>
