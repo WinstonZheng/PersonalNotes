@@ -199,11 +199,64 @@ public class Consumer implements Runnable {
 ```
 > 可以通过字符流/字节流方式在线程之间通信：PipedInputStream/PipeOutputStream/PipedReader/PiperWriter，通过其connect的方法连接输入流和输出流。
 
-
-
 ### join
-### ThreadLocal
+join底层采用wait() + isAlive()方法进行等待，而sychronized关键字采用“对象监视器”原理做同步。注意，当join时调用同线程的interrput()方法，会生成InterruptedException。
 
+```java
+public final synchronized void join(long millis)
+    throws InterruptedException {
+        long base = System.currentTimeMillis();
+        long now = 0;
+
+        if (millis < 0) {
+            throw new IllegalArgumentException("timeout value is negative");
+        }
+
+        if (millis == 0) {
+            while (isAlive()) {
+                wait(0);
+            }
+        } else {
+            while (isAlive()) {
+                long delay = millis - now;
+                if (delay <= 0) {
+                    break;
+                }
+                wait(delay);
+                now = System.currentTimeMillis() - base;
+            }
+        }
+    }
+```
+
+
+### ThreadLocal
+每个线程绑定自己的值，解决线程隔离性问题。
+```java
+// 第一次获取值，首先获取ThreadLocalMap，如果Map不存在，则创建(createMap)与当前线程关联，每一个新建的ThreadLocalMap都有唯一的hash；
+public void set(T value) {
+        Thread t = Thread.currentThread();
+        ThreadLocalMap map = getMap(t);
+        if (map != null)
+            map.set(this, value);
+        else
+            createMap(t, value);
+}
+// ThreadLocalMap是以Hash表的方式统一存储值（通过线程每新建一个ThreadLocal，标注不同的hashcode.）
+void createMap(Thread t, T firstValue) {
+        t.threadLocals = new ThreadLocalMap(this, firstValue);
+}
+
+....
+ThreadLocalMap(ThreadLocal<?> firstKey, Object firstValue) {
+            table = new Entry[INITIAL_CAPACITY];
+            int i = firstKey.threadLocalHashCode & (INITIAL_CAPACITY - 1);
+            table[i] = new Entry(firstKey, firstValue);
+            size = 1;
+            setThreshold(INITIAL_CAPACITY);
+}
+....
+```
 
 ## JVM实现
 - 内核线程实现；<br>
