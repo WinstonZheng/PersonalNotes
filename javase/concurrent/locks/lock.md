@@ -7,6 +7,10 @@
 5. boolean tryLock(long time, TimeUnit unit) throws InterruptedException，非阻塞取锁，限定一段时间内取锁；
 6. Condition newCondition()，获取等待通知组件，通过组件使用wait()。
 
+# AQS并发框架
+
+
+
 # ReetrantLock
 
 
