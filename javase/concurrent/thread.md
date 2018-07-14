@@ -94,6 +94,31 @@ JVM停止条件：
 
 首先，对象的setUncaughtExceptionHandler，其次，类的setDefaultUncaughtException，最后线程组的uncaughtException。
 
+```java
+// Thread
+public UncaughtExceptionHandler getUncaughtExceptionHandler() {
+        return uncaughtExceptionHandler != null ?
+            uncaughtExceptionHandler : group;
+}
+// ThreadGroup
+public void uncaughtException(Thread t, Throwable e) {
+        if (parent != null) {
+            parent.uncaughtException(t, e);
+        } else {
+            Thread.UncaughtExceptionHandler ueh =
+                Thread.getDefaultUncaughtExceptionHandler();
+            if (ueh != null) {
+                ueh.uncaughtException(t, e);
+            } else if (!(e instanceof ThreadDeath)) {
+                System.err.print("Exception in thread \""
+                                 + t.getName() + "\" ");
+                e.printStackTrace(System.err);
+            }
+        }
+    }
+```
+
+
 ### 线程停止
 - 采用interrupted()会消除线程中断状态；采用isInterrupted()不会消除线程中断；
 - 线程抛出异常，也会清理异常状态；
