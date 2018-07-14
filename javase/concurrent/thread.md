@@ -197,7 +197,7 @@ public class Consumer implements Runnable {
     }
 }
 ```
-> 
+> 可以通过字符流/字节流方式在线程之间通信：PipedInputStream/PipeOutputStream/PipedReader/PiperWriter，通过其connect的方法连接输入流和输出流。
 
 
 
