@@ -92,6 +92,8 @@ JVM停止条件：
 ### 异常处理
 未捕获异常处理器，实现Thread.UncaughtExceptionHandler接口，可以在执行前为当前线程注册处理器，如果未注册，线程处理器默认为线程组。
 
+首先，对象的setUncaughtExceptionHandler，其次，类的setDefaultUncaughtException，最后线程组的uncaughtException。
+
 ### 线程停止
 - 采用interrupted()会消除线程中断状态；采用isInterrupted()不会消除线程中断；
 - 线程抛出异常，也会清理异常状态；
