@@ -135,13 +135,10 @@ protected final boolean tryAcquire(int acquires) {
 
 ```
 
-# Semaphore
+# Semaphore（共享模式）
 Semaphore的实现思路类似于ReetrantLock，都是基于AQS的同步队列管理操作。不过，实现的思路不同，ReetrantLock时通过CAS的改变01状态方式，进行加锁和解锁操作；而Semaphore会在初始的时候给state赋一个正值，每次加锁通过CAS加循环补偿的方式减少state的操作，而解锁操作类似，也是通过循环补偿，增加state的值。
 
 实现的思路也类似，通过Sync实现共享锁的加锁解锁操作，而NonfairSync和FairSync分别实现了不同的加锁方式。
-
-
-
 
 ## 基本操作
 
