@@ -58,8 +58,8 @@ public class CountdownLatchExample {
 }
 ```
 
-## 障栅（CyclicBarrier）
-实现一个集结点，所有线程执行到集结点，障栅取消，可重复使用。用来控制多个线程互相等待，只有当多个线程都到达时，这些线程才会继续执行。和 CountdownLatch 相似，都是通过维护计数器来实现的。但是它的计数器是递增的，每次执行 await() 方法之后，计数器会加 1，直到计数器的值和设置的值相等，等待的所有线程才会继续执行。和 CountdownLatch 的另一个区别是，CyclicBarrier 的计数器可以循环使用，所以它才叫做循环屏障。
+## 障栅（栅栏）
+CyclicBarrier ，实现一个集结点，所有线程执行到集结点，障栅取消，可重复使用。用来控制多个线程互相等待，只有当多个线程都到达时，这些线程才会继续执行。和 CountdownLatch 相似，都是通过维护计数器来实现的。但是它的计数器是递增的，每次执行 await() 方法之后，计数器会加 1，直到计数器的值和设置的值相等，等待的所有线程才会继续执行。和 CountdownLatch 的另一个区别是，CyclicBarrier 的计数器可以循环使用，所以它才叫做循环屏障。
 
 ```java
 public class CyclicBarrierExample {
@@ -85,11 +85,14 @@ public class CyclicBarrierExample {
 }
 ```
 
+另一种形式的障栅Exchanger，一种两方（Two-Party）栅栏。（可用于缓冲区的互换）
+
+
 ## 信号量
-以共享锁的方式，支持指定数量的线程共享资源。
+以共享锁的方式，支持指定数量的线程共享资源。可用于实现有界阻塞容器，例如：数据库连接池。
 
 ## FutureTask
-
+FutureTask表示的计算是通过Callable实现的，相当于一种可生成结果的Runnable。可以处于三种状态：等待运行（wait to run）、正在运行（Running）和运行完成（Completed）。执行完成表示所有可能的结束方式，包括正常结束、由于取消而结束和异常结束。FutureTask的get方法确保了不同状态下的不同返回。
 
 
 
