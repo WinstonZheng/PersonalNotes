@@ -1,4 +1,4 @@
-# 线程安全集合
+# 基础构建模块
 1. java.util.concurrent包，映射表、有序集和队列：
     - ConcurrentHashMap（Map）；
     - ConcurrentSkipListMap（SortedMap）；
@@ -32,6 +32,63 @@ BlockingQueue拥有多种实现：
 Java6新加了两种容器类型，Deque和BlockingDeque，分别对Queue和BlockingQueue进行了扩展，具体实现ArrayDeque和LinkedBlockingDeque。
 
 双端队列适合工作密取模式，即每个消费者有一个工作队列，当一个消费者完成了自身的工作，可以从其他消费者的队列中获取任务执行。此种模式，比传统的消费者、生产者模式更具可伸缩性，工作者线程不会在单个共享队列上发生竞争。此种模式可以应用在消费者端和生产者端。
+
+## 闭锁
+闭锁是一种同步工具类，可以延迟线程的进度直到达到终止的状态。闭锁相当于一扇门：在闭锁达到结束状态之前，这扇门一直是关的，并且没有任何线程能够通过，当到达结束状态时，这扇门会打开允许所有线程通过。当闭锁达到结束状态，这扇门会永远保持打开的状态。
+
+- **倒计时门栓（CountDownLatch）**，让一个线程集等待直到计数变为0，一次性（计数值为1的门栓，实现只能通过一次的门）。
+
+```java
+// 维护了一个计数器 cnt，每次调用 countDown() 方法会让计数器的值减 1，减到 0 的时候，那些因为调用 await() 方法而在等待的线程就会被唤醒。
+public class CountdownLatchExample {
+    public static void main(String[] args) throws InterruptedException {
+        final int totalThread = 10;
+        CountDownLatch countDownLatch = new CountDownLatch(totalThread);
+        ExecutorService executorService = Executors.newCachedThreadPool();
+        for (int i = 0; i < totalThread; i++) {
+            executorService.execute(() -> {
+                System.out.print("run..");
+                countDownLatch.countDown();
+            });
+        }
+        countDownLatch.await();
+        System.out.println("end");
+        executorService.shutdown();
+    }
+}
+```
+
+## 障栅（CyclicBarrier）
+实现一个集结点，所有线程执行到集结点，障栅取消，可重复使用。用来控制多个线程互相等待，只有当多个线程都到达时，这些线程才会继续执行。和 CountdownLatch 相似，都是通过维护计数器来实现的。但是它的计数器是递增的，每次执行 await() 方法之后，计数器会加 1，直到计数器的值和设置的值相等，等待的所有线程才会继续执行。和 CountdownLatch 的另一个区别是，CyclicBarrier 的计数器可以循环使用，所以它才叫做循环屏障。
+
+```java
+public class CyclicBarrierExample {
+    public static void main(String[] args) throws InterruptedException {
+        final int totalThread = 10;
+        CyclicBarrier cyclicBarrier = new CyclicBarrier(totalThread);
+        ExecutorService executorService = Executors.newCachedThreadPool();
+        for (int i = 0; i < totalThread; i++) {
+            executorService.execute(() -> {
+                System.out.print("before..");
+                try {
+                    cyclicBarrier.await();
+                } catch (InterruptedException e) {
+                    e.printStackTrace();
+                } catch (BrokenBarrierException e) {
+                    e.printStackTrace();
+                }
+                System.out.print("after..");
+            });
+        }
+        executorService.shutdown();
+    }
+}
+```
+
+## 信号量
+以共享锁的方式，支持指定数量的线程共享资源。
+
+## FutureTask
 
 
 
