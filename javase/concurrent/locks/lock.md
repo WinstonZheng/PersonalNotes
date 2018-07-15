@@ -12,6 +12,8 @@ AQS的实现，采用了模板方法设计模式，主要维护了同步队列�
 
 > AQS的底层通过volatile提供可见性，通过Unsafe的CAS基础操作提供原子性，实现在多线程情况下，状态转变、队列插入和删除等操作，保证线程的安全性。
 
+## 同步队列
+
 ```java
 // 通过此函数，查看是否能够获取锁，如果不能，则通过addWaiter加入队列。tryAcquire通过子类实现（通过CAS指令修改状态值，模拟竞争锁操作），实现功能判断是否能获得锁。
 public final void acquire(int arg) {
@@ -54,6 +56,10 @@ public final boolean release(int arg) {
         return false;
     }
 ```
+
+## 等待队列
+Condition
+
 
 # ReetrantLock
 通过Sync类提供了可重入锁，而通过NonfairSync和FairSync实现了非公平锁和公平锁。
