@@ -22,6 +22,7 @@ Executors的静态工厂方法创建一个线程池。
 - newCachedThreadPool，创建一个可缓存的线程池，如果线程池的当前规模超过了处理需求时，那么将回收空闲的线程，当需求增加，增加新线程，线程池规模无限制；
 - newSingleThreadExecutor，单线程的Executor，创建单个工作者线程执行任务，如果这个线程异常结束，创建另一个线程替代（根据队列不同顺序串行执行）。
 - newScheduledThreadPool，创建固定长度线程池，以延迟或定时的方式来执行任务，类似于Timer。
+- newWorkStealingPool，JDK1.8，创建一个工作密取的线程池，使用多个队列减少竞争，可以输入并行度，表示积极参与或可用的最大线程数，实际线程数可动态增加和缩小，不保证任务执行顺序。
 
 ## 生命周期
 ExecutorService扩展了Executor的接口提供了Executor中线程的生命周期管理功能，具体代码如下：
@@ -40,3 +41,7 @@ public interface ExecutorService extends Executor {
     boolean isTerminated(); 
 }
 ```
+
+
+
+
