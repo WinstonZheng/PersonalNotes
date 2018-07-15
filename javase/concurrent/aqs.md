@@ -141,9 +141,62 @@ Semaphore的实现思路类似于ReetrantLock，都是基于AQS的同步队列�
 实现的思路也类似，通过Sync实现共享锁的加锁解锁操作，而NonfairSync和FairSync分别实现了不同的加锁方式。
 
 ## 基本操作
-
 在AQS中存在一个变量state，当我们创建Semaphore对象传入许可数值时，最终会赋值给state，state的数值代表同一个时刻可同时操作共享数据的线程数量，每当一个线程请求(如调用Semaphored的acquire()方法)获取同步状态成功，state的值将会减少1，直到state为0时，表示已没有可用的许可数，也就是对共享数据进行操作的线程数已达到最大值，其他后来线程将被阻塞，此时AQS内部会将线程封装成共享模式的Node结点，加入同步队列中等待并开启自旋操作。只有当持有对共享数据访问权限的线程执行完成任务并释放同步状态后，同步队列中的对于的结点线程才有可能获取同步状态并被唤醒执行同步操作，注意在同步队列中获取到同步状态的结点将被设置成head并清空相关线程数据(毕竟线程已在执行也就没有必要保存信息了)，AQS通过这种方式便实现共享锁。至于公平锁与非公平锁的不同之处在于公平锁会在线程请求同步状态前，判断同步队列是否存在Node，如果存在就将请求线程封装成Node结点加入同步队列，从而保证每个线程获取同步状态都是先到先得的顺序执行的。非公平锁则是通过竞争的方式获取，不管同步队列是否存在Node结点，只有通过竞争获取就可以获取线程执行权。
 
+## 使用场景
+允许指定数量的线程访问共享资源。
+
+# 其他同步器
+- **倒计时门栓（CountDownLatch）**，让一个线程集等待直到计数变为0，一次性（计数值为1的门栓，实现只能通过一次的门）。
+
+```java
+// 维护了一个计数器 cnt，每次调用 countDown() 方法会让计数器的值减 1，减到 0 的时候，那些因为调用 await() 方法而在等待的线程就会被唤醒。
+public class CountdownLatchExample {
+    public static void main(String[] args) throws InterruptedException {
+        final int totalThread = 10;
+        CountDownLatch countDownLatch = new CountDownLatch(totalThread);
+        ExecutorService executorService = Executors.newCachedThreadPool();
+        for (int i = 0; i < totalThread; i++) {
+            executorService.execute(() -> {
+                System.out.print("run..");
+                countDownLatch.countDown();
+            });
+        }
+        countDownLatch.await();
+        System.out.println("end");
+        executorService.shutdown();
+    }
+}
+```
+- **障栅（CyclicBarrier）**，实现一个集结点，所有线程执行到集结点，障栅取消，可重复使用。用来控制多个线程互相等待，只有当多个线程都到达时，这些线程才会继续执行。和 CountdownLatch 相似，都是通过维护计数器来实现的。但是它的计数器是递增的，每次执行 await() 方法之后，计数器会加 1，直到计数器的值和设置的值相等，等待的所有线程才会继续执行。和 CountdownLatch 的另一个区别是，CyclicBarrier 的计数器可以循环使用，所以它才叫做循环屏障。
+
+```java
+public class CyclicBarrierExample {
+    public static void main(String[] args) throws InterruptedException {
+        final int totalThread = 10;
+        CyclicBarrier cyclicBarrier = new CyclicBarrier(totalThread);
+        ExecutorService executorService = Executors.newCachedThreadPool();
+        for (int i = 0; i < totalThread; i++) {
+            executorService.execute(() -> {
+                System.out.print("before..");
+                try {
+                    cyclicBarrier.await();
+                } catch (InterruptedException e) {
+                    e.printStackTrace();
+                } catch (BrokenBarrierException e) {
+                    e.printStackTrace();
+                }
+                System.out.print("after..");
+            });
+        }
+        executorService.shutdown();
+    }
+}
+```
+
+- 交换器（Exchanger），线程在同一个数据缓冲区的两个实例工作，一个消耗数据，另一个产生数据，两个线程完成后交换缓冲区。
+
+- 同步队列（SynchronousQueue）, 一种生产者和消费者配对机制，当一个线程调用SynchronousQueue的put方法，它会阻塞直到另一个线程调用take方法，与Exchanger不同，同步队列是单向的，而size方法总是0。
 
 
 
