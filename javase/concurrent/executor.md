@@ -47,6 +47,26 @@ public interface ExecutorService extends Executor {
 
 
 
+## Runnable和Callable
+Runnable作为一个线程基本执行单位存在缺陷，无法返回线程值，同时无法抛出异常。Callable都能满足，Callable适合延迟计算，获取结果。Executor的任务有四个生命周期，创建、提交、开始、完成。
+
+Executor框架中，允许取消提交当尚未开始的任务（已开始任务，只能中断）。其中，Future类表示任务的生命周期，提供判断任务是否完成或取消，以及获取任务结果和取消任务等功能。Future提供的get()方法，根据不同的任务运行状态，呈现不同的效果。
+- 任务完成，get返回或者抛出Exception；
+- 任务未完成，阻塞；
+- 任务抛出异常，封装为ExecutionException并重新抛出（可以通过getCause，获取原始异常）；
+- 任务被取消，抛出CancellationException。
+
+![](/images/java/concureent/future.PNG)
+
+
+
+
+
+
+
+
+
+
 
 
 
