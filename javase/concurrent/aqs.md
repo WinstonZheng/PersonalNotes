@@ -194,9 +194,9 @@ public class CyclicBarrierExample {
 }
 ```
 
-- 交换器（Exchanger），线程在同一个数据缓冲区的两个实例工作，一个消耗数据，另一个产生数据，两个线程完成后交换缓冲区。
+- **交换器（Exchanger）**，线程在同一个数据缓冲区的两个实例工作，一个消耗数据，另一个产生数据，两个线程完成后交换缓冲区。
 
-- 同步队列（SynchronousQueue）, 一种生产者和消费者配对机制，当一个线程调用SynchronousQueue的put方法，它会阻塞直到另一个线程调用take方法，与Exchanger不同，同步队列是单向的，而size方法总是0。
+- **同步队列（SynchronousQueue）**, 一种生产者和消费者配对机制，当一个线程调用SynchronousQueue的put方法，它会阻塞直到另一个线程调用take方法，与Exchanger不同，同步队列是单向的，而size方法总是0。
 
 
 
