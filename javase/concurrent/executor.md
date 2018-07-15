@@ -24,6 +24,9 @@ Executors的静态工厂方法创建一个线程池。
 - newScheduledThreadPool，创建固定长度线程池，以延迟或定时的方式来执行任务，类似于Timer。
 - newWorkStealingPool，JDK1.8，创建一个工作密取的线程池，使用多个队列减少竞争，可以输入并行度，表示积极参与或可用的最大线程数，实际线程数可动态增加和缩小，不保证任务执行顺序。
 
+
+> Timer负责管理延迟任务和周期任务，基于绝对时间调度，存在缺陷，使用ScheduledThreadPoolExecutor（相对时间）代替。Timer在执行所有定时任务，创建一个线程，当一个任务执行时间过长，会影响其他任务定时的精确性；另一个问题，不会捕获异常，抛出异常后会终止定时线程，导致后面任务无法执行。
+
 ## 生命周期
 ExecutorService扩展了Executor的接口提供了Executor中线程的生命周期管理功能，具体代码如下：
 ```java
@@ -41,6 +44,10 @@ public interface ExecutorService extends Executor {
     boolean isTerminated(); 
 }
 ```
+
+
+
+
 
 
 
