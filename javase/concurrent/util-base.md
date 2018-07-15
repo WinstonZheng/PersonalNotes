@@ -92,9 +92,47 @@ public class CyclicBarrierExample {
 以共享锁的方式，支持指定数量的线程共享资源。可用于实现有界阻塞容器，例如：数据库连接池。
 
 ## FutureTask
-FutureTask表示的计算是通过Callable实现的，相当于一种可生成结果的Runnable。可以处于三种状态：等待运行（wait to run）、正在运行（Running）和运行完成（Completed）。执行完成表示所有可能的结束方式，包括正常结束、由于取消而结束和异常结束。FutureTask的get方法确保了不同状态下的不同返回。
+FutureTask表示的计算是通过Callable实现的，相当于一种可生成结果的Runnable。可以处于三种状态：等待运行（wait to run）、正在运行（Running）和运行完成（Completed）。执行完成表示所有可能的结束方式，包括正常结束、由于取消而结束和异常结束。FutureTask的get方法确保了不同状态下的不同返回。<br>
+Callable有返回值，返回值通过 Future 进行封装。FutureTask 实现了 RunnableFuture 接口，该接口继承自 Runnable 和 Future 接口，这使得 FutureTask 既可以当做一个任务执行，也可以有返回值。<br>
+FutureTask 可用于异步获取执行结果或取消执行任务的场景。当一个计算任务需要执行很长时间，那么就可以用 FutureTask 来封装这个任务，主线程在完成自己的任务之后再去获取结果。
 
+```java
+public class FutureTask<V> implements RunnableFuture<V>
+public interface RunnableFuture<V> extends Runnable, Future<V>
+public class FutureTaskExample {
+    public static void main(String[] args) throws ExecutionException, InterruptedException {
+        FutureTask<Integer> futureTask = new FutureTask<Integer>(new Callable<Integer>() {
+            @Override
+            public Integer call() throws Exception {
+                int result = 0;
+                for (int i = 0; i < 100; i++) {
+                    Thread.sleep(10);
+                    result += i;
+                }
+                return result;
+            }
+        });
 
+        Thread computeThread = new Thread(futureTask);
+        computeThread.start();
+
+        Thread otherThread = new Thread(() -> {
+            System.out.println("other task is running...");
+            try {
+                Thread.sleep(1000);
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
+        });
+        otherThread.start();
+        System.out.println(futureTask.get());
+    }
+}
+
+```
+
+## ForkJoin
+主要用于并行计算中，和 MapReduce 原理类似，都是把大的计算任务拆分成多个小任务并行计算。
 
 
 
