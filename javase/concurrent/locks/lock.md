@@ -58,7 +58,11 @@ public final boolean release(int arg) {
 ```
 
 ## 等待队列
-Condition
+- Condition是等待队列，队列的节点形式也是Node，但是之后一个指向后来节点的指针（nextWaiter），等待队列中节点的状态只有两种Cancelled和Condition。
+
+- 一个Lock对象可以对应多个等待队列，但是只有一个同步队列，当等待队列中的节点被唤醒时，会将等待队列中的节点放置到同步队列中。
+
+- 由于Condition的操作对象一定时当前持有锁的线程，所以对等待队列的操作时单线程的，不需要CAS做同步。
 
 
 # ReetrantLock
