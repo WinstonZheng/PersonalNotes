@@ -7,7 +7,7 @@
 5. boolean tryLock(long time, TimeUnit unit) throws InterruptedException，非阻塞取锁，限定一段时间内取锁；
 6. Condition newCondition()，获取等待通知组件，通过组件使用wait()。
 
-# AQS并发框架（独占模式）
+# AQS并发框架
 AQS的实现，采用了模板方法设计模式，主要维护了同步队列和条件队列，提供了维护队列（插入节点、删除节点）的基本操作，队列中的节点是线程对象的包装。
 
 > AQS的底层通过volatile提供可见性，通过Unsafe的CAS基础操作提供原子性，实现在多线程情况下，状态转变、队列插入和删除等操作，保证线程的安全性。
@@ -66,7 +66,7 @@ public final boolean release(int arg) {
 
 - 独占模式下有等待队列，共享模式下不存在（signal如果不是独占模式，会抛出异常）。
 
-# ReetrantLock
+# ReetrantLock（独占模式）
 通过Sync类提供了可重入锁，而通过NonfairSync和FairSync实现了非公平锁和公平锁。
 ```java
 // Sync 
