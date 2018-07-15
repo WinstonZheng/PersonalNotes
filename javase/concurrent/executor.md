@@ -58,7 +58,9 @@ Executor框架中，允许取消提交当尚未开始的任务（已开始任务
 
 ![](/images/java/concureent/future.PNG)
 
-
+如何获得Future?
+- ExecutorServie的submit方法；
+- FutureTask。
 
 
 
