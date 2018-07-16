@@ -237,6 +237,47 @@ final void runWorker(Worker w) {
             processWorkerExit(w, completedAbruptly);
         }
     }
+private Runnable getTask() {
+        boolean timedOut = false; // Did the last poll() time out?
+
+        for (;;) {
+            int c = ctl.get();
+            int rs = runStateOf(c);
+            // Check if queue empty only if necessary.
+            // 当运行状态处于SHUTDOWN，工作队列为空时
+            // 当运行状态处于STOP时
+            if (rs >= SHUTDOWN && (rs >= STOP || workQueue.isEmpty())) {
+                decrementWorkerCount();
+                return null;
+            }
+            int wc = workerCountOf(c);
+            // Are workers subject to culling?
+            // 判断根据allowCoreThreadTimeOut，或者可运行的数量是否大于corePoolSize
+            boolean timed = allowCoreThreadTimeOut || wc > corePoolSize;
+            // 同时满足，大于maximumPoolSize（由于调用了setMaximumPoolSize）
+            // 或 timed和timeOut（表示是否已经超时）为true
+            // wc >1 而 等待队列为空
+            // 采用CAS操作，降低线程数量（返回null之后，线程退出）
+            if ((wc > maximumPoolSize || (timed && timedOut))
+                && (wc > 1 || workQueue.isEmpty())) {
+                if (compareAndDecrementWorkerCount(c))
+                    return null;
+                continue;
+            }
+
+            try {
+                // 等待队列不为空，如果设置超时状态，则采用超时poll或直接take()阻塞获取
+                Runnable r = timed ?
+                    workQueue.poll(keepAliveTime, TimeUnit.NANOSECONDS) :
+                    workQueue.take();
+                if (r != null)
+                    return r;
+                timedOut = true;
+            } catch (InterruptedException retry) {
+                timedOut = false;
+            }
+        }
+    }
 ```
 首先判断线程池是否处于正常运行状态以及参数是否正确，检验之后，通过CAS操作增加线程计数器（通过重复运行进行补偿）。如果，线程池状态变化，则重新大循环，检验连接池状态；如果，线程池状态不变，则进行小循环仿佛尝试。
 
