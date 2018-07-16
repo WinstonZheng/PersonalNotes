@@ -28,7 +28,11 @@ Map是一个映射接口，其中的每个元素都是一个key-value键值对�
  ## Arrays and Collections
   Arrays和Collections是用来操作数组、集合的两个工具类，例如在ArrayList和Vector中大量调用了Arrays.Copyof()方法，而Collections中有很多静态方法可以返回各集合类的synchronized版本，即线程安全的版本，当然了，如果要用线程安全的结合类，首选Concurrent并发包下的对应的集合类。
 
-此外，
+此外，提供了如下几种方法：
+- 排序操作（基于JDK1.7的DualPivotQuicksort），以及并发排序（JDK1.8）操作；
+- 二分查找；
+- 批量赋值；
+- copyOf（ArrayList的添加删除操作的底层依赖）；
 
 
 # Reference
