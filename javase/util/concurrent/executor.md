@@ -60,11 +60,47 @@ Executor框架中，允许取消提交当尚未开始的任务（已开始任务
 - ExecutorServie的submit方法；
 - FutureTask。
 
+```java
+// 通过适配器模式，将Runnable对象，包装成Callable。
+static final class RunnableAdapter<T> implements Callable<T> {
+        final Runnable task;
+        final T result;
+        RunnableAdapter(Runnable task, T result) {
+            this.task = task;
+            this.result = result;
+        }
+        public T call() {
+            task.run();
+            return result;
+        }
+    }
+```
+
 ## Future与CompletioniService
 Future管理一个任务的执行结果，通过get()方式，获取任务结果。当需要管理一系列任务的结果时，Future操作过于繁琐，CompletionService将Executor与BlockingQueue的功能结合，ExecutorCompletionService实现CompletionService，将任务执行委托给Executor。
 
 具体实现，ExecutorCompletionService创建BlockingQueue保存计算结果。计算完成时调用done方法。当提交某个任务时首先包装成一个QueueFuture（FutureTask子类），改写子类done，将结果放入BlockingQueue（将tabke和poll方法委托给了BlockingQueue）
 
+### ExecutorCompletionService
+
+```java
+public class ExecutorCompletionService<V> implements CompletionService<V> {
+    // 任务运行委托对象
+    private final Executor executor;
+    private final AbstractExecutorService aes;
+    // 完成队列
+    private final BlockingQueue<Future<V>> completionQueue;
+    // 任务实际包装的对象
+    private class QueueingFuture extends FutureTask<Void> {
+        QueueingFuture(RunnableFuture<V> task) {
+            super(task, null);
+            this.task = task;
+        }
+        protected void done() { completionQueue.add(task); }
+        private final Future<V> task;
+    }
+}
+```
 
 
 
