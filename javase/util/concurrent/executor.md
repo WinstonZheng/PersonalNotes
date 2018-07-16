@@ -99,6 +99,31 @@ public class ExecutorCompletionService<V> implements CompletionService<V> {
         protected void done() { completionQueue.add(task); }
         private final Future<V> task;
     }
+    // 其中一个构造函数，默认初始化
+    public ExecutorCompletionService(Executor executor) {
+        if (executor == null)
+            throw new NullPointerException();
+        this.executor = executor;
+        // 将执行器包装成AbstractExecutorService
+        this.aes = (executor instanceof AbstractExecutorService) ?
+            (AbstractExecutorService) executor : null;
+        this.completionQueue = new LinkedBlockingQueue<Future<V>>();
+    }
+    // 提交执行
+    public Future<V> submit(Callable<V> task) {
+        if (task == null) throw new NullPointerException();
+        RunnableFuture<V> f = newTaskFor(task);
+        // 包装成QueueingFuture，重写done，executor运行任务完成后，调用done，写入结果队列
+        executor.execute(new QueueingFuture(f));
+        return f;
+    }
+    // 获取结果
+    public Future<V> take() throws InterruptedException {
+        return completionQueue.take();
+    }
+    public Future<V> poll() {
+        return completionQueue.poll();
+    }
 }
 ```
 
