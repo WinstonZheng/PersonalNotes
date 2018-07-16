@@ -89,7 +89,8 @@ public void execute(Runnable command) {
 ```
 
 ## 添加工作线程
-```
+
+```java
 private boolean addWorker(Runnable firstTask, boolean core) {
         retry:
         for (;;) {
@@ -168,6 +169,28 @@ private boolean addWorker(Runnable firstTask, boolean core) {
         }
         return workerStarted;
     }
+
+private final class Worker
+        extends AbstractQueuedSynchronizer
+        implements Runnable
+{
+        final Thread thread;
+        Runnable firstTask;
+        Worker(Runnable firstTask) {
+            setState(-1); // inhibit interrupts until runWorker
+            this.firstTask = firstTask;
+            // 通过默认的线程工厂创建线程
+            this.thread = getThreadFactory().newThread(this);
+        }
+        // 实际运行的任务
+        public void run() {
+            runWorker(this);
+        }
+}
 ```
+首先判断线程池是否处于正常运行状态以及参数是否正确，检验之后，通过CAS操作增加线程计数器（通过重复运行进行补偿）。如果，线程池状态变化，则重新大循环，检验连接池状态；如果，线程池状态不变，则进行小循环仿佛尝试。
+
+成功增加计数器之后，新建Work对象，获取锁对象，将Worker对象添加到HashSet中，添加成功之后，启动线程，如果启动失败则返回false。
+
 
 
