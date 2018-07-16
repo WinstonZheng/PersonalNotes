@@ -46,6 +46,12 @@ public class ThreadPoolExecutor extends AbstractExecutorService {
 }
 ```
 
+> 此外，在运行中，存在不同的拒绝策略：
+1. CallerRunsPolicy，如果线程池运行，则将任务在请求的线程中运行；
+2. AbortPolicy，抛出RejectedExecutionException；
+3. DiscardPolicy，无作为；
+4. DiscardOldestPolicy，在等待队列中，去除最老的任务，然后重新执行当前任务。
+
 ## 运行三步骤
 ```java
 public void execute(Runnable command) {
@@ -186,7 +192,51 @@ private final class Worker
         public void run() {
             runWorker(this);
         }
+        
 }
+final void runWorker(Worker w) {
+        Thread wt = Thread.currentThread();
+        Runnable task = w.firstTask;
+        w.firstTask = null;
+        w.unlock(); // allow interrupts
+        boolean completedAbruptly = true;
+        try {
+            // getTask从队列中获取一个任务，如果没有任务，正常退出
+            while (task != null || (task = getTask()) != null) {
+                w.lock();
+                // If pool is stopping, ensure thread is interrupted;
+                // if not, ensure thread is not interrupted.  This
+                // requires a recheck in second case to deal with
+                // shutdownNow race while clearing interrupt
+                // 如果线程池处于STOP状态，线程并未中断，那么中断线程
+                if ((runStateAtLeast(ctl.get(), STOP) || (Thread.interrupted() && runStateAtLeast(ctl.get(), STOP)))
+                        && !wt.isInterrupted())
+                    wt.interrupt();
+                try {
+                    beforeExecute(wt, task);
+                    Throwable thrown = null;
+                    try {
+                        task.run();
+                    } catch (RuntimeException x) {
+                        thrown = x; throw x;
+                    } catch (Error x) {
+                        thrown = x; throw x;
+                    } catch (Throwable x) {
+                        thrown = x; throw new Error(x);
+                    } finally {
+                        afterExecute(task, thrown);
+                    }
+                } finally {
+                    task = null;
+                    w.completedTasks++;
+                    w.unlock();
+                }
+            }
+            completedAbruptly = false;
+        } finally {
+            processWorkerExit(w, completedAbruptly);
+        }
+    }
 ```
 首先判断线程池是否处于正常运行状态以及参数是否正确，检验之后，通过CAS操作增加线程计数器（通过重复运行进行补偿）。如果，线程池状态变化，则重新大循环，检验连接池状态；如果，线程池状态不变，则进行小循环仿佛尝试。
 
