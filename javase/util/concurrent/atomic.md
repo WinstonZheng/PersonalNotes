@@ -25,7 +25,6 @@ public static Unsafe getUnsafe() {
 
 ## 主要功能
 Unsafe的实现都是标注native方法。
-
 - 内存管理，通过类似C语言指针的操作内存，注意Unsafe类中的所有方法都是native修饰的，也就是说Unsafe类中的方法都直接调用操作系统底层资源执行相应任务；
 - 数组操作；
 - CAS操作相关，CPU直接支持的指令。（JDK1.8新增，根据内存偏移量对于字段，获取值）；
@@ -469,8 +468,6 @@ public class AtomicReference<V> implements java.io.Serializable {
 
 # AtomicIntegerFieldUpdater
 可以将原先不是线程安全的属性转变为线程安全的属性操作。
-
-
 
 # Reference
 - [Java并发编程-无锁CAS与Unsafe类及其并发包Atomic](https://blog.csdn.net/javazejian/article/details/72772470)
