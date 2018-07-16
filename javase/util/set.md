@@ -1,7 +1,4 @@
 # Set
-
-
-
 ## HashSet
 
 ```java
@@ -18,8 +15,6 @@ public class HashSet<E>
     private static final Object PRESENT = new Object();
 }
 ```
-
-
 
 ## TreeSet
 
