@@ -46,7 +46,7 @@ public class ThreadPoolExecutor extends AbstractExecutorService {
 }
 ```
 
-## 运行
+## 运行三步骤
 ```java
 public void execute(Runnable command) {
         if (command == null)
@@ -88,6 +88,86 @@ public void execute(Runnable command) {
     }
 ```
 
+## 添加工作线程
+```
+private boolean addWorker(Runnable firstTask, boolean core) {
+        retry:
+        for (;;) {
+            // 目前运行的线程数
+            int c = ctl.get();
+            // 获取运行时状态
+            int rs = runStateOf(c);
 
+            // Check if queue empty only if necessary.
+            // 如果线程池状态处于运行
+            // 并且firstTask不为空
+            // 工作队列不是空的
+            if (rs >= SHUTDOWN &&
+                ! (rs == SHUTDOWN &&
+                   firstTask == null &&
+                   ! workQueue.isEmpty()))
+                return false;
+
+            for (;;) {
+                int wc = workerCountOf(c);
+                // 超出限定
+                if (wc >= CAPACITY ||
+                        // 根据core，判断以那个为上界
+                    wc >= (core ? corePoolSize : maximumPoolSize))
+                    return false;
+                // 增加线程数量
+                if (compareAndIncrementWorkerCount(c))
+                    break retry;
+                // 内循环，线程数量变化，失败重试；外循环，线程池状态变化，失败重试。
+                c = ctl.get();  // Re-read ctl
+                if (runStateOf(c) != rs)
+                    continue retry;
+                // else CAS failed due to workerCount change; retry inner loop
+            }
+        }
+
+        boolean workerStarted = false;
+        boolean workerAdded = false;
+        Worker w = null;
+        try {
+            // 允许创建线程，不允许的要不在循环重试，要不返回false退出
+            w = new Worker(firstTask);
+            final Thread t = w.thread;
+            if (t != null) {
+                final ReentrantLock mainLock = this.mainLock;
+                mainLock.lock();
+                try {
+                    // Recheck while holding lock.
+                    // Back out on ThreadFactory failure or if
+                    // shut down before lock acquired.
+                    int rs = runStateOf(ctl.get());
+                    // 再次检查状态是否正常
+                    if (rs < SHUTDOWN ||
+                        (rs == SHUTDOWN && firstTask == null)) {
+                        // 线程如果是正在运行的，不能用来启动任务
+                        if (t.isAlive()) // precheck that t is startable
+                            throw new IllegalThreadStateException();
+                        workers.add(w);
+                        int s = workers.size();
+                        // 记录最大的线程池数量
+                        if (s > largestPoolSize)
+                            largestPoolSize = s;
+                        workerAdded = true;
+                    }
+                } finally {
+                    mainLock.unlock();
+                }
+                if (workerAdded) {
+                    t.start();
+                    workerStarted = true;
+                }
+            }
+        } finally {
+            if (! workerStarted)
+                addWorkerFailed(w);
+        }
+        return workerStarted;
+    }
+```
 
 
