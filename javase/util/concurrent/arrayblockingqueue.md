@@ -136,9 +136,6 @@ public class LinkedBlockingQueue<E> extends AbstractQueue<E>
 
 > 没有给LinkedBlockingQueue指定容量大小，其默认值将是Integer.MAX_VALUE，如果存在添加速度大于删除速度时候，有可能会内存溢出。
 
-
-
-
 ## 入队
 ```java
 public void put(E e) throws InterruptedException {
@@ -243,8 +240,6 @@ private void signalNotFull() {
         }
     }
 ```
-
-
 
 ## 区别（From Reference）
 1.队列大小有所不同，ArrayBlockingQueue是有界的初始化必须指定大小，而LinkedBlockingQueue可以是有界的也可以是无界的(Integer.MAX_VALUE)，对于后者而言，当添加速度大于移除速度时，在无界的情况下，可能会造成内存溢出等问题。
