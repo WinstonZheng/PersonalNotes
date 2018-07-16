@@ -422,7 +422,6 @@ static {
                 (AtomicInteger.class.getDeclaredField("value"));
         } catch (Exception ex) { throw new Error(ex); }
 }
-
 // JDK 1.8源码，自增操作
 public final int getAndAddInt(Object o, long offset, int delta) {
         int v;
@@ -449,7 +448,7 @@ public final int incrementAndGet() {
 
 ```java
 public class AtomicReference<V> implements java.io.Serializable {
-    
+   
     private static final long valueOffset;
     static {
         try {
@@ -465,9 +464,6 @@ public class AtomicReference<V> implements java.io.Serializable {
     public final boolean compareAndSet(V expect, V update) {
             return unsafe.compareAndSwapObject(this, valueOffset, expect, update);
     }
-
-
-
 }
 ```
 
