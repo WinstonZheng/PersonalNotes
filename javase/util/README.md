@@ -18,7 +18,6 @@ Set接口通常表示一个集合，其中的元素不允许重复（通过hashc
 ### Queue
 Queue是队列的实现思想，主要的扩展分为两部分BlockingQueue和Deque。BlockingQueue，主要提供put()和take()方法，实现阻塞的元素获取和添加，在concurrent子包中，常用于多线程并发场景；Deque实现双端队列的操作，能从两边获取、加入元素。
 
-
 ## Map
 Map是一个映射接口，其中的每个元素都是一个key-value键值对，同样抽象类AbstractMap通过适配器模式实现了Map接口中的大部分函数，TreeMap、HashMap、WeakHashMap等实现类都通过继承AbstractMap来实现，另外，不常用的HashTable直接实现了Map接口，它和Vector都是JDK1.0就引入的集合类。
 
