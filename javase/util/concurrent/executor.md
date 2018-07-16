@@ -128,6 +128,14 @@ public class ExecutorCompletionService<V> implements CompletionService<V> {
 ```
 
 
+## 注意事项
+1. 任务堆积，newFixedThreadPool创建指定数目线程，但是其工作等待的队列时无界的，采用了LinkedBlockingQueue（上线是Integer.MAX_VALUE），如果产生速度大于处理速度，占用大量内存，出现OOM问题（jmap等工具查看大量任务入队）；
+2. 避免过度扩展线程，处理大量短时的任务采用缓存的线程池（缓存60s），不能准确预估需要线程数目（缓存线程池默认构建上线Integer.MAX_VALUE），因为缓存线程池采用SynchronousQueue，一般来说
+吞吐量比较大；
+3. 另外，如果线程数目不断增长（jstack等工作检查），可能出现线程泄露问题，可能处理任务逻辑卡在某个位置，导致工作线程无法释放；
+4. 避免死锁；
+5. 避免使用ThreadLocal。
+
 
 
 
