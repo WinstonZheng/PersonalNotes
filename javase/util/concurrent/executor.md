@@ -45,8 +45,6 @@ public interface ExecutorService extends Executor {
 }
 ```
 
-
-
 ## Runnable和Callable
 Runnable作为一个线程基本执行单位存在缺陷，无法返回线程值，同时无法抛出异常。Callable都能满足，Callable适合延迟计算，获取结果。Executor的任务有四个生命周期，创建、提交、开始、完成。
 
