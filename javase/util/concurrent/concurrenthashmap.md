@@ -16,4 +16,4 @@ ConcurrentHashMap 是一个 Segment 数组，Segment 通过继承 ReentrantLock 
 
 
 # Reference
-- [ava7/8 中的 HashMap 和 ConcurrentHashMap 全解析](http://www.importnew.com/28263.html)
+- [Java7/8 中的 HashMap 和 ConcurrentHashMap 全解析](http://www.importnew.com/28263.html)

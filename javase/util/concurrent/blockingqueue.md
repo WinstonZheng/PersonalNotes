@@ -93,7 +93,7 @@ private E dequeue() {
 
 
 # LinkedBlockingQueue
-LinkedBlockingQueue通过两个锁控制链表。消费者-生产者变种，可以让消费者和生产者同时访问队列，提高吞吐量，当然实现复杂度也上升了。
+LinkedBlockingQueue通过两个锁控制链表。消费者-生产者变种，可以让消费者和生产者同时访问队列，提高吞吐量，当然实现复杂度也上升了。（分离锁的思想）
 
 ```java
 public class LinkedBlockingQueue<E> extends AbstractQueue<E>
