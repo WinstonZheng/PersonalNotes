@@ -33,6 +33,7 @@ Map是一个映射接口，其中的每个元素都是一个key-value键值对�
 - 二分查找；
 - 批量赋值；
 - copyOf（ArrayList的添加删除操作的底层依赖）；
+等等
 
 
 # Reference
