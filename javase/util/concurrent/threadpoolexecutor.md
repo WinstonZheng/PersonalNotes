@@ -46,3 +46,48 @@ public class ThreadPoolExecutor extends AbstractExecutorService {
 }
 ```
 
+## 运行
+```java
+public void execute(Runnable command) {
+        if (command == null)
+            throw new NullPointerException();
+        /*
+         * Proceed in 3 steps:
+         *
+         * 1. 当小于corePoolSize数目时，尝试通过addWorker方法创建线程，并将输入的command
+         * 作为其首个任务，addworker会自动检测运行状态和工作数目，如果创建失败，则返回false
+         *
+         * 2. 如果线程创建失败，则尝试加入等待队列中，当等待队列添加成功之后，
+         * 需要二次检查是否应该添加线程（因为，可能存在线程死亡），或者可能线程池
+         * shut doen，如果发现线程池不运行，则从等待队列中删除，调用reject拒绝任务。
+         * 或者，如果无线程执行，则启动一个新线程。
+         *
+         * 3. 如果我们既不能启动线程，又不能加入队列，则说明线程池处于关闭阶段，拒绝任务。
+         */
+        // 获取目前记录的运行线程数量
+        int c = ctl.get();
+        // 如果比设定小
+        if (workerCountOf(c) < corePoolSize) {
+            // 新建线程
+            if (addWorker(command, true))
+                return;
+            c = ctl.get();
+        }
+        // 如果创建线程（Worker）失败，加入队列
+        if (isRunning(c) && workQueue.offer(command)) {
+            int recheck = ctl.get();
+            // 再次检查，
+            if (! isRunning(recheck) && remove(command))
+                reject(command);
+            else if (workerCountOf(recheck) == 0)
+                addWorker(null, false);
+        }
+        // 创建线程失败，添加工作队列失败，再次创建线程，如果失败，则说明处于shutdown状态，拒绝任务
+        else if (!addWorker(command, false))
+            reject(command);
+    }
+```
+
+
+
+
