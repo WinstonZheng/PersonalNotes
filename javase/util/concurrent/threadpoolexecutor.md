@@ -31,6 +31,18 @@ public class ThreadPoolExecutor extends AbstractExecutorService {
     // 用于同步访问HashSet
     private final ReentrantLock mainLock = new ReentrantLock();
     private final Condition termination = mainLock.newCondition();
+    // 创建工作线程
+    private volatile ThreadFactory threadFactory;
+    // 调用shutdown或shutdownNow后，新任务会交给handler处理
+    private volatile RejectedExecutionHandler handler;
+    // 空闲线程等待任务时间（数量超出corePoolSize，或者allowCoreThreadTimeOut为True）
+    private volatile long keepAliveTime;
+    // 默认false，核心线程保持，即使空闲；如果是true，核心线程使用上一个时间，等待（超时退出）
+    private volatile boolean allowCoreThreadTimeOut;
+    // 设定保持活跃状态线程的数量，不允许超时，除非上一个变量设置成true
+    private volatile int corePoolSize;
+    // 最大限制
+    private volatile int maximumPoolSize;
 }
 ```
 
