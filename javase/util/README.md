@@ -15,6 +15,10 @@ List接口通常表示一个列表（数组、队列、链表、栈等），其�
 ### Set
 Set接口通常表示一个集合，其中的元素不允许重复（通过hashcode和equals函数保证），常用实现类有HashSet和TreeSet，HashSet是通过Map中的HashMap实现的，而TreeSet是通过Map中的TreeMap实现的。另外，TreeSet还实现了SortedSet接口，因此是有序的集合（集合中的元素要实现Comparable接口，并覆写Compartor函数才行）。
 
+### Queue
+Queue是队列的实现思想，主要的扩展分为两部分BlockingQueue和Deque。BlockingQueue，主要提供put()和take()方法，实现阻塞的元素获取和添加，在concurrent子包中，常用于多线程并发场景；Deque实现双端队列的操作，能从两边获取、加入元素。
+
+
 ## Map
 Map是一个映射接口，其中的每个元素都是一个key-value键值对，同样抽象类AbstractMap通过适配器模式实现了Map接口中的大部分函数，TreeMap、HashMap、WeakHashMap等实现类都通过继承AbstractMap来实现，另外，不常用的HashTable直接实现了Map接口，它和Vector都是JDK1.0就引入的集合类。
 
@@ -24,8 +28,7 @@ Map是一个映射接口，其中的每个元素都是一个key-value键值对�
  ## Arrays and Collections
   Arrays和Collections是用来操作数组、集合的两个工具类，例如在ArrayList和Vector中大量调用了Arrays.Copyof()方法，而Collections中有很多静态方法可以返回各集合类的synchronized版本，即线程安全的版本，当然了，如果要用线程安全的结合类，首选Concurrent并发包下的对应的集合类。
 
-
-
+此外，
 
 
 # Reference
