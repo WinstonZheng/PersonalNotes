@@ -83,8 +83,16 @@ hasCode() 返回散列值，而 equals() 是用来判断两个实例是否等价
 - 浅拷贝：拷贝实例和原始实例的引用类型引用同一个对象；
 - 深拷贝：拷贝实例和原始实例的引用类型引用不同对象。
 
+> 使用 clone() 方法来拷贝一个对象即复杂又有风险，它会抛出异常，并且还需要类型转换。Effective Java 书上讲到，最好不要去使用 clone()，可以使用拷贝构造函数或者拷贝工厂来拷贝一个对象。
+
+# 关键字
+- final
+- static
 
 
+
+# Reference
+- [Java基础](https://github.com/CyC2018/Interview-Notebook/blob/master/notes/Java%20%E5%9F%BA%E7%A1%80.md#clone)
 
 
 
