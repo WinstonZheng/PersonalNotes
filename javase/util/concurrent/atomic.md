@@ -414,7 +414,7 @@ public class Unsafe
 ## 基本操作
 通过Unsafe类获取实例对象的内存偏移量（针对AtomicInteger是类变量的地址），然后修改内存值，提供原子性操作。（类new实例的时候（主动首次使用）才会触发类的初始化操作）
 
-```
+```java
 static {
         try {
             valueOffset = unsafe.objectFieldOffset
