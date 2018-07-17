@@ -77,7 +77,11 @@ hasCode() 返回散列值，而 equals() 是用来判断两个实例是否等价
 默认返回 ToStringExample@4554617c 这种形式，其中 @ 后面的数值为散列码的无符号十六进制表示。
 
 ## clone()
+应该注意的是，clone() 方法并不是 Cloneable 接口的方法，而是 Object 的一个 protected 方法。Cloneable 接口只是规定，如果一个类没有实现 Cloneable 接口又调用了 clone() 方法，就会抛出 CloneNotSupportedException。
 
+### 深拷贝与浅拷贝
+- 浅拷贝：拷贝实例和原始实例的引用类型引用同一个对象；
+- 深拷贝：拷贝实例和原始实例的引用类型引用不同对象。
 
 
 
