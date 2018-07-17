@@ -471,7 +471,7 @@ public class AtomicReference<V> implements java.io.Serializable {
 
 # Reference
 - [Java并发编程-无锁CAS与Unsafe类及其并发包Atomic](https://blog.csdn.net/javazejian/article/details/72772470)
-- [Java中Unsafe类详解](http://blog.csdn.net/zgmzyr/article/details/8902683)
+- [Java中Unsafe类详解](http://www.cnblogs.com/mickole/articles/3757278.html)
 
 
 
