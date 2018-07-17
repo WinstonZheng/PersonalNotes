@@ -82,7 +82,7 @@ final V put(K key, int hash, V value, boolean onlyIfAbsent) {
 
 
 ## Java1.8
-
+由于在1.8中HashMap做了一个优化，本来hash表解决冲突时采用链表的方式，1.8做的优化是当链表过长时，采用红黑树的方法将链表进行修改。
 
 
 
