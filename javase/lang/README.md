@@ -93,7 +93,9 @@ hasCode() 返回散列值，而 equals() 是用来判断两个实例是否等价
 # 反射
 
 # 异常
-Java所有异常类父类是Throwable，表示能够被抛出和捕获。其中分为Exception和Error。Error表示严重的问题，属于不应该被捕获异常（unchecked），例如JVM发生异常，一般是不可恢复的；Exception分为两种，一种是继承自RuntimeException，属于unchecked Exception，编译器不要求强制捕获，一般是程序逻辑错误（NullPointerException/ArrayIndexOutOfBoundsException）；另一种是checked Exception（IO Exception），编译器要求强制捕获。
+Java所有异常类父类是Throwable，表示能够被抛出和捕获。其中分为Exception和Error。Error表示严重的问题，属于不应该被捕获异常（unchecked），例如JVM发生异常，一般是不可恢复的；Exception分为两种，一种是继承自RuntimeException，属于unchecked Exception，编译器不要求强制捕获，是否捕获看具体情况，一般是程序逻辑错误（NullPointerException/ArrayIndexOutOfBoundsException）；另一种是checked Exception（IO Exception），编译器要求强制捕获。
+
+
 
 # Reference
 - [Java基础](https://github.com/CyC2018/Interview-Notebook/blob/master/notes/Java%20%E5%9F%BA%E7%A1%80.md#clone)
