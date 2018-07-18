@@ -23,3 +23,5 @@ JavaIO的基础框架，从读写来源主要分为对磁盘的读写（File）�
 传统的阻塞式IO是基于流的方式实现，整个框架的设计思路是通过装饰器模式构建。根据不同的数据来源（File or Socket），通过包装不同的InputStream（最常用的应该是BufferedInputStream）提供不同的能力。
 
 # NIO
+新的输入/输出 (NIO) 库是在 JDK 1.4 中引入的。NIO 弥补了原来的 I/O 的不足，提供了高速的、面向块的 I/O。
+
