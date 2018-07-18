@@ -18,3 +18,8 @@ JavaIO的基础框架，从读写来源主要分为对磁盘的读写（File）�
     - 服务器和客户端通过 InputStream 和 OutputStream 进行输入输出。
 - Datagram，使用 UDP 协议实现网络通信。
 
+
+# Blocking IO
+传统的阻塞式IO是基于流的方式实现，整个框架的设计思路是通过装饰器模式构建。根据不同的数据来源（File or Socket），通过包装不同的InputStream（最常用的应该是BufferedInputStream）提供不同的能力。
+
+# NIO
