@@ -93,7 +93,7 @@ hasCode() 返回散列值，而 equals() 是用来判断两个实例是否等价
 # 反射
 
 # 异常
-
+Java异常类基
 
 # Reference
 - [Java基础](https://github.com/CyC2018/Interview-Notebook/blob/master/notes/Java%20%E5%9F%BA%E7%A1%80.md#clone)
