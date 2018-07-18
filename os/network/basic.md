@@ -31,6 +31,8 @@
 	- ARP(Address Resolve Protocol)，IP转化为MAC地址。
 	- RARP(Reverse Address Resolve Protocol)，无盘操作系统用MAC地址查询IP。
 
+- 物理层
+
 # 封装
 ![](/images/network/net-package.PNG)
 每层协议在上层协议的基础上，加上自己的头部信息（包括尾部信息），以实现该层功能。
