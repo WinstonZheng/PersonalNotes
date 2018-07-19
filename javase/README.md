@@ -30,6 +30,7 @@ JDK8中实际是解释和编译混合的一种模式，所谓混合模式(-Xmixe
 
 
 
+> **注意**：本目录结构，主要根据java包结构命名方式组织，例如：集合框架在java.util，则可以在javase/util下找到相关内容。
 
 # Reference
 - 《深入分析Java Web技术内幕》
