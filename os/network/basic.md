@@ -11,7 +11,7 @@
 - tcp/ip 四层模型
 ![](/images/network/tcp_ip_layers.PNG)
 
-# TCP_IP 四层模型
+# TCP_IP 五层模型
 - 应用层
 应用层提供应用程序处理业务逻辑，如：HTTP、DNS和FTP等协议，而常见功能有文件传输、名称查询和网络管理等。
 应用层程序工作在用户空间。
