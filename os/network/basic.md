@@ -26,6 +26,8 @@
 	- 核心协议是IP（Internet Protocol）协议，通过IP协议，能够在广域网中定位一台主机，并通过查询路由表和路由算法的应用转发到目标主机。所以，IP协议的核心在于IP地址和路由，两个方面。
 	- ICMP（Internet Control Message Protocol，因特网控制协议报文)，ICMP实现网络检查功能，包括差错报文、重定向报文，用于检测网络连接（通过IP协议定位发送，CRC）。
 
+> ICMP应用于ping和traceroute。
+
 - 数据链路层
 实现网络接口驱动程序，为上层提供统一接口（与底层最接近的一层）。主要协议为ARP和RARP协议。
 	- ARP(Address Resolve Protocol)，IP转化为MAC地址。
