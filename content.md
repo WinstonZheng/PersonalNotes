@@ -1,16 +1,9 @@
 # Content
-## [Language](/language)
-### **java**
-- JVM
-    - 概述
-    - JVM体系结构
-    - JVM内存管理
 
-### **python**
-### **bash**
-### **c**
-
-> it's the basic knowledge about the different language.
+## [**javaSE**](/javase)
+java相关的基础知识，信息主要来源于读书笔记，相关博客的内容的整理以及加上本人的一些源码的感悟。
+- jvm虚拟机底层的知识整理；
+- java相关的基础类库，包括java 并发，集合框架，io等。
 
 ## DataStructure
 ### [Tree](/coding/datastructure/tree)
