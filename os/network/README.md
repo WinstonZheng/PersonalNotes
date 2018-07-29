@@ -42,10 +42,36 @@ IO模型的分类：
 ![](/assets/iomodelcompare.png)
 
 
+# Socket
+select、poll和epoll都是IO复用的实现方式。
 
+## 维护描述符
+- select，是将描述符放在数组中（FD_SETSIZE），修改需要重新编译，用户进程；
+- poll，是将描述符放到链表中，所以没有大小限制，用户进程；
+- epoll，是将描述符放置在红黑树中，内核进程；
 
+> 所以，select和poll调用，每次都会将描述符从用户缓冲区复制到内核缓冲区。
 
+## 如何获取就绪的文件描述符
+- 当数据就绪时（返回 > 0），select和poll操作，应用程序通过轮询的方式找到IO完成描述符；
+- 当IO准备就绪时，epoll通过回调函数将就绪的文件描述符加入到链表中；
+
+## 多线程操作
+- 如果一个线程对某个描述符调用了 select 或者 poll，另一个线程关闭了该描述符，会导致调用结果不确定。
+- epoll 对多线程编程更有友好，一个线程调用了 epoll_wait() 另一个线程关闭了同一个描述符也不会产生像 select 和 poll 的不确定情况。
+
+## 适用场景
+- select适用场景，select 的 timeout 参数精度为 1ns，而 poll 和 epoll 为 1ms，因此 select 更加适用于实时要求更高的场景，比如核反应堆的控制。select 可移植性更好，几乎被所有主流平台所支持。
+
+- poll 没有最大描述符数量的限制，如果平台支持并且对实时性要求不高，应该使用 poll 而不是 select。需要同时监控**小于 1000 个描述符**，就没有必要使用 epoll，因为这个应用场景下并不能体现 epoll 的优势。需要监控的**描述符状态变化多，而且都是非常短暂的**，也没有必要使用 epoll。因为 epoll 中的所有描述符都存储在内核中，造成每次需要对描述符的状态改变都需要通过 epoll_ctl() 进行系统调用，频繁系统调用降低效率。并且epoll 的描述符存储在内核，不容易调试。
+
+- epoll，只需要运行在 Linux 平台上，并且有非常大量的描述符需要同时轮询，而且这些连接最好是长连接。
+
+> epoll支持LT（level trigger）模式和ET（edge trigger）模式：
+    - 当epoll_wait()检测到描述符事件到达时，将此事件通知进程，进程可以不立即处理该事件，下次调用 epoll_wait()会再次通知进程。是默认的一种模式，并且同时支持 Blocking 和 No-Blocking。
+    - 和 LT 模式不同的是，通知之后进程必须**立即处理事件**，下次再调用 epoll_wait() 时不会再得到事件到达的通知。很大程度上减少了 epoll 事件被重复触发的次数，因此效率要比 LT 模式高。只支持 No-Blocking，以避免由于一个文件句柄的阻塞读/阻塞写操作把处理多个文件描述符的任务饿死。
 
 # Reference
 - TCP/IP详解卷一：协议
 - Linux高性能服务器编程
+- [Socket](https://github.com/CyC2018/Interview-Notebook/blob/master/notes/Socket.md)
