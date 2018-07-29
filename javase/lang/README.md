@@ -86,14 +86,38 @@ hasCode() 返回散列值，而 equals() 是用来判断两个实例是否等价
 > 使用 clone() 方法来拷贝一个对象即复杂又有风险，它会抛出异常，并且还需要类型转换。Effective Java 书上讲到，最好不要去使用 clone()，可以使用拷贝构造函数或者拷贝工厂来拷贝一个对象。
 
 # 关键字
-- final
-- static
+- final，修饰变量、方法和类。
+- static，修饰变量、方法和内部类，与实例对象无关，与类对象相连。
 
 
 # 反射
 
+
+
+
+# 泛型
+泛型是一种Java提供的参数类型的方法，通过将类型以参数的方式传递给类，主要有两个好处：
+1. 能够提供编译期的类型检查，保证传递类型安全；
+2. 减少代码中的强制类型转换；
+
+JAVA泛型的原理是通过类型擦除的方式实现，主要原因在于兼容非泛型的代码（二进制字节码）能够在支持泛型的虚拟机中正常运行，应该通过类型擦除方式，是否存在泛型的代码之间基本无差别（泛型代码，只是通过chechcast字节码指令进行强制转换）。
+
+- [泛型的内部原理](https://blog.csdn.net/u010842515/article/details/63252717)
+
+
 # 异常
 Java所有异常类父类是Throwable，表示能够被抛出和捕获。其中分为Exception和Error。Error表示严重的问题，属于不应该被捕获异常（unchecked），例如JVM发生异常，一般是不可恢复的；Exception分为两种，一种是继承自RuntimeException，属于unchecked Exception，编译器不要求强制捕获，是否捕获看具体情况，一般是程序逻辑错误（NullPointerException/ArrayIndexOutOfBoundsException）；另一种是checked Exception（IO Exception），编译器要求强制捕获。
+
+# 注解
+Annotation，
+
+
+# 内部类
+内部类访问外部类的同名属性会发生隐藏现象。
+
+- [内部类详解](https://www.cnblogs.com/dolphin0520/p/3811445.html)
+
+
 
 
 
