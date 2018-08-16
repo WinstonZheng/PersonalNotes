@@ -4,9 +4,9 @@
  
  1. 程序计数器，保存当前程序执行的内存地址（字节码的行号）。用于分支、循环、跳转、异常处理和线程恢复等基础功能；
  2. Java虚拟机栈，线程私有，一个栈包含多个栈帧(Flames)，进入一个方法新建一个栈帧，栈帧包含局部变量表（存储变量值，引用变量记录指向堆的地址）、操作数栈（用于存储操作数，中间结果）、动态链接（运行时多态）、方法出口等信息；
- 3.  本地方法栈（native），由本地代码实现，类似于栈；
+ 3. 本地方法栈（native），由本地代码实现，类似于栈；
  4. 直接内存，NIO调用Native函数库直接分配堆外内存，通过DirectByteBuffer对象作为这块内存的引用进行操作。（提高性能避免Java堆和Native堆来回复制数据）。
- 5. Java堆，线程共享，垃圾收集器管理的主要区域；
+ 5. Java堆，线程共享，存储从类中新建的实例对象，垃圾收集器管理的主要区域；
  6. 方法区，各线程共享区域，存储如下内容：
   - 类加载器引用(classLoader)；
   - 运行时常量池：所有常量、字段引用、方法引用、属性
@@ -15,24 +15,16 @@
   - 方法代码：每个方法的字节码、操作数栈大小、局部变量大小、局部变量表、异常表和每个异常处理的开始位置、结束位置、代码处理在程序计数器中的偏移地址、被捕获的异常类的常量池索引
 
 ### 方法区实现(HotSpot)
+方法区的实现在1.8之前称为永久代。永久代的垃圾收集是和老年代(old generation)捆绑在一起的，因此无论谁满了，都会触发永久代和老年代的垃圾收集。
+
  JDK1.7，存储在永久代中部分转移到Heap或Native Heap中。
 - 字符串常量池从Perm区移到Java的Heap区域（同时，字符串常量池能够存储字符对象的引用）。
-- 符号引用被移到了native堆；
-- 字面量(interned strings)被移到了java堆；
-- class对象、class静态变量被移到了java堆；
+- 符号引用被移到了native heap；
+- 字面量(interned strings)被移到了java heap；
+- 类静态变量(class statics)被移到了java heap；
  
 JDK1.8，内存模型变化，移除了Perm区，使用本地内存来存储类元数据信息并称之为：元空间（Metaspace）（注意：字符串常量池还是在Heap区域），元空间所在位置是本地内存区域。
 
-```
-// 初始空间大小，达到该值就会触发垃圾收集进行类型卸载，同时GC会对该值进行调整：如果释放了大量的空间，就适当降低该值；如果释放了很少的空间，那么在不超过MaxMetaspaceSize时，适当提高该值。 
--XX:MetaspaceSize
-// 最大空间，默认是没有限制的
--XX:MaxMetaspaceSize
-// 在GC之后，最小的Metaspace剩余空间容量的百分比，减少为分配空间所导致的垃圾收集 
--XX:MinMetaspaceFreeRatio
-// 在GC之后，最大的Metaspace剩余空间容量的百分比，减少为释放空间所导致的垃圾收集
-　-XX:MaxMetaspaceFreeRatio
-```
 
 如何判断使用jdk1.6/jdk 1.7/jdk1.8
 
@@ -52,6 +44,26 @@ public class StringOomMock {
   } 
 } 
 ```
+
+### Metaspace
+随着JDK8的到来，JVM不再有PermGen。但类的元数据信息（metadata）还在，只不过不再是存储在连续的堆空间上，而是移动到叫做“Metaspace”的本地内存（Native memory）中。
+
+```
+// 初始空间大小，达到该值就会触发垃圾收集进行类型卸载，同时GC会对该值进行调整：如果释放了大量的空间，就适当降低该值；如果释放了很少的空间，那么在不超过MaxMetaspaceSize时，适当提高该值。 
+-XX:MetaspaceSize
+// 最大空间，默认是没有限制的
+-XX:MaxMetaspaceSize
+// 在GC之后，最小的Metaspace剩余空间容量的百分比，减少为分配空间所导致的垃圾收集 
+-XX:MinMetaspaceFreeRatio
+// 在GC之后，最大的Metaspace剩余空间容量的百分比，减少为释放空间所导致的垃圾收集
+　-XX:MaxMetaspaceFreeRatio
+```
+
+  此外，在HotSpot中的每个垃圾收集器需要专门的代码来处理存储在PermGen中的类的元数据信息。从PermGen分离类的元数据信息到Metaspace,由于Metaspace的分配具有和Java Heap相同的地址空间，因此Metaspace和Java Heap可以无缝的管理，而且简化了Full GC的过程，以至将来可以并行的对元数据信息进行垃圾收集，而没有GC暂停。
+
+- [元空间](https://blog.csdn.net/zhushuai1221/article/details/52122880)
+
+
 
 ## 对象生命周期
 - new对象； 
