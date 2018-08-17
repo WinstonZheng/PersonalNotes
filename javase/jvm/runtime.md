@@ -63,6 +63,14 @@ public class StringOomMock {
 
 - [元空间](https://blog.csdn.net/zhushuai1221/article/details/52122880)
 
+永久代的缺点：
+1. 大小是在启动时固定好的，很难进行调优。-XX:MaxPermSize，设置成多少好呢？随着加载类的增多，类回收效率低，容易造成OOM。
+
+Metaspace好处：
+1. 将类信息放在本地内存管理，内存没有限制，可以动态增减；
+2. 可以在GC不进行暂停的情况下并发地释放类数据；
+3. 简化了Full GC，每个垃圾回收器原先有专门的元数据迭代器，Metaspace的内存有专门的Metaspace VM回收。
+
 
 
 ## 对象生命周期
