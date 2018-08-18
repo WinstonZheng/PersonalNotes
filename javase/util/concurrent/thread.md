@@ -323,7 +323,7 @@ JDK1.2以前，基于称为"Green Threads"的用户线程实现；在JDK1.2中�
 Java中采用抢占式调度，可以通过Thread.yield()出让执行时间，还可以通过设置优先级可能改变线程调度先后顺序（由于10个优先级和底层系统线程优先级数量不一致，可能造成多对一的情况）。
 
 ### 线程状态转换
-线程主要分为五中状态：
+线程主要分为五种状态：
 - 新建，New，Thread创建，但并未执行；
 - 运行，Runnable，Thread.start()之后，可能执行，可能就绪（时间片，抢占式调度）；
 - 无限期等待，Waiting，Object.wait()/Thread.join()/LockSupport.park()方法或者是等待java.util.concurrent库中的Lock或Condition，没有设置超时时间；
