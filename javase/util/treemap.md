@@ -1,9 +1,8 @@
 # TreeMap
 TreeMap实现红黑树，其保证在log(n)时间内实现Map的containsKey，get，put和remove操作。
-
-1、TreeMap是根据key进行排序的，它的排序和定位需要依赖比较器或覆写Comparable接口，也因此不需要key覆写hashCode方法和equals方法，就可以排除掉重复的key，而HashMap的key则需要通过覆写hashCode方法和equals方法来确保没有重复的key。
-2、TreeMap的查询、插入、删除效率均没有HashMap高，一般只有要对key排序时才使用TreeMap。
-3、TreeMap的key不能为null，而HashMap的key可以为null。
+1. TreeMap是根据key进行排序的，它的排序和定位需要依赖比较器或覆写Comparable接口，也因此不需要key覆写hashCode方法和equals方法，就可以排除掉重复的key，而HashMap的key则需要通过覆写hashCode方法和equals方法来确保没有重复的key。
+2. TreeMap的查询、插入、删除效率均没有HashMap高，一般只有要对key排序时才使用TreeMap。
+3. TreeMap的key不能为null，而HashMap的key可以为null。
 
 ```java
 // key都必须实现Comparable接口，实现compareTo方法，或者使用比较器comparator的compare方法比较
