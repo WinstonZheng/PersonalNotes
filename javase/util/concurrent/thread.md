@@ -6,6 +6,7 @@
 有两种：
 - Thread类；
 - Runnable接口；
+- Callable接口；（结合FutureTask使用，可以有返回值）
 
 Thread本身是实现了Runnable接口的类。我们知道“一个类只能有一个父类，但是却能实现多个接口”，因此Runnable具有更好的扩展性。此外，Runnable还可以用于“资源的共享”。即，多个线程都是基于某一个Runnable对象建立的，它们会共享Runnable对象上的资源。通常，建议通过“Runnable”实现多线程！
 
