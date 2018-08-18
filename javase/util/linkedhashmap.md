@@ -32,14 +32,6 @@ public class LinkedHashMap<K,V>
             super(hash, key, value, next);
         }
     }
- 
-     
-    Node<K,V> newNode(int hash, K key, V value, Node<K,V> e) {
-        LinkedHashMap.Entry<K,V> p =
-            new LinkedHashMap.Entry<K,V>(hash, key, value, e);
-        linkNodeLast(p);
-        return p;
-    }
                    
 }
 ```
@@ -47,9 +39,6 @@ public class LinkedHashMap<K,V>
 LinkedHashMap内部维护了一个双向链表，按照插入的顺序，将HashMap中的节点放置在链表尾部。如果accessOrder为True时，在链表被访问时，会将被访问的对象放置在双向链表的尾部。
 
 HashMap.TreeNode扩展了LinkedHashMap.Entry，可以在链表中支持普通node和treenode两种类型。
-
-
-
 
 # 基本操作
 
