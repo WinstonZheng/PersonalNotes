@@ -171,6 +171,7 @@ public void put(E e) throws InterruptedException {
         } finally {
             putLock.unlock();
         }
+        // 如果之前的队列是空的
         if (c == 0)
             // 通知消费者
             signalNotEmpty();
@@ -213,6 +214,7 @@ public E take() throws InterruptedException {
         } finally {
             takeLock.unlock();
         }
+        // 如果之前的值c是满的，说明写的线程处于等待状态
         if (c == capacity)
             signalNotFull();
         return x;
