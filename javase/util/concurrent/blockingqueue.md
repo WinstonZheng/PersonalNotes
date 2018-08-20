@@ -176,6 +176,7 @@ public void put(E e) throws InterruptedException {
             // 通知消费者
             signalNotEmpty();
     }
+// 在链表尾部加节点
 private void enqueue(Node<E> node) {
         // assert putLock.isHeldByCurrentThread();
         // assert last.next == null;
@@ -219,7 +220,7 @@ public E take() throws InterruptedException {
             signalNotFull();
         return x;
     }
-// 往链表头部加节点
+// 从链表头部去节点
 private E dequeue() {
         // assert takeLock.isHeldByCurrentThread();
         // assert head.item == null;
