@@ -76,7 +76,7 @@ static final class RunnableAdapter<T> implements Callable<T> {
     }
 ```
 
-## Future与CompletioniService
+## Future与CompletionService
 Future管理一个任务的执行结果，通过get()方式，获取任务结果。当需要管理一系列任务的结果时，Future操作过于繁琐，CompletionService将Executor与BlockingQueue的功能结合，ExecutorCompletionService实现CompletionService，将任务执行委托给Executor。
 
 具体实现，ExecutorCompletionService创建BlockingQueue保存计算结果。计算完成时调用done方法。当提交某个任务时首先包装成一个QueueFuture（FutureTask子类），改写子类done，将结果放入BlockingQueue（将tabke和poll方法委托给了BlockingQueue）
