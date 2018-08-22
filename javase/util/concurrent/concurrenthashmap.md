@@ -84,6 +84,89 @@ final V put(K key, int hash, V value, boolean onlyIfAbsent) {
 ## Java1.8
 由于在1.8中HashMap做了一个优化，本来hash表解决冲突时采用链表的方式，1.8做的优化是当链表过长时，采用红黑树的方法将链表进行修改。
 
+```java
+/** Implementation for put and putIfAbsent */
+    final V putVal(K key, V value, boolean onlyIfAbsent) {
+        // 不能放置空指针的键和值
+        if (key == null || value == null) throw new NullPointerException();
+        int hash = spread(key.hashCode());
+        int binCount = 0;
+        for (Node<K,V>[] tab = table;;) {
+            Node<K,V> f;
+            int n, i, fh;
+            if (tab == null || (n = tab.length) == 0)
+                // 新建一个数组，新建前首先通过CAS操作将sizeCtl置为-1，保证可以被访问
+                tab = initTable();
+            // 获取Node数组在索引值的位置，CAS操作，保证获取的是主存的最新值
+            else if ((f = tabAt(tab, i = (n - 1) & hash)) == null) {
+                // 如果数组该位置为空，
+                //    用一次 CAS 操作将这个新值放入其中即可，这个 put 操作差不多就结束了，可以拉到最后面了
+                //    如果 CAS 失败，那就是有并发操作，进到下一个循环就好了
+                if (casTabAt(tab, i, null,
+                             new Node<K,V>(hash, key, value, null)))
+                    break;                   // no lock when adding to empty bin
+            }
+            // 获取节点的状态
+            else if ((fh = f.hash) == MOVED)
+                tab = helpTransfer(tab, f);
+            else {
+                V oldVal = null;
+                // 对Node节点加对象锁
+                synchronized (f) {
+                    // 获取数组中Node的位置
+                    if (tabAt(tab, i) == f) {
+                        if (fh >= 0) {
+                            binCount = 1;
+                            for (Node<K,V> e = f;; ++binCount) {
+                                K ek;
+                                // 如果发现了"相等"的 key，判断是否要进行值覆盖，然后也就可以 break 了
+                                if (e.hash == hash &&
+                                    ((ek = e.key) == key ||
+                                     (ek != null && key.equals(ek)))) {
+                                    oldVal = e.val;
+                                    if (!onlyIfAbsent)
+                                        e.val = value;
+                                    break;
+                                }
+                                // 到了链表的最末端，将这个新值放到链表的最后面
+                                Node<K,V> pred = e;
+                                if ((e = e.next) == null) {
+                                    pred.next = new Node<K,V>(hash, key,
+                                                              value, null);
+                                    break;
+                                }
+                            }
+                        }
+                        else if (f instanceof TreeBin) {
+                            Node<K,V> p;
+                            binCount = 2;
+                            // 插入节点到红黑树中
+                            if ((p = ((TreeBin<K,V>)f).putTreeVal(hash, key,
+                                                           value)) != null) {
+                                oldVal = p.val;
+                                if (!onlyIfAbsent)
+                                    p.val = value;
+                            }
+                        }
+                    }
+                }
+                // 链表的值大于链表长度限定值，则变成红黑树，这个不在同步块内部
+                if (binCount != 0) {
+                    if (binCount >= TREEIFY_THRESHOLD)
+                        // 这个方法和 HashMap 中稍微有一点点不同，那就是它不是一定会进行红黑树转换，
+                        // 如果当前数组的长度小于 64，那么会选择进行数组扩容，而不是转换为红黑树
+                        //    具体源码我们就不看了，扩容部分后面说
+                        treeifyBin(tab, i);
+                    if (oldVal != null)
+                        return oldVal;
+                    break;
+                }
+            }
+        }
+        addCount(1L, binCount);
+        return null;
+    }
+```
 
 
 
