@@ -95,7 +95,7 @@ final V put(K key, int hash, V value, boolean onlyIfAbsent) {
             Node<K,V> f;
             int n, i, fh;
             if (tab == null || (n = tab.length) == 0)
-                // 新建一个数组，新建前首先通过CAS操作将sizeCtl置为-1，保证可以被访问
+                // 新建一个数组，新建前首先通过CAS操作将sizeCtl置为-1，保证不被其他的线程重复初始化
                 tab = initTable();
             // 获取Node数组在索引值的位置，CAS操作，保证获取的是主存的最新值
             else if ((f = tabAt(tab, i = (n - 1) & hash)) == null) {
@@ -106,10 +106,11 @@ final V put(K key, int hash, V value, boolean onlyIfAbsent) {
                              new Node<K,V>(hash, key, value, null)))
                     break;                   // no lock when adding to empty bin
             }
-            // 获取节点的状态
+            // 获取节点的状态，如果处于MOVED状态，则帮助数据迁移，注意，数据迁移只有在数组扩容时出现
             else if ((fh = f.hash) == MOVED)
                 tab = helpTransfer(tab, f);
             else {
+            // 数组存在，节点不为空，同时不处于迁移的状态下，通过对象锁机制控制某一个Node中的插入操作
                 V oldVal = null;
                 // 对Node节点加对象锁
                 synchronized (f) {
