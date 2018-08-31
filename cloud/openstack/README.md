@@ -26,3 +26,7 @@ KeyStone组件的主要作用是负责客户端对OpenStack中不同组件的访
 
 ----
 [Back](/cloud)
+
+
+
+## Glance组件
