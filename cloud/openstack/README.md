@@ -9,7 +9,7 @@
 ## KeyStone组件
 KeyStone组件的主要作用是负责客户端对OpenStack中不同组件的访问权限的管理。
 
-- [keystone基础概念](/cloud/openstack/keystone/basic-concept.md)
+- [KeyStone基础概念](/cloud/openstack/keystone/basic-concept.md)
 
 ----
 [Back](/cloud)
