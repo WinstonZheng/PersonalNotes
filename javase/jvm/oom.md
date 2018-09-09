@@ -25,6 +25,7 @@
 
 
 ## 定位OOM问题
+### 堆
 
 ```java
 /* 
@@ -57,6 +58,8 @@
 
 > 此种方法，针对大多数的堆内存的OOM，能够解决。
 
+### 线程
+
 另一种可能，是线程启动过多（未关闭线程池），出现如下错误：
 ```java
 java.lang.OutOfMemoryError: unable to create new native thread
@@ -68,6 +71,9 @@ java.lang.OutOfMemoryError: unable to create new native thread
 2. 减少分配给Java程序堆的大小（线程占用内存 = 系统内存 - 分配给Java的内存）；
 3. 加大物理内存。
 
+
+### 本地直接内存
+发现OOM后Dump文件很小，而程序中使用了NIO（比如使用了Netty这类框架）。
 
 
 ## Jvm调优
