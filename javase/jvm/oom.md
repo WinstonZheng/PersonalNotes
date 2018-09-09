@@ -77,7 +77,8 @@ java.lang.OutOfMemoryError: unable to create new native thread
 
 
 ## Jvm调优
-
+- 根据当前的运行的应用程序特点采用不同的GC收集器（批处理 CMS / 用户交互 G1）;
+- 
 
 
 
