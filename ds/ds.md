@@ -8,8 +8,10 @@
 2. 失败；
 3. 超时。
 
-
-
+## 通信模型
+1. 基于HTTP协议，保证交互的实时性，依赖于接口的松耦合；
+2. 基于消息队列的模型，对实时性要求不高，更加有效降低模块之间的耦合性；
+3. 基于共享内存的模型。
 
 ## CAP原理
 1. Consisitency，（强）一致性，表示系统多个副本之间呈现出一致的状态；
@@ -41,6 +43,10 @@ Base模型，是在牺牲一致性的基础上，提供高可用性和分区容�
 
 # 分布式事务
 指事务操作位于不同的节点上，需要保证事务的ACID特性。
+## 解决方案
+### 基于XA的两阶段提交
+
+
 
 
 # 分布式锁
@@ -141,3 +147,4 @@ public class RedisTool {
 # Reference
 - [RedLock](https://www.cnblogs.com/ironPhoenix/p/6048467.html)
 - [拜占庭问题](https://www.jianshu.com/p/5fea30b25f0a)
+- [Paxos算法](https://zh.wikipedia.org/zh-cn/Paxos%E7%AE%97%E6%B3%95)
