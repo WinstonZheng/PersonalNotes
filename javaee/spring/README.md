@@ -1,8 +1,9 @@
 # Spring
-- [Spring Architecture](/web/spring/spring-arch.md)
-- [Spring Core](/web/spring/spring-core.md)
-- [Spring MVC](/web/spring/spring-mvc.md)
-- [Spring Boot](/web/spring/spring-boot.md)
+- [Spring Architecture](/javaee/spring/spring-arch.md)
+- [Spring Core](/javaee/spring/spring-core.md)
+- [Spring MVC](/javaee/spring/spring-mvc.md)
+- [Spring Boot](/javaee/spring/spring-boot.md)
+
 
 # Reference
 - 《Spring in action》(fourth edtion)
